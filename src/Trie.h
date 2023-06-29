@@ -14,8 +14,9 @@ class trieNode
         trieNode<Data>* children[94];// branches, ascii value from 33 to 127 
         bool endOfWord;
 
+        trieNode();
         trieNode(Data data);// constructor
-        ~trieNode();// destructor
+        ~trieNode() = default;// destructor
 };
 
 template<class Data>
@@ -26,10 +27,12 @@ class Trie
         ~Trie();// destructor
 
         trieNode<Data>* getRoot();// func to get root
-        void insert(const string &str);
+        
+        bool insert(const string &str, const Data& data);
 
     private:
-        trieNode* root;
+        trieNode<Data>* root;
+        void deallocate(trieNode<Data>* &root);
 };
 
 #endif 
