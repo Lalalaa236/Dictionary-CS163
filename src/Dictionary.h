@@ -8,14 +8,34 @@ class Definition;
 class Word
 {
 public:
-    string data;
-    string type;
-    vector<Definition*> def;
-    bool favourite;
+    string data; //the word
+    int index; // index 
+    vector<Definition*> def; // definitions vector
+    bool favourite; // favourite word or not
 
-    Word() = default;
+    Word();
     Word(const string &data);
     ~Word();
+};
+
+class Definition
+{
+public:
+    string data;
+    Word* word;
+
+    Definition(const string& data);
+    ~Definition();
+};
+
+class Dictionary
+{
+public:
+    vector<Word*> history;
+    Trie<Word> trie;
+
+    Dictionary();
+    void insertWord(const string& str);
 };
 
 #endif
