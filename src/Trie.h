@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 using std::string;
 using std::cin;
 using std::cout;
+using std::vector;
 
 template<class Data> 
 class trieNode
@@ -18,7 +20,7 @@ class trieNode
 
         trieNode();
         trieNode(Data data);// constructor
-        ~trieNode() = default;// destructor
+        ~trieNode();// destructor
 };
 
 template<class Data>
@@ -30,8 +32,10 @@ class Trie
 
         trieNode<Data>* getRoot();// func to get root
         
-        bool insert(const string &str); //, const Data& data);// insert data into trie
+        bool insert(const string &str, const Data& data);// insert data into trie
         bool findWhole(const string &str);// find a word in the trie
+        vector<Data> findPrefix(const string& s);// get all the words with this prefix
+        void getRes(trieNode<Data>* cur, vector<Data>& res);
 
     private:
         trieNode<Data>* root;
@@ -57,6 +61,10 @@ trieNode<Data>::trieNode(Data data)
         children[i] = nullptr;
     }
 }
+
+template<class Data>
+trieNode<Data>::~trieNode()
+{}
 
 template<class Data>
 Trie<Data>::Trie()
@@ -86,7 +94,7 @@ void Trie<Data>::deallocate(trieNode<Data>* &root)
 }
 
 template<class Data>
-bool Trie<Data>::insert(const string& str)//, const Data& data)
+bool Trie<Data>::insert(const string& str, const Data& data)
 {
     if(!this->root)
         this->root = new trieNode<Data>();
@@ -107,7 +115,7 @@ bool Trie<Data>::insert(const string& str)//, const Data& data)
     if(!cur->endOfWord)
     {
         cur->endOfWord = true;
-        //cur->data = data;
+        cur->data = data;
         return true;
     }
     
@@ -136,6 +144,40 @@ bool Trie<Data>::findWhole(const string& str)
     if(cur->endOfWord)
         return true;
     return false;
+}
+
+template<class Data>
+vector<Data> Trie<Data>::findPrefix(const string& s)
+{
+    int length = s.length();
+    if(length == 0)
+        return vector<Data>();
+    trieNode<Data>* cur = this->root;
+    for(int i = 0; i < length; ++i)
+    {
+        int val = (int)s[i] - 33;
+        if(val > 93 || val < 0)
+            return vector<Data>();
+        if(cur->children[val] == nullptr)
+            return vector<Data>();
+
+        cur = cur->children[val];
+    }
+    vector<Data> res;
+    Trie<Data>::getRes(cur, res);
+    return res;
+}
+
+template<class Data>
+void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
+{
+    if(cur == nullptr)
+        return;
+
+    if(cur->endOfWord)
+        res.push_back(cur->data);
+    for(int i = 0; i < 94; ++i)
+        Trie<Data>::getRes(cur->children[i], res);
 }
 
 #endif 
