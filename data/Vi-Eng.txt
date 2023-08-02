@@ -1,15 +1,3 @@
-@00-database-info
-- This is the Vietnamese-English dictionary database of the Free Vietnamese Dictionary Project. It contains more than 23.400 entries with definitions and illustrative examples.
-- This database was compiled by Ho Ngoc Duc and other members of the Free Vietnamese Dictionary Project (http://www.informatik.uni-leipzig.de/~duc/Dict/)
-- Copyright (C) 1997-2003 The Free Vietnamese Dictionary Project
-- This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-@00-database-short
-- FVDP Vietnamese-English dictionary
-
-@00-database-url
-- http://www.informatik.uni-leipzig.de/~duc/Dict/
-
 @a
 * excl
 - O; oh (exclamation of surprise, regret, ect.)
