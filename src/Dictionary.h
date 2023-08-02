@@ -14,7 +14,7 @@ public:
     bool favourite; // favourite word or not
 
     Word();
-    Word(const string &data);
+    Word(const string& data);
     ~Word();
 };
 
@@ -36,6 +36,9 @@ public:
 
     Dictionary();
     void insertWord(const string& str);
+    void loadData(const string& filePath);
 };
+
+vector<string> Split(const string& s); // function to split a string into word and def
 
 #endif
