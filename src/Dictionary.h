@@ -2,6 +2,10 @@
 #define DICTIONARY_H
 
 #include "Trie.h"
+#include <fstream>
+
+using std::ifstream;
+using std::ofstream;
 
 class Definition;
 
@@ -10,7 +14,7 @@ class Word
 public:
     string data; //the word
     int index; // index 
-    vector<Definition*> def; // definitions vector
+    vector<Definition*> defs; // definitions vector
     bool favourite; // favourite word or not
 
     Word();
@@ -32,11 +36,12 @@ class Dictionary
 {
 public:
     vector<Word*> history;
-    Trie<Word> trie;
+    Trie<Word*> trie;
 
     Dictionary();
-    void insertWord(const string& str);
+    void insertWord(const string& str); //function for user to insert word
     void loadData(const string& filePath);
+    vector<Word*> searchWord(const string& str);
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def
