@@ -197,3 +197,4 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
 }
 
 #endif 
+//
