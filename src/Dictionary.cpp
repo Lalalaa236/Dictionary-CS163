@@ -71,7 +71,10 @@ void Dictionary::loadData(const string& filePath)
         else
         {
             if(!current[0].empty())
-            current[0][0] = toupper(current[0][0]);
+            {
+                current[0][0] = toupper(current[0][0]);
+                std::transform(current[0].begin() + 1, current[0].end(), current[0].begin() + 1, ::tolower);
+            }
             Word* word;
             if(!trie.findWhole(current[0], word))
             {
@@ -126,3 +129,27 @@ vector<string> Split(const string& s)
 
     return res;
 }
+// int main() {
+//     Dictionary myDict;
+//     myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
+//     cout <<"Enter word to search";
+//     std::string test;
+//     getline(cin,test) ;
+
+//     vector<Word*> results = myDict.searchWord(test);
+//     cout << "Search results for prefix \"" << test << "\":\n";
+//     for (Word* word : results) {
+//         if (word != nullptr) {
+//             cout << word->data << "\n";
+
+//             // Optionally print definitions
+//             for (Definition* def : word->defs) {
+//                 if (def != nullptr) {
+//                     cout << "  - " << def->data << "\n";
+//                 }
+//             }
+//         }
+//     }
+
+//     return 0;
+// }

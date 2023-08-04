@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <algorithm>
 using std::string;
 using std::cin;
 using std::cout;
@@ -132,13 +132,15 @@ bool Trie<Data>::findWhole(const string& str, Data& data)
 {
     if(!this->root)
         return false;
-    
+    std::string copy_str = str;
+    copy_str[0] = toupper(copy_str[0]);
+    std::transform(copy_str.begin() + 1, copy_str.end(), copy_str.begin() + 1, ::tolower);
     trieNode<Data>* cur = this->root;
-    int length = str.length();
+    int length = copy_str.length();
 
     for(int i = 0; i < length; ++i)
     {
-        int index = str[i] + 128;
+        int index = copy_str[i] + 128;
 
         if(!cur->children[index])
             return false;
@@ -159,13 +161,16 @@ template<class Data>
 vector<Data> Trie<Data>::findPrefix(const string& s)
 {
     string copy_s = s;
-    copy_s[0] = toupper(copy_s[0]);
     int length = copy_s.length();
     if(length == 0)
         return vector<Data>();
     trieNode<Data>* cur = this->root;
     for(int i = 0; i < length; ++i)
     {
+         if (i==0) 
+            copy_s[0] = toupper(copy_s[0]);
+        else 
+            copy_s[i] = tolower(copy_s[i]);
         int val = (int)copy_s[i] + 128;
         if(val > 256 || val < 0)
             return vector<Data>();
