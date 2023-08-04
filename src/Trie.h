@@ -15,7 +15,7 @@ class trieNode
 {
     public:
         Data data;// data
-        trieNode<Data>* children[94];// branches, ascii value from 32 to 126 
+        trieNode<Data>* children[256];// branches, ascii value from 32 to 126 
         bool endOfWord;
 
         trieNode();
@@ -46,7 +46,7 @@ template<class Data>
 trieNode<Data>::trieNode()
 : data(), endOfWord(false)
 {
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         children[i] = nullptr;
     }
@@ -56,7 +56,7 @@ template<class Data>
 trieNode<Data>::trieNode(Data data)
 : data(data), endOfWord(false)
 {
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         children[i] = nullptr;
     }
@@ -84,7 +84,7 @@ void Trie<Data>::deallocate(trieNode<Data>*& root)
     if(!root)
         return;
     
-    for(int i = 0; i < 4; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         deallocate(root->children[i]);
     }
@@ -104,12 +104,12 @@ bool Trie<Data>::insert(const string& str, const Data& data)
     int length = str.length();
     for(int i = 0; i < length; ++i)
     {
-        if(str[i] < 32 || str[i] > 126)
+        if(str[i] < -128 || str[i] > 127)
         {
             cout << "Invalid character!\n";
             return false;
         }    
-        int index = str[i] - ' ';
+        int index = str[i] + 128;
         
         if(!cur->children[index])
             cur->children[index] = new trieNode<Data>();
@@ -138,7 +138,7 @@ bool Trie<Data>::findWhole(const string& str, Data& data)
 
     for(int i = 0; i < length; ++i)
     {
-        int index = str[i] - ' ';
+        int index = str[i] + 128;
 
         if(!cur->children[index])
             return false;
@@ -164,8 +164,8 @@ vector<Data> Trie<Data>::findPrefix(const string& s)
     trieNode<Data>* cur = this->root;
     for(int i = 0; i < length; ++i)
     {
-        int val = (int)s[i] - 32;
-        if(val > 94 || val < 0)
+        int val = (int)s[i] + 128;
+        if(val > 256 || val < 0)
             return vector<Data>();
         if(cur->children[val] == nullptr)
             return vector<Data>();
@@ -185,7 +185,7 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
 
     if(cur->endOfWord)
         res.push_back(cur->data);
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
         Trie<Data>::getRes(cur->children[i], res);
 }
 
