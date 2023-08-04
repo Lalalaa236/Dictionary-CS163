@@ -70,6 +70,8 @@ void Dictionary::loadData(const string& filePath)
 
         else
         {
+            if(!current[0].empty())
+            current[0][0] = toupper(current[0][0]);
             Word* word;
             if(!trie.findWhole(current[0], word))
             {

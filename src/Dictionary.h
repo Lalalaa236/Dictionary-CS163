@@ -3,7 +3,7 @@
 
 #include "Trie.h"
 #include <fstream>
-
+#include <string>
 using std::ifstream;
 using std::ofstream;
 

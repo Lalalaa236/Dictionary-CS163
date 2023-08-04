@@ -158,13 +158,15 @@ bool Trie<Data>::findWhole(const string& str, Data& data)
 template<class Data>
 vector<Data> Trie<Data>::findPrefix(const string& s)
 {
-    int length = s.length();
+    string copy_s = s;
+    copy_s[0] = toupper(copy_s[0]);
+    int length = copy_s.length();
     if(length == 0)
         return vector<Data>();
     trieNode<Data>* cur = this->root;
     for(int i = 0; i < length; ++i)
     {
-        int val = (int)s[i] + 128;
+        int val = (int)copy_s[i] + 128;
         if(val > 256 || val < 0)
             return vector<Data>();
         if(cur->children[val] == nullptr)
