@@ -224,12 +224,6 @@ trieNode<Data>* Trie<Data>::remove(trieNode<Data>*& root, const string& str, int
         if (root->endOfWord)
             root->endOfWord = false;
 
-        if (isEmpty(root))
-        {
-            delete root;
-            root = NULL;
-        }
-
         return root;
     }
 
@@ -237,14 +231,7 @@ trieNode<Data>* Trie<Data>::remove(trieNode<Data>*& root, const string& str, int
 
     root->children[index] = remove(root->children[index], str, depth + 1);
 
-    if (isEmpty(root) && root->endOfWord == false)
-    {
-        delete root;
-        root = NULL;
-    }
-
     return root;
-    
 }
 
 #endif 
