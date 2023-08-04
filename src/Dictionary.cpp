@@ -140,14 +140,14 @@ void Dictionary::removeWord(const string& str)
 
     bool isExist = trie.findWhole(str, word);
 
-    if (!isExist)
+    if (isExist)
     {
-        std::cout << "The word does not exist.";
+        trie.removeAKey(str);
         delete word;
         return;
     }
 
-    trie.removeAKey(str);
-
+    std::cout << "The word does not exist.";
+    return;
 }
 
