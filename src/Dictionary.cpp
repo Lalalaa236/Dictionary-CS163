@@ -124,3 +124,30 @@ vector<string> Split(const string& s)
 
     return res;
 }
+
+void Dictionary::deleteDict()
+{
+    trie.~trie();
+
+    history.clear();
+
+    return;
+}
+
+void Dictionary::removeWord(const string& str)
+{
+    Word* word;
+
+    bool isExist = trie.findWhole(str, word);
+
+    if (!isExist)
+    {
+        std::cout << "The word does not exist.";
+        delete word;
+        return;
+    }
+
+    trie.removeAKey(str);
+
+}
+
