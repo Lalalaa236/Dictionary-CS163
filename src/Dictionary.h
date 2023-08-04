@@ -40,8 +40,12 @@ public:
 
     Dictionary();
     void insertWord(const string& str); //function for user to insert word
-    void loadData(const string& filePath);
+    void insertDef(const string& str, Word*& word); //function for user to insert a definition to an already existing word
+    //functions type should be changed in order to implement the front end (void -> ???)
+    
     vector<Word*> searchWord(const string& str);
+
+    void loadData(const string& filePath);
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def

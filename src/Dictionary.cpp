@@ -35,6 +35,13 @@ void Dictionary::insertWord(const string& str) //insert new word into the dictio
     trie.insert(str, newWord);
 }
 
+void Dictionary::insertDef(const string& str, Word*& word)
+{
+    Definition* def = new Definition(str);
+    def->word = word;
+    word->defs.push_back(def);
+}
+
 void Dictionary::loadData(const string& filePath)
 {
     ifstream fin(filePath);
