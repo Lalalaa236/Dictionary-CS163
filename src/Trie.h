@@ -15,7 +15,7 @@ class trieNode
 {
     public:
         Data data;// data
-        trieNode<Data>* children[94];// branches, ascii value from 33 to 127 
+        trieNode<Data>* children[256];// branches, ascii value from 32 to 126 
         bool endOfWord;
 
         trieNode();
@@ -32,21 +32,21 @@ class Trie
 
         trieNode<Data>* getRoot();// func to get root
         
-        bool insert(const string &str, const Data& data);// insert data into trie
-        bool findWhole(const string &str);// find a word in the trie
+        bool insert(const string& str, const Data& data);// insert data into trie
+        bool findWhole(const string& str, Data& data);// find a word in the trie
         vector<Data> findPrefix(const string& s);// get all the words with this prefix
         void getRes(trieNode<Data>* cur, vector<Data>& res);
 
     private:
         trieNode<Data>* root;
-        void deallocate(trieNode<Data>* &root);
+        void deallocate(trieNode<Data>*& root);
 };
 
 template<class Data>
 trieNode<Data>::trieNode()
 : data(), endOfWord(false)
 {
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         children[i] = nullptr;
     }
@@ -56,7 +56,7 @@ template<class Data>
 trieNode<Data>::trieNode(Data data)
 : data(data), endOfWord(false)
 {
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         children[i] = nullptr;
     }
@@ -79,12 +79,12 @@ Trie<Data>::~Trie()
 }
 
 template<class Data>
-void Trie<Data>::deallocate(trieNode<Data>* &root)
+void Trie<Data>::deallocate(trieNode<Data>*& root)
 {
     if(!root)
         return;
     
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
     {
         deallocate(root->children[i]);
     }
@@ -104,7 +104,12 @@ bool Trie<Data>::insert(const string& str, const Data& data)
     int length = str.length();
     for(int i = 0; i < length; ++i)
     {
-        int index = str[i] - '!';
+        if(str[i] < -128 || str[i] > 127)
+        {
+            cout << "Invalid character!\n";
+            return false;
+        }    
+        int index = str[i] + 128;
         
         if(!cur->children[index])
             cur->children[index] = new trieNode<Data>();
@@ -123,7 +128,7 @@ bool Trie<Data>::insert(const string& str, const Data& data)
 }
 
 template<class Data>
-bool Trie<Data>::findWhole(const string& str)
+bool Trie<Data>::findWhole(const string& str, Data& data)
 {
     if(!this->root)
         return false;
@@ -133,7 +138,7 @@ bool Trie<Data>::findWhole(const string& str)
 
     for(int i = 0; i < length; ++i)
     {
-        int index = str[i] - '!';
+        int index = str[i] + 128;
 
         if(!cur->children[index])
             return false;
@@ -142,7 +147,11 @@ bool Trie<Data>::findWhole(const string& str)
     }
 
     if(cur->endOfWord)
+    {
+        data = cur->data;
         return true;
+    }
+    
     return false;
 }
 
@@ -155,8 +164,8 @@ vector<Data> Trie<Data>::findPrefix(const string& s)
     trieNode<Data>* cur = this->root;
     for(int i = 0; i < length; ++i)
     {
-        int val = (int)s[i] - 33;
-        if(val > 93 || val < 0)
+        int val = (int)s[i] + 128;
+        if(val > 256 || val < 0)
             return vector<Data>();
         if(cur->children[val] == nullptr)
             return vector<Data>();
@@ -176,7 +185,7 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
 
     if(cur->endOfWord)
         res.push_back(cur->data);
-    for(int i = 0; i < 94; ++i)
+    for(int i = 0; i < 256; ++i)
         Trie<Data>::getRes(cur->children[i], res);
 }
 
