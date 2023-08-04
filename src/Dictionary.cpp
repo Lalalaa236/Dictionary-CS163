@@ -129,7 +129,7 @@ vector<string> Split(const string& s)
 
     return res;
 }
-// int main() {
+/* int main() {
 //     Dictionary myDict;
 //     myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
 //     cout <<"Enter word to search";
@@ -153,3 +153,4 @@ vector<string> Split(const string& s)
 
 //     return 0;
 // }
+*/
