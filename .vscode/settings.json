@@ -43,6 +43,20 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "iostream": "cpp",
+        "xstring": "cpp",
+        "cstring": "cpp",
+        "fstream": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "xfacet": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp",
+        "xlocinfo": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp",
+        "xstddef": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp"
         "xstring": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
