@@ -33,6 +33,7 @@ void Dictionary::insertWord(const string& str) //insert new word into the dictio
 
     Word* newWord = new Word(str);
     trie.insert(str, newWord);
+    words.push_back(newWord);  // for game
 }
 
 void Dictionary::insertDef(const string& str, Word*& word)
@@ -74,6 +75,8 @@ void Dictionary::loadData(const string& filePath)
             {
                 current[0][0] = toupper(current[0][0]);
                 std::transform(current[0].begin() + 1, current[0].end(), current[0].begin() + 1, ::tolower);
+                Word* newWord = new Word(current[0]);
+                words.push_back(newWord); 
             }
             Word* word;
             if(!trie.findWhole(current[0], word))
@@ -85,11 +88,11 @@ void Dictionary::loadData(const string& filePath)
                     continue;
                 }
             }
-
             //cout << "Inserted successfully!\n";
             Definition* def = new Definition(current[1]);
             def->word = word;
             word->defs.push_back(def);
+            def_game.push_back(def->data);
         }
     }
 
@@ -156,27 +159,40 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
         cout << "Word not found!\n";
     }
 }
-int main() {
-    Dictionary myDict;
-    myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
-    myDict.editDef("A b c","The first three letters of the alphabet, used for the whole alphabet.","Thinh dep trai");
-    cout <<"Edited succesfully  \n";
-    std::string test;
-    getline(cin,test) ;
-    vector<Word*> results = myDict.searchWord(test);
-    cout << "Search results for prefix \"" << test << "\":\n";
-    for (Word* word : results) {
-        if (word != nullptr) {
-            cout << word->data << "\n";
-
-            // Optionally print definitions
-            for (Definition* def : word->defs) {
-                if (def != nullptr) {
-                    cout << "  - " << def->data << "\n";
-                }
+// Function to pick a random word and display a random definition
+void playGame(Dictionary& dictionary) 
+{
+    if(dictionary.words.size() == 0) {
+        return;
+    }
+    // random word
+    int wordIndex = rand() % dictionary.words.size();
+    Word* word_random = dictionary.words[wordIndex];
+    Word* word;
+    if (dictionary.trie.findWhole(word_random->data,word))
+    {
+        cout << "Guess the definition of: " << word->data << "\n";
+        string def_ans = word->defs[rand() % word->defs.size()]->data;
+        int pos_ans =  rand() % 4; //position of the answer
+        for (int i=0;i<4;i++)
+        {
+            if (i==pos_ans)
+                cout <<def_ans<<std::endl;
+            else
+            {
+                string def_rand = dictionary.def_game[rand() % dictionary.def_game.size()];
+                cout << def_rand << std::endl;
             }
+          
+        }
+        string guess;
+        cin >> guess;
+        if(guess == def_ans) {
+            cout << "Correct!\n";
+        } 
+        else {
+            cout << "Incorrect, the word was: " << def_ans<< "\n";
         }
     }
-
-    return 0;
+  
 }

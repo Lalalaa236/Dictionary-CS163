@@ -37,6 +37,8 @@ class Dictionary
 public:
     vector<Word*> history;
     Trie<Word*> trie;
+    vector<Word*> words; //save all the words in dict for playing game
+    vector<string> def_game;//save all the def in dict for playing game
 
     Dictionary();
     void insertWord(const string& str); //function for user to insert word
