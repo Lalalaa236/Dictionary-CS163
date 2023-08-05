@@ -209,7 +209,7 @@ template<class Data>
 void Trie<Data>::removeAKey(const string& str)
 {
     int depth = 0;
-    if (remove(this->root, str, depth));
+    remove(this->root, str, depth);
     cout << "A word is removed.";
 }
 
@@ -217,7 +217,7 @@ template<class Data>
 trieNode<Data>* Trie<Data>::remove(trieNode<Data>*& root, const string& str, int depth)
 {
     if (!root)
-        return;
+        return root;
 
     if (depth == str.length())
     {

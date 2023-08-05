@@ -127,7 +127,7 @@ vector<string> Split(const string& s)
 
 void Dictionary::deleteDict()
 {
-    trie.~trie();
+    trie.~Trie();
 
     history.clear();
 
