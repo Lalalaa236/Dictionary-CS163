@@ -129,28 +129,54 @@ vector<string> Split(const string& s)
 
     return res;
 }
-/* int main() {
-//     Dictionary myDict;
-//     myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
-//     cout <<"Enter word to search";
-//     std::string test;
-//     getline(cin,test) ;
+void Dictionary::editDef(const string& word_edit_def, const string& old_def,const string& new_def)
+{
+    Word* word;
+    if(trie.findWhole(word_edit_def, word))
+    {
+        int defIndex = -1;
+        for(int i = 0; i < word->defs.size(); ++i)
+        {
+            if(word->defs[i]->data.find(old_def) != string::npos)
+            {
+                defIndex = i;
+                break;
+            }
+        }
+        if(defIndex == -1)
+        {
+            cout << "Definition not found!\n";
+            return;
+        }
+        Definition* def = word->defs[defIndex];
+        def->data.replace(3, def->data.size() - 3, new_def);
+    }
+    else
+    {
+        cout << "Word not found!\n";
+    }
+}
+int main() {
+    Dictionary myDict;
+    myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
+    myDict.editDef("A b c","The first three letters of the alphabet, used for the whole alphabet.","Thinh dep trai");
+    cout <<"Edited succesfully  \n";
+    std::string test;
+    getline(cin,test) ;
+    vector<Word*> results = myDict.searchWord(test);
+    cout << "Search results for prefix \"" << test << "\":\n";
+    for (Word* word : results) {
+        if (word != nullptr) {
+            cout << word->data << "\n";
 
-//     vector<Word*> results = myDict.searchWord(test);
-//     cout << "Search results for prefix \"" << test << "\":\n";
-//     for (Word* word : results) {
-//         if (word != nullptr) {
-//             cout << word->data << "\n";
+            // Optionally print definitions
+            for (Definition* def : word->defs) {
+                if (def != nullptr) {
+                    cout << "  - " << def->data << "\n";
+                }
+            }
+        }
+    }
 
-//             // Optionally print definitions
-//             for (Definition* def : word->defs) {
-//                 if (def != nullptr) {
-//                     cout << "  - " << def->data << "\n";
-//                 }
-//             }
-//         }
-//     }
-
-//     return 0;
-// }
-*/
+    return 0;
+}
