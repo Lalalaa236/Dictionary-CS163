@@ -132,6 +132,7 @@ vector<string> Split(const string& s)
 
     return res;
 }
+
 void Dictionary::editDef(const string& word_edit_def, const string& old_def,const string& new_def)
 {
     Word* word;
@@ -160,6 +161,7 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
         cout << "Word not found\n";
     }
 }
+
 void playGame(Dictionary& dictionary) 
 {
     if(dictionary.words.size() == 0) {
@@ -195,4 +197,30 @@ void playGame(Dictionary& dictionary)
         }
     }
   
+}
+
+void Dictionary::deleteDict()
+{
+    trie.~Trie();
+
+    history.clear();
+
+    return;
+}
+
+void Dictionary::removeWord(const string& str)
+{
+    Word* word;
+
+    bool isExist = trie.findWhole(str, word);
+
+    if (isExist)
+    {
+        trie.removeAKey(str);
+        delete word;
+        return;
+    }
+
+    std::cout << "The word does not exist.";
+    return;
 }
