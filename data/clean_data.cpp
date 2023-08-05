@@ -19,7 +19,7 @@ int main() {
     std::string line;
     Word word;
     Definition def;
-    bool isFirstMeaning = true;
+    bool isfirst = true;
 
     while (std::getline(inFile, line)) {
         if (line[0] == '@') {
@@ -30,11 +30,11 @@ int main() {
                 }
             }
             std::istringstream iss(line.substr(1));
-            size_t slashPos = line.find('/');
-            word.word = line.substr(1, slashPos - 1);
+            size_t pos = line.find('/');
+            word.word = line.substr(1, pos - 1);
             word.definitions.clear();
             def.meanings.clear();
-            isFirstMeaning = true;
+            isfirst = true;
         } 
         else if (line[0] == '*') {
             if (!def.meanings.empty()) {
@@ -42,11 +42,11 @@ int main() {
             }
             def.wordType = line.substr(line.find(' ') + 1);
             def.meanings.clear();
-            isFirstMeaning = true;
+            isfirst = true;
         } else if (line[0] == '-') {
-            if (isFirstMeaning) {
+            if (isfirst) {
                 def.meanings += line.substr(2);
-                isFirstMeaning = false;
+                isfirst = false;
             }
         }
     }
