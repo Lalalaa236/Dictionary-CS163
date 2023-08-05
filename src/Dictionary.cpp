@@ -92,7 +92,7 @@ void Dictionary::loadData(const string& filePath)
             Definition* def = new Definition(current[1]);
             def->word = word;
             word->defs.push_back(def);
-            def_game.push_back(def->data);
+            def_game.push_back(def);
         }
     }
 
@@ -152,11 +152,12 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
             return;
         }
         Definition* def = word->defs[defIndex];
-        def->data.replace(3, def->data.size() - 3, new_def);
+        def->data.replace(def->data.find(')') + 2, def->data.size() - (def->data.find(')') + 2), new_def);   
     }
+
     else
     {
-        cout << "Word not found!\n";
+        cout << "Word not found\n";
     }
 }
 void playGame(Dictionary& dictionary) 
@@ -179,13 +180,13 @@ void playGame(Dictionary& dictionary)
                 cout <<def_ans<<std::endl;
             else
             {
-                string def_rand = dictionary.def_game[rand() % dictionary.def_game.size()];
+                string def_rand = dictionary.def_game[rand() % dictionary.def_game.size()]->data;
                 cout << def_rand << std::endl;
             }
           
         }
         string guess;
-        std::cin >> guess;
+        cin >> guess;
         if(guess == def_ans) {
             cout << "Correct!\n";
         } 
