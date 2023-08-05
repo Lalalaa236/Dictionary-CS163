@@ -159,7 +159,6 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
         cout << "Word not found!\n";
     }
 }
-// Function to pick a random word and display a random definition
 void playGame(Dictionary& dictionary) 
 {
     if(dictionary.words.size() == 0) {
@@ -186,7 +185,7 @@ void playGame(Dictionary& dictionary)
           
         }
         string guess;
-        cin >> guess;
+        std::cin >> guess;
         if(guess == def_ans) {
             cout << "Correct!\n";
         } 
