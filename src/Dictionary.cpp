@@ -217,7 +217,22 @@ void Dictionary::removeWord(const string& str)
     if (isExist)
     {
         trie.removeAKey(str);
-        delete word;
+        std::ifstream fin("../data/Eng-Eng.txt");
+        std::ofstream fout("../data/Eng-Eng_removeWord.txt");
+
+        std::string deleteline = word->data + " ("; //Ex: "Foo (";
+
+        std::string line;
+        while(getline(fin, line))
+        {
+            line.replace(line.find(deleteline), deleteline.length() - 1, ""); //Ex: delete "Foo"
+            fout << line << std::endl;
+        }
+        fin.close();
+        fout.close();
+        remove("../data/Eng-Eng.txt");
+        rename("../data/Eng-Eng_removeWord.txt", "../data/Eng-Eng.txt");
+        // delete word;
         return;
     }
 
