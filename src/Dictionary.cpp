@@ -220,17 +220,20 @@ void Dictionary::removeWord(const string& str)
         std::ifstream fin("../data/Eng-Eng.txt");
         std::ofstream fout("../data/Eng-Eng_removeWord.txt");
 
-        for (int i = 0; i < word->defs.size(); i++)
+        std::string deleteLine = word->data + " ("; // Ex: "foo ("
+        std::string line;
+
+        while (getline(fin, line))
         {
-            std::string deleteline = word->data + " " + word->defs[i]->data; //Ex: "Foo (n) blablabla";
-            
-            std::string line;
-            while(getline(fin, line))
+            long long unsigned int position = line.find(deleteLine);
+
+            if (position == string::npos)
             {
-                line.replace(line.find(deleteline), deleteline.length(), ""); //Ex: delete "Foo (n) blablabla"
                 fout << line << std::endl;
             }
+            
         }
+
         fin.close();
         fout.close();
         remove("../data/Eng-Eng.txt");
