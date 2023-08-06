@@ -246,3 +246,51 @@ void Dictionary::removeWord(const string& str)
     std::cout << "The word does not exist.";
     return;
 }
+
+void addToFavList(Word* word)
+{
+    std::ofstream fout;
+    fout.open("../data/FavoriteList.txt", std::ios_base::app);
+
+    for (int i = 0; i < word->defs.size(); i++)
+    {
+        fout << word->data << " " << word->defs[i]->data;
+        fout << std::endl;
+    }
+
+    fout.close();
+}
+
+void removeFromFavList(Word* word)
+{
+    std::ifstream fin("../data/FavoriteList.txt");
+    std::ofstream fout("../data/FavoriteList_removeWord.txt");
+
+    std::string deleteLine = word->data + " ("; // Ex: "foo ("
+    std::string line;
+
+    bool deleted = false;
+
+    while (getline(fin, line))
+    {
+        long long unsigned int position = line.find(deleteLine);
+
+        if (position == string::npos)
+        {
+            fout << line << std::endl;
+        }
+        else
+        {
+            deleted = true;
+        }
+    }
+
+    if (deleted)
+        std::cout << "A word is removed from favorite list!";
+
+    fin.close();
+    fout.close();
+    remove("../data/FavoriteList.txt");
+    rename("../data/FavoriteList_removeWord.txt", "../data/FavoriteList.txt");
+
+}
