@@ -37,7 +37,7 @@ class Trie
         vector<Data> findPrefix(const string& s);// get all the words with this prefix
         void getRes(trieNode<Data>* cur, vector<Data>& res);
 
-        void isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
+        bool isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
         void removeAKey(const string& str);
 
     private:
@@ -201,7 +201,7 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
 }
 
 template<class Data>
-void Trie<Data>::isEmpty(trieNode<Data>* cur)
+bool Trie<Data>::isEmpty(trieNode<Data>* cur)
 {
     for (int i = 0; i < 256; i++)
     {
