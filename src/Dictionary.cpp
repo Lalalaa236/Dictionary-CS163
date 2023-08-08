@@ -208,7 +208,7 @@ void Dictionary::deleteDict()
     return;
 }
 
-void Dictionary::removeWord(const string& str)
+void Dictionary::removeWord(const string& str, const string filePath)
 {
     Word* word;
 
@@ -217,8 +217,9 @@ void Dictionary::removeWord(const string& str)
     if (isExist)
     {
         trie.removeAKey(str);
-        std::ifstream fin("../data/Eng-Eng.txt");
-        std::ofstream fout("../data/Eng-Eng_removeWord.txt");
+        std::ifstream fin(filePath);
+        std::string tempFilePath = filePath.substr(0, filePath.size() - 4) + "_removeWord.txt";
+        std::ofstream fout(tempFilePath);
 
         std::string deleteLine = word->data + " ("; // Ex: "foo ("
         std::string line;
@@ -236,8 +237,8 @@ void Dictionary::removeWord(const string& str)
 
         fin.close();
         fout.close();
-        remove("../data/Eng-Eng.txt");
-        rename("../data/Eng-Eng_removeWord.txt", "../data/Eng-Eng.txt");
+        remove(filePath.c_str());
+        rename(tempFilePath.c_str(), filePath.c_str());
 
         // delete word;
         return;
@@ -247,7 +248,7 @@ void Dictionary::removeWord(const string& str)
     return;
 }
 
-void addToFavList(Word* word)
+void Dictionary::addToFavList(Word* word)
 {
     std::ofstream fout;
     fout.open("../data/FavoriteList.txt", std::ios_base::app);
@@ -261,7 +262,7 @@ void addToFavList(Word* word)
     fout.close();
 }
 
-void removeFromFavList(Word* word)
+void Dictionary::removeFromFavList(Word* word)
 {
     std::ifstream fin("../data/FavoriteList.txt");
     std::ofstream fout("../data/FavoriteList_removeWord.txt");
@@ -292,5 +293,4 @@ void removeFromFavList(Word* word)
     fout.close();
     remove("../data/FavoriteList.txt");
     rename("../data/FavoriteList_removeWord.txt", "../data/FavoriteList.txt");
-
 }
