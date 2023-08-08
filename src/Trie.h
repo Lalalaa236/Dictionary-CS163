@@ -10,6 +10,8 @@ using std::cin;
 using std::cout;
 using std::vector;
 
+string Normalize(const string& s);
+
 template<class Data> 
 class trieNode
 {
@@ -37,7 +39,7 @@ class Trie
         vector<Data> findPrefix(const string& s);// get all the words with this prefix
         void getRes(trieNode<Data>* cur, vector<Data>& res);
 
-        void isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
+        bool isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
         void removeAKey(const string& str);
 
     private:
@@ -79,7 +81,7 @@ template<class Data>
 Trie<Data>::~Trie()
 {
     deallocate(this->root);
-    cout << "Deleted trie\n";
+    //cout << "Deleted trie\n";
 }
 
 template<class Data>
@@ -106,14 +108,15 @@ bool Trie<Data>::insert(const string& str, const Data& data)
     trieNode<Data>* cur = this->root;
 
     int length = str.length();
+    string cpy = Normalize(str);
     for(int i = 0; i < length; ++i)
     {
-        if(str[i] < -128 || str[i] > 127)
+        if(cpy[i] < -128 || cpy[i] > 127)
         {
             cout << "Invalid character!\n";
             return false;
         }    
-        int index = str[i] + 128;
+        int index = cpy[i] + 128;
         
         if(!cur->children[index])
             cur->children[index] = new trieNode<Data>();
@@ -137,8 +140,7 @@ bool Trie<Data>::findWhole(const string& str, Data& data)
     if(!this->root)
         return false;
     std::string copy_str = str;
-    copy_str[0] = toupper(copy_str[0]);
-    std::transform(copy_str.begin() + 1, copy_str.end(), copy_str.begin() + 1, ::tolower);
+    copy_str = Normalize(copy_str);
     trieNode<Data>* cur = this->root;
     int length = copy_str.length();
 
@@ -165,16 +167,13 @@ template<class Data>
 vector<Data> Trie<Data>::findPrefix(const string& s)
 {
     string copy_s = s;
+    copy_s = Normalize(copy_s);
     int length = copy_s.length();
     if(length == 0)
         return vector<Data>();
     trieNode<Data>* cur = this->root;
     for(int i = 0; i < length; ++i)
     {
-         if (i==0) 
-            copy_s[0] = toupper(copy_s[0]);
-        else 
-            copy_s[i] = tolower(copy_s[i]);
         int val = (int)copy_s[i] + 128;
         if(val > 256 || val < 0)
             return vector<Data>();
@@ -201,7 +200,7 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
 }
 
 template<class Data>
-void Trie<Data>::isEmpty(trieNode<Data>* cur)
+bool Trie<Data>::isEmpty(trieNode<Data>* cur)
 {
     for (int i = 0; i < 256; i++)
     {
