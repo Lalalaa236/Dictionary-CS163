@@ -196,3 +196,28 @@ void playGame(Dictionary& dictionary)
     }
   
 }
+
+int main() {
+    Dictionary myDict;
+    myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
+    // myDict.editDef("A b c","The first three letters of the alphabet, used for the whole alphabet.","Thinh dep trai");
+    // cout <<"Edited succesfully  \n";
+    // std::string test;
+    // getline(cin,test) ;
+    // vector<Word*> results = myDict.searchWord(test);
+    // cout << "Search results for prefix \"" << test << "\":\n";
+    // for (Word* word : results) {
+    //     if (word != nullptr) {
+    //         cout << word->data << "\n";
+
+    //         // Optionally print definitions
+    //         for (Definition* def : word->defs) {
+    //             if (def != nullptr) {
+    //                 cout << "  - " << def->data << "\n";
+    //             }
+    //         }
+    //     }
+    // }
+    playGame (myDict);
+    return 0;
+}
