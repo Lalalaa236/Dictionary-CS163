@@ -162,8 +162,9 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
     }
 }
 
-void playGame(Dictionary& dictionary) 
+void playGame(Dictionary& dictionary) //word with 4 def
 {
+    srand(static_cast<unsigned>(time(0)));
     if(dictionary.words.size() == 0) {
         return;
     }
@@ -176,24 +177,82 @@ void playGame(Dictionary& dictionary)
         cout << "Guess the definition of: " << word->data << "\n";
         string def_ans = word->defs[rand() % word->defs.size()]->data;
         int pos_ans =  rand() % 4; //position of the answer
-        for (int i=0;i<4;i++)
+        int number_of_def=0;
+        while (number_of_def<4)
         {
-            if (i==pos_ans)
+            if (number_of_def==pos_ans)
+            {
                 cout <<def_ans<<std::endl;
+                number_of_def++;
+            }
             else
             {
                 string def_rand = dictionary.def_game[rand() % dictionary.def_game.size()]->data;
-                cout << def_rand << std::endl;
+                bool IsDef = false;
+                for (int i=0;i<word->defs.size();i++) //Check if the random def is a def of the word
+                    if (def_rand == word->defs[i]->data)
+                        IsDef = true;
+                if (!IsDef)
+                {
+                    cout << def_rand << std::endl;
+                    number_of_def++;
+                }
             }
           
         }
         string guess;
-        cin >> guess;
+        getline(cin,guess);
         if(guess == def_ans) {
             cout << "Correct!\n";
         } 
         else {
             cout << "Incorrect, the word was: " << def_ans<< "\n";
+        }
+    }
+  
+}
+void rand_def(Dictionary& dictionary) //def with 4 words
+{
+    srand(static_cast<unsigned>(time(0)));
+    if(dictionary.def_game.size() == 0) {
+        return;
+    }
+    // random def
+    int defIndex = rand() % dictionary.def_game.size();
+    Definition* def_rand = dictionary.def_game[defIndex];
+    Word* word_correspond =  dictionary.words[defIndex];
+    Word* word;
+    if (dictionary.trie.findWhole(word_correspond->data,word))
+    {
+        cout << "Guess the word of: " << def_rand->data << "\n";
+        int pos_ans =  rand() % 4; //position of the answer
+        int number_of_word = 0;
+        while (number_of_word<4)
+        {
+            if (number_of_word==pos_ans)
+            {
+                cout <<word->data<<std::endl;
+                number_of_word++;
+            }
+            else
+            {
+                string word_rand = dictionary.words[rand() % dictionary.words.size()]->data;
+                if (word_rand != word->data) //Check if the random word is a word of the def
+                {
+                    cout << word_rand << std::endl;
+                    number_of_word++;
+                }
+            }
+          
+        }
+
+        string guess;
+        cin >> guess;
+        if(guess == word->data) {
+            cout << "Correct\n";
+        } 
+        else {
+            cout << "Incorrect, the word was: " << word->data<< "\n";
         }
     }
   
@@ -293,27 +352,22 @@ void Dictionary::removeFromFavList(Word* word)
     remove("../data/FavoriteList.txt");
     rename("../data/FavoriteList_removeWord.txt", "../data/FavoriteList.txt");
 }
-int main() {
-    Dictionary myDict;
-    myDict.loadData("C:\\Users\\Hisokaxxzk\\Dictionary-CS163\\data\\Eng-Eng.txt");
-    // myDict.editDef("A b c","The first three letters of the alphabet, used for the whole alphabet.","Thinh dep trai");
-    // cout <<"Edited succesfully  \n";
-    // std::string test;
-    // getline(cin,test) ;
-    // vector<Word*> results = myDict.searchWord(test);
-    // cout << "Search results for prefix \"" << test << "\":\n";
-    // for (Word* word : results) {
-    //     if (word != nullptr) {
-    //         cout << word->data << "\n";
+void Dictionary::ViewRanDomWord()
+{
+    srand(static_cast<unsigned>(time(0)));
+    int wordIndex = rand() % words.size();
+    Word* word_random = words[wordIndex];
+    Word*word;
+    if (trie.findWhole(word_random->data,word))
+    {
+        cout <<word->data << "\n";
+        for (int i =0;i<word->defs.size();i++)
+        {
+            cout <<word->defs[i]->data<<"\n";
+        }
+        /*
+        Code show the def on UI
+        */
+    }
 
-    //         // Optionally print definitions
-    //         for (Definition* def : word->defs) {
-    //             if (def != nullptr) {
-    //                 cout << "  - " << def->data << "\n";
-    //             }
-    //         }
-    //     }
-    // }
-    playGame (myDict);
-    return 0;
 }
