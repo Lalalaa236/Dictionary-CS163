@@ -37,9 +37,13 @@ class Trie
         vector<Data> findPrefix(const string& s);// get all the words with this prefix
         void getRes(trieNode<Data>* cur, vector<Data>& res);
 
+        bool isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
+        void removeAKey(const string& str);
+
     private:
         trieNode<Data>* root;
         void deallocate(trieNode<Data>*& root);
+        trieNode<Data>* remove(trieNode<Data>*& root, const string& str, int depth = 0);
 };
 
 template<class Data>
@@ -196,5 +200,45 @@ void Trie<Data>::getRes(trieNode<Data>* cur, vector<Data>& res)
         Trie<Data>::getRes(cur->children[i], res);
 }
 
+template<class Data>
+bool Trie<Data>::isEmpty(trieNode<Data>* cur)
+{
+    for (int i = 0; i < 256; i++)
+    {
+        if (cur->children[i])
+            return false;
+
+    }
+        return true;
+}
+
+template<class Data>
+void Trie<Data>::removeAKey(const string& str)
+{
+    int depth = 0;
+    remove(this->root, str, depth);
+    cout << "A word is removed.";
+}
+
+template<class Data>
+trieNode<Data>* Trie<Data>::remove(trieNode<Data>*& root, const string& str, int depth)
+{
+    if (!root)
+        return root;
+
+    if (depth == str.length())
+    {
+        if (root->endOfWord)
+            root->endOfWord = false;
+
+        return root;
+    }
+
+    int index = str[depth] + 128;
+
+    root->children[index] = remove(root->children[index], str, depth + 1);
+
+    return root;
+}
+
 #endif 
-//

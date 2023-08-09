@@ -48,6 +48,12 @@ public:
     vector<Word*> searchWord(const string& str);
 
     void loadData(const string& filePath);
+
+    void deleteDict();
+    void removeWord(const string& str, const string filePath); //function for user to delete a word
+
+    void addToFavList(Word* word);
+    void removeFromFavList(Word* word);
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def
