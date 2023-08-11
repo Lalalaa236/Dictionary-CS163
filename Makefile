@@ -15,6 +15,6 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -Iinclude
 clean:
-	rm -rf $(TARGET) *.o
+	del -rf $(TARGET) *.o *.exe
 	
 .PHONY: all clean
