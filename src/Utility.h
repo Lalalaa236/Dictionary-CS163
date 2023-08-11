@@ -2,8 +2,8 @@
 #define SCREEN_H
 
 #include "Dictionary.h"
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+#include "raylib.h"
+#include <assert.h>
 
 class App;
 

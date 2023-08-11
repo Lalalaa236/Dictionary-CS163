@@ -2,21 +2,44 @@
 
 App::App()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Say GEXXXXXXXXXX!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    SetTargetFPS(60);
+    assert(!GetWindowHandle()); //Checks if there is already a window or not
+    InitWindow(1200, 800, "DICTIONARY");
+}
 
-    while (window.isOpen())
+App::~App()
+{
+    assert(GetWindowHandle);
+    CloseWindow();
+}
+
+bool App::AppShouldClose()
+{
+    return WindowShouldClose();
+}
+
+void App::Tick()
+{
+    BeginDrawing();
+    App::Draw();
+    App::Update();
+    EndDrawing();
+}
+
+void App::Draw()
+{
+    ClearBackground(RAYWHITE);
+}
+
+void App::Update()
+{
+
+}
+
+void App::run()
+{
+    while(!this->AppShouldClose())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
+        this->Tick();
     }
 }

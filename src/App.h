@@ -10,8 +10,13 @@ public:
     Screen* currentScreen;
 
     App();
+    ~App();
 
     void run();
+    bool AppShouldClose();
+    void Tick();
+    void Draw();
+    void Update();
 };
 
 #endif
