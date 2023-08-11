@@ -74,7 +74,10 @@ public:
 vector<string> Split(const string& s); // function to split a string into word and def
 vector<string> SplitDef(const string& s); // function to split the definition
  //function to add def word
-int editDistance(const vector<string>& vec1, const vector<string>& vec2);
+
 string NormalizeDef(const string& s);
+string mergeDef(const vector<string>& vec);
+void initConcat(string str, vector<int>& Z); // helper func for numPattern
+int numPattern(const string& text, const string& pattern); // Z func
 
 #endif

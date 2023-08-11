@@ -326,16 +326,17 @@ vector<Word*> Dictionary::searchDef(const string& str)
     // cout << candidates.size() << "\n";
 
 
-    for(Definition* def : candidates)
+    for(auto def : candidates)
     {
-        def->value = editDistance(SplitDef(str), SplitDef(def->data));
+        def->value = numPattern(mergeDef(SplitDef((def->data))), mergeDef(SplitDef(str)));
         // cout << def->data << "\n";
     }
 
-    std::sort(candidates.begin(), candidates.end(), [](Definition* def1, Definition* def2)
+    std::sort(candidates.begin(), candidates.end(), [](auto def1, auto def2)
     {
-        return def1->value < def2->value;
+        return def1->value > def2->value;
     });
+    
 
     int size = candidates.size();
 
@@ -363,44 +364,6 @@ vector<Word*> Dictionary::searchDef(const string& str)
     return res;
 }
 
-int editDistance(const vector<string>& vec1, const vector<string>& vec2) //DP to find the dissimilarity value of the two vectors
-{
-    int length1 = vec1.size();
-    int length2 = vec2.size();
-
-    if(length1 == 0 || length2 == 0)
-        return (length1 > length2) ? length1 : length2;
-
-    vector<vector<int>> dist;
-    dist.resize(length1 + 1);
-    for(int i = 0; i <= length1; ++i)
-    {
-        dist[i].resize(length2 + 1);
-    }
-
-    for (int i = 0; i <= length1; i++)
-        dist[i][0] = i;
-    for (int j = 0; j <= length2; j++)
-        dist[0][j] = j;
-
-    //cout << "loli\n";
-
-    for (int i = 1; i <= length1; i++) {
-        for (int j = 1; j <= length2; j++) {
-            int cost;
-            if(vec2[j - 1] == vec1[i - 1])
-                cost = 0;
-            else
-                cost = 1;
-
-            dist[i][j] = std::min(std::min(dist[i - 1][j] + 1, dist[i][j - 1] + 1), dist[i - 1][j - 1] + cost);
-        }
-    }
-    //cout << dist[length1][length2];
-
-    return dist[length1][length2];
-}
-
 string NormalizeDef(const string& s)
 {
     string specialChar = ",.?-:;\"'{}[]|!@#$%^&*()~`/\\";
@@ -423,4 +386,78 @@ string NormalizeDef(const string& s)
         cpy = cpy.substr(0, cpy.length() - 1);;
     }
     return cpy;
+}
+
+string mergeDef(const vector<string>& vec)
+{
+    string res;
+    int length = vec.size();
+    for(int i = 0; i < length; ++i)
+    {
+        if(i == length - 1)
+        {
+            res += vec[i];
+            break;
+        }
+        res += vec[i];
+        res += " ";
+        
+    }
+
+    return res;
+}
+
+void initConcat(string str, vector<int>& Z)
+{
+    int n = str.length();
+    int left, right, k;
+ 
+    left = right = 0;
+    for (int i = 1; i < n; ++i)
+    {
+        if (i > right)
+        {
+            left = right = i;
+ 
+            while (right < n && str[right - left] == str[right])
+                right++;
+            Z[i] = right - left;
+            right--;
+        }
+        else
+        {
+            
+            k = i - left;
+            
+            if (Z[k] < right - i + 1)
+                Z[i] = Z[k];
+            else
+            {
+                left = i;
+                
+                while (right < n && str[right - left] == str[right])
+                    right++;
+                Z[i] = right - left;
+                right--;
+            }
+        }
+    }
+}
+
+int numPattern(const string& text, const string& pattern) // Z func
+{
+    int res = 0;
+    string concat = pattern + "$" + text;
+    int l = concat.length();
+ 
+    vector<int> Z(l);
+    initConcat(concat, Z);
+ 
+    for (int i = 0; i < l; ++i)
+    {
+        if (Z[i] == pattern.length())
+            ++res;
+    }
+    
+    return res;
 }
