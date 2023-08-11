@@ -3,6 +3,8 @@
 
 #include "Trie.h"
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
 #include <algorithm>
 
 using std::ifstream;
@@ -72,6 +74,8 @@ public:
 
     void addToFavList(Word* word);
     void removeFromFavList(Word* word);
+
+    void ViewRanDomWord();
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def
