@@ -487,6 +487,7 @@ int numPattern(const string& text, const string& pattern) // Z func
 
 void Dictionary::addToFavList(Word* word)
 {
+    word->favourite = true;
     std::ofstream fout;
     fout.open("../data/FavoriteList.txt", std::ios_base::app);
 
@@ -501,6 +502,8 @@ void Dictionary::addToFavList(Word* word)
 
 void Dictionary::removeFromFavList(Word* word)
 {
+    word->favourite = false;
+    
     std::ifstream fin("../data/FavoriteList.txt");
     std::ofstream fout("../data/FavoriteList_removeWord.txt");
 
@@ -530,4 +533,46 @@ void Dictionary::removeFromFavList(Word* word)
     fout.close();
     remove("../data/FavoriteList.txt");
     rename("../data/FavoriteList_removeWord.txt", "../data/FavoriteList.txt");
+}
+
+vector<Word*> Dictionary::viewFavList()
+{
+    std::ifstream fin("../data/FavoriteList.txt");
+
+    vector<Word*> favList;
+
+    std::string line;
+    std::string curWord;
+
+    while(getline(fin, line))
+    {
+
+        vector<string> current = Split(line);
+
+        if (current.size() == 2)
+        {
+            Word* word;
+            if(current[0] != curWord)
+            {
+
+                curWord = current[0];
+                word = new Word(current[0]);
+
+                favList.push_back(word);
+            }
+            Definition* def = new Definition(current[1]);
+            word->defs.push_back(def);
+        }
+    }
+
+    for (int i = 0; i < favList.size(); i++)
+    {
+        std::cout << i + 1 << ". " << favList[i]->data << '\n';
+        for (int j = 0; j < favList[i]->defs.size(); j++)
+        {
+            std::cout << "  " << favList[i]->defs[j]->data << '\n';
+        }
+    }
+
+    return favList;
 }

@@ -72,6 +72,7 @@ public:
 
     void addToFavList(Word* word);
     void removeFromFavList(Word* word);
+    vector<Word*> viewFavList();
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def
