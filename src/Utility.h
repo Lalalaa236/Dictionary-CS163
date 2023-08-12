@@ -3,6 +3,8 @@
 
 #include "Dictionary.h"
 #include "raylib.h"
+#include "SearchBox.h"
+#include "App.h"
 #include <assert.h>
 
 class App;
@@ -22,7 +24,12 @@ public:
     virtual void Render(App* app) = 0;
 };
 
-void setNextScreen(App* app, Screen* nextScreen);
-void render(App* app, Screen* screen);
+class SearchWord
+{
+    SearchBox searchbox;
+
+    SearchWord();
+    void Render(App* app);
+};
 
 #endif

@@ -1,15 +1,18 @@
 #include "App.h"
 
 App::App()
+: mode(1)
 {
+    if(!GetWindowHandle())
+        return;
     SetTargetFPS(60);
-    assert(!GetWindowHandle()); //Checks if there is already a window or not
     InitWindow(1200, 800, "DICTIONARY");
 }
 
 App::~App()
 {
-    assert(GetWindowHandle);
+    if(GetWindowHandle)
+        return;
     CloseWindow();
 }
 
@@ -42,4 +45,15 @@ void App::run()
     {
         this->Tick();
     }
+}
+
+void App::setNextScreen(Screen* nextScreen)
+{
+    delete currentScreen;
+    this->currentScreen = nextScreen;
+}
+
+void App::render(Screen* screen)
+{
+    screen->Render(this);
 }
