@@ -76,17 +76,26 @@ void SearchBox::HandleInput(char* input, int& length)
             this->startSearch = true;
             return;
         }
+        CursorBlink(GetFrameTime());
         std::cout << "input: " << input << "!\n";
     }
     else
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 }
-
+void SearchBox::CursorBlink(float time) //blinking cursor 
+{
+    cursorBlinkTime += time;
+    if (cursorBlinkTime >= 1.0f)
+        cursorBlinkTime = 0.0f;
+}
 void SearchBox::DrawInput()
 {
     DrawText(buffer, this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, SKYBLUE);
     if(bufflen == 0 && this->state == false)
         DrawText("Search", this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, LIGHTGRAY);
     if(this->state)
-        DrawRectangleLinesEx(this->box, 5, DARKBLUE);
+    {
+        if (cursorBlinkTime < 0.5f)
+            DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, WHITE); //blinking cursor 
+        DrawRectangleLinesEx(this->box, 5, DARKBLUE);    }
 }

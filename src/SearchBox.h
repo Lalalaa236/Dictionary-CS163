@@ -9,6 +9,8 @@ using std::string;
 
 class SearchBox
 {
+private:
+    float cursorBlinkTime = 0.0f;
 public:
     Rectangle box;
     Color color;
@@ -25,6 +27,7 @@ public:
     bool Pressed();
     void DrawBox();
     void HandleInput(char* input, int& length);
+    void CursorBlink(float deltaTime);
     void DrawInput();
     string getInput();
 };
