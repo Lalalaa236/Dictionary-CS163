@@ -84,4 +84,6 @@ void SearchBox::DrawInput()
     DrawText(buffer, this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, SKYBLUE);
     if(bufflen == 0 && this->state == false)
         DrawText("Search", this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, LIGHTGRAY);
+    if(this->state)
+        DrawRectangleLinesEx(this->box, 5, DARKBLUE);
 }
