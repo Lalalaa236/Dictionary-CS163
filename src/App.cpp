@@ -1,17 +1,41 @@
 #include "App.h"
 
+State::State()
+: choice(-1), endApp(false)
+{}
+
+void SearchWord::Render(App* app)
+{
+    searchbox->DrawBox();
+    searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
+    searchbox->DrawInput();
+}
+
+SearchWord::SearchWord()
+{
+    constexpr Vector2 origin = {50, 30};
+    constexpr Vector2 size = {1100, 100};
+    searchbox = new SearchBox(origin, size, GRAY);
+}
+
+SearchWord::~SearchWord()
+{
+    delete searchbox;
+}
+
 App::App()
 : mode(1)
 {
-    if(!GetWindowHandle())
+    if(GetWindowHandle())
         return;
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
+    currentScreen = new SearchWord();
 }
 
 App::~App()
 {
-    if(GetWindowHandle)
+    if(!GetWindowHandle())
         return;
     CloseWindow();
 }
@@ -36,11 +60,12 @@ void App::Draw()
 
 void App::Update()
 {
-
+    this->render(this->currentScreen);
 }
 
 void App::run()
 {
+    //cout << "loli";
     while(!this->AppShouldClose())
     {
         this->Tick();

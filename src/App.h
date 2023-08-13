@@ -1,8 +1,37 @@
 #ifndef APP_H
 #define APP_H
 
-#include "Utility.h"
+#include "Dictionary.h"
+#include "raylib.h"
 #include "SearchBox.h"
+#include <assert.h>
+
+class App;
+
+class State
+{
+public:
+    int choice;
+    bool endApp;
+
+    State();
+};
+
+class Screen
+{
+public:
+    virtual void Render(App* app) = 0;
+};
+
+class SearchWord : public Screen
+{
+public:
+    SearchBox* searchbox;
+
+    SearchWord();
+    ~SearchWord();
+    void Render(App* app);
+};
 
 class App
 {

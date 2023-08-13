@@ -2,6 +2,7 @@
 #define SEARCHBOX_H
 
 #include "raylib.h"
+#include <iostream>
 #include <string>
 
 using std::string;
@@ -13,13 +14,18 @@ public:
     Color color;
     Vector2 origin;
     Vector2 size;
-    bool mouseOnText;
-    string input;
+
+    char buffer[32];
+    int bufflen;
+    bool state;
 
     SearchBox(Vector2 origin, Vector2 size, Color color);
-    void DrawSearchBox();
-    void HandleInput();
+    ~SearchBox();
+    bool Pressed();
+    void DrawBox();
+    void HandleInput(char* input, int& length);
     void DrawInput();
+    string getInput();
 };
 
 #endif
