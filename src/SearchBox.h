@@ -18,6 +18,7 @@ public:
     char buffer[32];
     int bufflen;
     bool state;
+    bool startSearch;
 
     SearchBox(Vector2 origin, Vector2 size, Color color);
     ~SearchBox();

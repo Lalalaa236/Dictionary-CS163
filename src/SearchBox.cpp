@@ -1,7 +1,7 @@
 #include "SearchBox.h"
 
 SearchBox::SearchBox(Vector2 origin, Vector2 size, Color color)
-: origin(origin), size(size), bufflen(0), state(false), color(color)
+: origin(origin), size(size), bufflen(0), state(false), startSearch(false), color(color)
 {
     box.x = this->origin.x;
     box.y = this->origin.y;
@@ -31,11 +31,13 @@ bool SearchBox::Pressed()
         if(CheckCollisionPointRec(mouse, this->box))
         {
             this->state = true;
+            this->startSearch = false;
             return true;
         }
         else
         {
             this->state = false;
+            this->startSearch = false;
             return false;
         }
     }
@@ -71,6 +73,7 @@ void SearchBox::HandleInput(char* input, int& length)
         if(IsKeyPressed(KEY_ENTER))
         {
             this->state = false;
+            this->startSearch = true;
             return;
         }
         std::cout << "input: " << input << "!\n";
