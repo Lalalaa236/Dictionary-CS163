@@ -12,7 +12,7 @@ class SearchBox
 private:
     float cursorBlinkTime = 0.0f;
     std::vector<std::string> test;
-     float scroll;
+    float scroll;
 public:
     Rectangle box;
     Color color;
