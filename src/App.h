@@ -11,9 +11,9 @@ class App;
 class State
 {
 public:
-    int choice;
-    bool endApp;
-
+    int mode;
+    int dataset;
+    
     State();
 };
 

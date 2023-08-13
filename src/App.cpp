@@ -1,7 +1,7 @@
 #include "App.h"
 
 State::State()
-: choice(-1), endApp(false)
+: mode(1), dataset(1)
 {}
 
 void SearchWord::Render(App* app)
