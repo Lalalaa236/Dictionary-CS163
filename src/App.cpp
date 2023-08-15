@@ -13,7 +13,7 @@ void SearchWord::Render(App* app)
 
 SearchWord::SearchWord()
 {
-    constexpr Vector2 origin = {50, 30};
+    constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
 }

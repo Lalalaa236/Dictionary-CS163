@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef SEARHBOX_H
 #define SEARCHBOX_H
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef APP_H
 #define APP_H
 
@@ -5,6 +7,7 @@
 #include "raylib.h"
 #include "SearchBox.h"
 #include <assert.h>
+#include "Button.h"
 
 class App;
 
