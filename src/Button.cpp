@@ -1,7 +1,8 @@
 #include "Button.h"
 
-void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color) {
+void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text) {
     DrawRectangle(origin.x,origin.y,size.x,size.y,color);
+    DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, LIGHTGRAY);
 }
 
 bool Button_function::Pressed() {
@@ -11,8 +12,3 @@ bool Button_function::Pressed() {
         else return false;
     }
 }
-
-void Button_function::Drawtext() {
-    DrawText(this->text, this->button.x + 10, this->button.y + (this->button.height - 36)/2, 48, LIGHTGRAY);
-}
-

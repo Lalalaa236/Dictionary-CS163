@@ -25,7 +25,7 @@ public:
     Color color;
     char text[101];
 
-    void DrawRec(Vector2 origin, Vector2 size, Color color);
+    void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     bool Pressed();
     void Drawtext();
     virtual void specific_function() {};
@@ -43,27 +43,77 @@ public:
     }
     void Draw()
     {
-        DrawRec(origin,size,color);
+        DrawRec(origin,size,color, text);
     }
 };
 
 class search_by_word_button : public Button_function
 {
 public:
-    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color)
+    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
     {
-        origin = {50, 310};
-        size = {100, 100};
-        color = RED;
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
         button = {origin.x, origin.y, size.x, size.y};
-        strcpy(text, "Search by word");
+        strcpy(text, "Search by \n   word");
     }
 
-    void DrawButton()
+    void Draw()
     {
-        DrawRectangleRec(button, color);
+        DrawRec(origin, size, color, text);
     }
 };
 
+class history_button : public Button_function
+{
+public:
+    history_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    {
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, "  History");
+    }
+        void Draw()
+    {
+        DrawRec(origin, size, color, text);
+    }
+};
+
+class favorite_button : public Button_function
+{
+public:
+    favorite_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    {
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, " Favorite");
+    }
+        void Draw()
+    {
+        DrawRec(origin, size, color, text);
+    }
+};
+
+class games_button : public Button_function
+{
+public:
+    games_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    {
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, "  Games");
+    }
+        void Draw()
+    {
+        DrawRec(origin, size, color, text);
+    }
+};
 
 #endif

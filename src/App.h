@@ -30,6 +30,10 @@ class SearchWord : public Screen
 public:
     SearchBox* searchbox;
     search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
     SearchWord();
     ~SearchWord();
     void Render(App* app);

@@ -10,20 +10,29 @@ void SearchWord::Render(App* app)
     searchbox->DrawBox();
     searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
     searchbox->DrawInput();
-    //defButton->Draw();
-
+    defButton->Draw();
+    wordButton->Draw();
+    historyButton->Draw();
+    favoriteButton->Draw();
+    gamesButton->Draw();
 }
 SearchWord::SearchWord()
 {
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
-    Vector2 buttonOrigin = {50, 200};
-    Vector2 buttonSize = {100, 100};
-    Color buttonColor = RED;
-    defButton = new search_by_def_button(buttonOrigin, buttonSize, buttonColor);
 
+    defButton = new search_by_def_button({origin.x, origin.y + size.y + 20}, {200, 75}, GRAY);
+
+    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
+
+    historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
+
+    favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
+
+    gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
 }
+
 SearchWord::~SearchWord()
 {
     delete searchbox;
