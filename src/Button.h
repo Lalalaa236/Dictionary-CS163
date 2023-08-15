@@ -34,13 +34,31 @@ public:
 class search_by_def_button : public Button_function
 {
 public:
-    search_by_def_button(Vector2 _origin, Vector2 _size, Color _color)
+    search_by_def_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
     {
         origin = {50, 200};
         size = {100, 100};
         color = RED;
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "Search by definition");
+    }
+
+    void Draw()
+    {
+        DrawRec(origin, size, color);
+    }
+};
+
+class search_by_word_button : public Button_function
+{
+public:
+    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color)
+    {
+        origin = {50, 310};
+        size = {100, 100};
+        color = RED;
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, "Search by word");
     }
 
     void DrawButton()
