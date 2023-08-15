@@ -78,7 +78,7 @@ void SearchBox::HandleInput(char* input, int& length)
                 Dictionary dictionary;
               //  searchResults = dictionary.searchWord(input);
               test.clear();
-              for (int i=1;i<=11;i++)
+              for (int i=1;i<=100;i++)
                 test.push_back(std::to_string(i));
 
             }
