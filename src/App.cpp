@@ -1,3 +1,4 @@
+// app.cpp
 #include "App.h"
 
 State::State()
@@ -9,20 +10,24 @@ void SearchWord::Render(App* app)
     searchbox->DrawBox();
     searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
     searchbox->DrawInput();
+    defButton->Draw();
 }
-
 SearchWord::SearchWord()
 {
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
-}
+    Vector2 buttonOrigin = {50, 200};
+    Vector2 buttonSize = {100, 100};
+    Color buttonColor = RED;
+    defButton = new search_by_def_button(buttonOrigin, buttonSize, buttonColor);
 
+}
 SearchWord::~SearchWord()
 {
     delete searchbox;
+    delete defButton;
 }
-
 App::App()
 : mode(1)
 {
@@ -65,7 +70,6 @@ void App::Update()
 
 void App::run()
 {
-    //cout << "loli";
     while(!this->AppShouldClose())
     {
         this->Tick();

@@ -25,17 +25,15 @@ class Screen
 public:
     virtual void Render(App* app) = 0;
 };
-
 class SearchWord : public Screen
 {
 public:
     SearchBox* searchbox;
-
+    search_by_def_button* defButton; // Add this line
     SearchWord();
     ~SearchWord();
     void Render(App* app);
 };
-
 class App
 {
 public:
