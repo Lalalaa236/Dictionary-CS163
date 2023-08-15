@@ -10,7 +10,8 @@ void SearchWord::Render(App* app)
     searchbox->DrawBox();
     searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
     searchbox->DrawInput();
-    defButton->Draw();
+    //defButton->Draw();
+
 }
 SearchWord::SearchWord()
 {

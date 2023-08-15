@@ -36,16 +36,14 @@ class search_by_def_button : public Button_function
 public:
     search_by_def_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
     {
-        origin = {50, 200};
-        size = {100, 100};
-        color = RED;
-        button = {origin.x, origin.y, size.x, size.y};
-        strcpy(text, "Search by definition");
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        strcpy(text, "Search by \n definition");
     }
-
     void Draw()
     {
-        DrawRec(origin, size, color);
+        DrawRec(origin,size,color);
     }
 };
 

@@ -29,7 +29,7 @@ class SearchWord : public Screen
 {
 public:
     SearchBox* searchbox;
-    search_by_def_button* defButton; // Add this line
+    search_by_def_button* defButton; 
     SearchWord();
     ~SearchWord();
     void Render(App* app);

@@ -1,7 +1,7 @@
 #include "Button.h"
 
 void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color) {
-    DrawRectangle(this->button.x, this->button.y, this->button.width, this->button.height, this->color);
+    DrawRectangle(origin.x,origin.y,size.x,size.y,color);
 }
 
 bool Button_function::Pressed() {
