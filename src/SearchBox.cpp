@@ -85,6 +85,7 @@ void SearchBox::HandleInput(char* input, int& length)
             return;
         }
         CursorBlink(GetFrameTime());
+        std::cout << "input: " << input << "!\n";
     }
     else
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -106,7 +107,7 @@ void SearchBox::DrawInput()
             DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, WHITE); //blinking cursor 
         DrawRectangleLinesEx(this->box, 5, DARKBLUE);    
     }
-  if (startSearch)
+    if (startSearch)
     {
         float item_height = 40.0f; 
         int item_num =0;
