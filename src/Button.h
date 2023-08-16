@@ -27,6 +27,9 @@ public:
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     virtual void specific_function() {};
+    bool isPressed();
+
+    Button_function() = default;
 };
 
 class search_by_def_button : public Button_function
@@ -36,12 +39,13 @@ public:
     {
         origin = _origin; 
         size = _size;    
-        color = _color;   
+        color = _color;
+        button = {origin.x, origin.y, size.x, size.y};   
         strcpy(text, "Search by \n definition");
     }
     void Draw()
     {
-        DrawRec(origin,size,color, text);
+        DrawRec(origin, size, color, text);
     }
 };
 
@@ -153,7 +157,11 @@ public:
 
 class WordButton : public Button_function
 {
+public:
+    Word* data;
 
+    WordButton();
+    WordButton(Word* data);
 };
 
 #endif

@@ -107,3 +107,18 @@ void modes_buttons::Draw() {
         }
     }
 }
+
+bool Button_function::isPressed()
+{
+    Vector2 mouse = GetMousePosition();
+    bool pressed = false;
+    if(CheckCollisionPointRec(mouse, this->button))
+    {
+        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            pressed = true;
+    }
+    else
+        pressed = false;
+
+    return pressed;
+}
