@@ -115,10 +115,10 @@ void SearchBox::DrawInput()
         else 
              item_num = test.size()-1;
         Rectangle dropdownRect = {
-            this->box.x,
-            this->box.y + this->box.height,
-            this->box.width,
-            item_height * (item_num+1),
+            this->box.x + 220,
+            this->box.y + this->box.height + 20,
+            this->box.width - 220,
+            item_height * (item_num+3),
         };
 
         float totalHeight = item_height * test.size();
