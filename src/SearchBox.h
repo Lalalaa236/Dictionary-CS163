@@ -33,7 +33,6 @@ public:
     void HandleInput(char* input, int& length);
     void CursorBlink(float deltaTime);
     void DrawInput();
-    string getInput();
 };
 
 #endif

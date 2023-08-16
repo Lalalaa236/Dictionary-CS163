@@ -11,6 +11,7 @@
 #include "Dictionary.h"
 #include "SearchBox.h"
 #include <cstring>
+#include <cmath>
 
 using std::string;
 using std::vector;
@@ -43,6 +44,7 @@ public:
         button = {origin.x, origin.y, size.x, size.y};   
         strcpy(text, "Search by \n definition");
     }
+    
     void Draw()
     {
         DrawRec(origin, size, color, text);
@@ -78,7 +80,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  History");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -95,7 +98,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, " Favorite");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -112,7 +116,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Games");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -129,7 +134,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Reset");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -159,9 +165,15 @@ class WordButton : public Button_function
 {
 public:
     Word* data;
+    string showable;
 
     WordButton();
-    WordButton(Word* data);
+    WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
+    
+
+    void createShowable();
+
+    void Draw();
 };
 
 #endif

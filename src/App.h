@@ -36,6 +36,9 @@ public:
     games_button* gamesButton;
     reset_button* resetButton;
     modes_buttons* modesButtons;
+    WordButton* findWordButton;
+    Word* word = new Word("test");
+    Definition* def = new Definition("sfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     SearchWord();
     ~SearchWord();
     void Render(App* app);

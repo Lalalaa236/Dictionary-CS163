@@ -10,13 +10,22 @@ void SearchWord::Render(App* app)
     searchbox->DrawBox();
     searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
     searchbox->DrawInput();
+
     defButton->Draw();
+    
     wordButton->Draw();
+    
     historyButton->Draw();
+    
     favoriteButton->Draw();
+    
     gamesButton->Draw();
+    
     resetButton->Draw();
+    
     modesButtons->Draw();
+
+    findWordButton->Draw();
 }
 SearchWord::SearchWord()
 {
@@ -36,15 +45,28 @@ SearchWord::SearchWord()
 
     resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
 
+    word->defs.push_back(def);
+    findWordButton = new WordButton(word, {origin.x + 250, origin.y + size.y + 20}, {850, 200}, GRAY);
+
     constexpr Vector2 mode_origin = {50, 30};
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
+
+    
 }
 
 SearchWord::~SearchWord()
 {
     delete searchbox;
     delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete findWordButton;
+    delete word;
+    delete def;
 }
 App::App()
 : mode(1)
