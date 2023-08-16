@@ -151,4 +151,9 @@ public:
     void Draw();
 };
 
+class WordButton : public Button_function
+{
+
+};
+
 #endif
