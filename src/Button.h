@@ -26,8 +26,6 @@ public:
     char text[101];
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
-    bool Pressed();
-    void Drawtext();
     virtual void specific_function() {};
 };
 
@@ -114,6 +112,43 @@ public:
     {
         DrawRec(origin, size, color, text);
     }
+};
+
+class reset_button : public Button_function
+{
+public:
+    reset_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    {
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, "  Reset");
+    }
+        void Draw()
+    {
+        DrawRec(origin, size, color, text);
+    }
+};
+
+class modes_buttons
+{
+public:
+    vector<string> modes = {"  Eng-Eng", "   Eng-Vie", "   Vie-Eng", "    Slang", "    Emoji"};
+    vector<Rectangle> mode_buttons;
+
+    Vector2 origin;
+    Vector2 size;
+    Color color;
+    char text[101];
+
+    modes_buttons(Vector2 _origin, Vector2 _size, Color _color) {
+        origin = _origin;
+        size = _size;
+        color = _color;
+    }
+
+    void Draw();
 };
 
 #endif

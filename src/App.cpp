@@ -15,6 +15,8 @@ void SearchWord::Render(App* app)
     historyButton->Draw();
     favoriteButton->Draw();
     gamesButton->Draw();
+    resetButton->Draw();
+    modesButtons->Draw();
 }
 SearchWord::SearchWord()
 {
@@ -31,6 +33,12 @@ SearchWord::SearchWord()
     favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
 
     gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
+
+    resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
+
+    constexpr Vector2 mode_origin = {50, 30};
+    constexpr Vector2 mode_size = {200, 45};
+    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 }
 
 SearchWord::~SearchWord()

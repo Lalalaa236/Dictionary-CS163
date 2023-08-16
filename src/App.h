@@ -34,6 +34,8 @@ public:
     history_button* historyButton;
     favorite_button* favoriteButton;
     games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
     SearchWord();
     ~SearchWord();
     void Render(App* app);
