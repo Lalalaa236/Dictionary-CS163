@@ -46,12 +46,15 @@ void WordList::Draw()
     }
     float offset = GetMouseWheelMove() * 30;
     // cout << offset << "\n";
-    if((this->origin.y + offset  <= 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
-        this->origin.y = 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
-    else if(this->origin.y + offset >= 180 && offset > 0)
-        this->origin.y = 200;
-    else
-        this->origin.y += offset;
+    if(size > 3)
+    {
+        if((this->origin.y + offset  <= 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
+            this->origin.y = 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
+        else if(this->origin.y + offset >= 180 && offset > 0)
+            this->origin.y = 200;
+        else
+            this->origin.y += offset;
+    }
     EndScissorMode();
 }
 
