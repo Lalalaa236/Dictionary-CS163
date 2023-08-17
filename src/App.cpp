@@ -28,6 +28,18 @@ void SearchWord::Render(App* app)
 
         modesButtons->Draw();
 
+        if(historyButton->isPressed()) {
+            app->setNextScreen(new HistoryScreen);
+        }
+
+        if(favoriteButton->isPressed()) {
+            app->setNextScreen(new FavoriteScreen);
+        }
+
+        if(resetButton->isPressed()) {
+            app->setNextScreen(new ResetWarning);
+        }
+
         if(!searchbox->state)
         {
             if(searchbox->startSearch)
@@ -56,6 +68,7 @@ void SearchWord::Render(App* app)
             app->setNextScreen(new SearchDef());
     }
 }
+
 SearchWord::SearchWord()
 : mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
@@ -116,6 +129,8 @@ void SearchDef::Render(App* app)
 
         modesButtons->Draw();
 
+
+
         if(!searchbox->state)
         {
             if(searchbox->startSearch)
@@ -139,9 +154,10 @@ void SearchDef::Render(App* app)
                 word = list->getWord();
             }
         }
+
         if(wordButton->isPressed())
             app->setNextScreen(new SearchWord());
-    }
+        }
 }
 
 SearchDef::SearchDef()
@@ -241,3 +257,4 @@ void App::render(Screen* screen)
 {
     screen->Render(this);
 }
+

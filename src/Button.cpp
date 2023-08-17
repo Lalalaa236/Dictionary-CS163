@@ -19,7 +19,7 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
             DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, pressColorText);
         }
         else
-        {
+        {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, hoverColorText);
         }
