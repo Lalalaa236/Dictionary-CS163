@@ -108,7 +108,7 @@ void modes_buttons::Draw() {
     }
 }
 
-bool Button_function::isPressed()
+bool& Button_function::isPressed()
 {
     Vector2 mouse = GetMousePosition();
     bool pressed = false;

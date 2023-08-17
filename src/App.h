@@ -25,6 +25,7 @@ class Screen
 public:
     virtual void Render(App* app) = 0;
 };
+
 class SearchWord : public Screen
 {
 public:

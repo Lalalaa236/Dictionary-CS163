@@ -10,7 +10,7 @@ void SearchWord::Render(App* app)
     searchbox->DrawBox();
     searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
     searchbox->DrawInput();
-
+    //defButton->Draw();
     defButton->Draw();
     
     wordButton->Draw();
@@ -26,13 +26,15 @@ void SearchWord::Render(App* app)
     modesButtons->Draw();
 
     findWordButton->Draw();
+    if (defButton->isPressed()) {
+       //app->setNextScreen(new SearchWord());
+    }
 }
 SearchWord::SearchWord()
 {
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
-
     defButton = new search_by_def_button({origin.x, origin.y + size.y + 20}, {200, 75}, GRAY);
 
     wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
@@ -52,9 +54,8 @@ SearchWord::SearchWord()
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 
-    
-}
 
+}
 SearchWord::~SearchWord()
 {
     delete searchbox;
