@@ -31,7 +31,7 @@ public:
 
 class SearchWord : public Screen
 {
-public:
+private:
     enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
     int mode;
     SearchBox* searchbox;
@@ -44,11 +44,33 @@ public:
     modes_buttons* modesButtons;
     WordList* list;
     Word* word;
-
+public:
     SearchWord();
     ~SearchWord();
     void Render(App* app);
 };
+
+class SearchDef : public Screen
+{
+private:
+    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    int mode;
+    SearchBox* searchbox;
+    search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
+    WordList* list;
+    Word* word;
+public:
+    SearchDef();
+    ~SearchDef();
+    void Render(App* app);
+};
+
 class App
 {
 public:
