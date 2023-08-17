@@ -78,7 +78,7 @@ void SearchBox::HandleInput(char* input, int& length)
             this->input = buffer;
         }
         CursorBlink(GetFrameTime());
-        std::cout << "input: " << input << "!\n";
+        // std::cout << "input: " << input << "!\n";
     }
     else
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);

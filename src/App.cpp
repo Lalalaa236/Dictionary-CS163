@@ -7,36 +7,63 @@ State::State()
 
 void SearchWord::Render(App* app)
 {
-    searchbox->DrawBox();
-    searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
-    searchbox->DrawInput();
-    //defButton->Draw();
-    defButton->Draw();
-    
-    wordButton->Draw();
-    
-    historyButton->Draw();
-    
-    favoriteButton->Draw();
-    
-    gamesButton->Draw();
-    
-    resetButton->Draw();
-    
-    modesButtons->Draw();
+    if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
+    {
+        if(word)
+            word = nullptr;
+        searchbox->DrawBox();
+        searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
+        searchbox->DrawInput();
+        defButton->Draw();
 
-    // if(searchbox->startSearch)
-    //     cout << "lalalallal\n";
-        // list = new WordList(app->dict->searchWord(searchbox->input));
-    // if(list != nullptr)
-        // list->Draw();
+        wordButton->Draw();
 
-    list->Draw();
-    if (defButton->isPressed()) {
-       //app->setNextScreen(new SearchWord());
+        historyButton->Draw();
+
+        favoriteButton->Draw();
+
+        gamesButton->Draw();
+
+        resetButton->Draw();
+
+        modesButtons->Draw();
+
+    // if(searchbox->state == true)
+    // {
+    //     if(mode == Mode::SEARCH)
+    //     {
+    //         mode = Mode::NOTSEARCH;
+    //         delete list;
+    //         list = nullptr;
+    //     }
+    // }
+        if(!searchbox->state)
+        {
+            if(searchbox->startSearch)
+            {
+                delete list;
+                list = nullptr;
+                list = new WordList(app->dict->searchWord(searchbox->input));
+                mode = Mode::SEARCH;
+            }
+            if(mode == Mode::SEARCH && !searchbox->startSearch && list)
+            {
+                list->Draw();
+                word = list->getWord();
+            }
+        }
+        else
+        {
+            if(mode == Mode::SEARCH && list)
+            {
+                list->Draw();
+                word = list->getWord();
+            }
+        }
     }
 }
 SearchWord::SearchWord()
+: mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
@@ -57,11 +84,6 @@ SearchWord::SearchWord()
     constexpr Vector2 mode_origin = {50, 30};
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
-
-    dict = new Dictionary();
-    dict->loadData(ENGENG);
-
-    list = new WordList(dict->searchWord("abs"));
 }
 
 
@@ -75,17 +97,16 @@ SearchWord::~SearchWord()
     delete gamesButton;
     delete resetButton;
     delete list;
-    delete dict;
 }
 App::App()
-: mode(1)//, dict(new Dictionary())
+: mode(1), dict(new Dictionary())
 {
     if(GetWindowHandle())
         return;
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
     currentScreen = new SearchWord();
-    //dict->loadData(ENGENG);
+    dict->loadData(ENGENG);
 }
 
 App::~App()
@@ -94,6 +115,7 @@ App::~App()
         return;
     CloseWindow();
     delete currentScreen;
+    delete dict;
 }
 
 bool App::AppShouldClose()

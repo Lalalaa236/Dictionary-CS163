@@ -32,6 +32,8 @@ public:
 class SearchWord : public Screen
 {
 public:
+    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    int mode;
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
@@ -41,7 +43,7 @@ public:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     WordList* list;
-    Dictionary* dict;
+    Word* word;
 
     SearchWord();
     ~SearchWord();
@@ -53,6 +55,7 @@ public:
     State state;
     Screen* currentScreen;
     int mode;
+    Dictionary* dict;
     
     App();
     ~App();

@@ -108,7 +108,7 @@ void modes_buttons::Draw() {
     }
 }
 
-bool& Button_function::isPressed()
+bool Button_function::isPressed()
 {
     Vector2 mouse = GetMousePosition();
     bool pressed = false;
@@ -157,8 +157,6 @@ void WordButton::createShowable()
         showable.append(s);
     }
 
-    cout << "data: " << data->data << "\n";
-    cout << showable << "\n";
     int length = showable.length();
     
     char res[length];
@@ -172,9 +170,7 @@ void WordButton::createShowable()
     for(int i = 0; i < length; ++i)
         text[i] = res[i];
 
-    
 
-    cout << data->data << "\n";
 }
 
 void WordButton::Draw(Vector2 origin)
@@ -190,7 +186,7 @@ void WordButton::Draw(Vector2 origin)
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
     DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
 
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 200 && GetMousePosition().y <= 725)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {

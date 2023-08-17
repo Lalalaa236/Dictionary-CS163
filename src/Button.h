@@ -28,7 +28,7 @@ public:
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     virtual void specific_function() {};
-    bool& isPressed();
+    bool isPressed();
 
     Button_function() = default;
 };
