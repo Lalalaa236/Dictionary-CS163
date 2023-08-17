@@ -28,7 +28,7 @@ public:
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     virtual void specific_function() {};
-    bool isPressed();
+    bool& isPressed();
 
     Button_function() = default;
 };
@@ -49,6 +49,7 @@ public:
     {
         DrawRec(origin, size, color, text);
     }
+
 };
 
 class search_by_word_button : public Button_function
