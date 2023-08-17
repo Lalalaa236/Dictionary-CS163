@@ -25,7 +25,13 @@ void SearchWord::Render(App* app)
     
     modesButtons->Draw();
 
-    findWordButton->Draw();
+    // if(searchbox->startSearch)
+    //     cout << "lalalallal\n";
+        // list = new WordList(app->dict->searchWord(searchbox->input));
+    // if(list != nullptr)
+        // list->Draw();
+
+    list->Draw();
 }
 SearchWord::SearchWord()
 {
@@ -44,15 +50,16 @@ SearchWord::SearchWord()
     gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
 
     resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
-
-    word->defs.push_back(def);
-    findWordButton = new WordButton(word, {origin.x + 250, origin.y + size.y + 20}, {850, 200}, GRAY);
+    // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
 
     constexpr Vector2 mode_origin = {50, 30};
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 
-    
+    dict = new Dictionary();
+    dict->loadData(ENGENG);
+
+    list = new WordList(dict->searchWord("abs"));
 }
 
 SearchWord::~SearchWord()
@@ -64,18 +71,18 @@ SearchWord::~SearchWord()
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
-    delete findWordButton;
-    delete word;
-    delete def;
+    delete list;
+    delete dict;
 }
 App::App()
-: mode(1)
+: mode(1)//, dict(new Dictionary())
 {
     if(GetWindowHandle())
         return;
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
     currentScreen = new SearchWord();
+    //dict->loadData(ENGENG);
 }
 
 App::~App()
@@ -83,6 +90,7 @@ App::~App()
     if(!GetWindowHandle())
         return;
     CloseWindow();
+    delete currentScreen;
 }
 
 bool App::AppShouldClose()

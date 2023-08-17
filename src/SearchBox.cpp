@@ -1,6 +1,6 @@
 #include "SearchBox.h"
 SearchBox::SearchBox(Vector2 origin, Vector2 size, Color color)
-: origin(origin), size(size), bufflen(0), state(false), startSearch(false), color(color)
+: origin(origin), size(size), bufflen(0), input(), state(false), startSearch(false), color(color)
 {
     box.x = this->origin.x;
     box.y = this->origin.y;
@@ -25,6 +25,8 @@ void SearchBox::DrawBox()
 bool SearchBox::Pressed()
 {
     Vector2 mouse = GetMousePosition();
+    if(this->startSearch)
+        this->startSearch = false;
     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         if(CheckCollisionPointRec(mouse, this->box))
@@ -73,16 +75,7 @@ void SearchBox::HandleInput(char* input, int& length)
         {
             this->state = false;
             this->startSearch = true;
-             if (length > 0)
-            {
-                Dictionary dictionary;
-              //  searchResults = dictionary.searchWord(input);
-              test.clear();
-              for (int i=1;i<=30;i++)
-                test.push_back(std::to_string(i));
-
-            }
-            return;
+            this->input = buffer;
         }
         CursorBlink(GetFrameTime());
         std::cout << "input: " << input << "!\n";
@@ -107,50 +100,50 @@ void SearchBox::DrawInput()
             DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, WHITE); //blinking cursor 
         DrawRectangleLinesEx(this->box, 5, DARKBLUE);    
     }
-    if (startSearch)
-    {
-        float item_height = 40.0f; 
-        int item_num =0;
-        if (test.size()-1>=10)
-             item_num = 10;     
-        else 
-             item_num = test.size()-1;
-        Rectangle dropdownRect = {
-            this->box.x + 220,
-            this->box.y + this->box.height + 20,
-            this->box.width - 220,
-            item_height * (item_num+3),
-        };
+    // if (startSearch)
+    // {
+    //     float item_height = 40.0f; 
+    //     int item_num =0;
+    //     if (test.size()-1>=10)
+    //          item_num = 10;     
+    //     else 
+    //          item_num = test.size()-1;
+    //     Rectangle dropdownRect = {
+    //         this->box.x + 220,
+    //         this->box.y + this->box.height + 20,
+    //         this->box.width - 220,
+    //         item_height * (item_num+3),
+    //     };
 
-        float totalHeight = item_height * test.size();
-        float maxScroll = totalHeight - dropdownRect.height;
+    //     float totalHeight = item_height * test.size();
+    //     float maxScroll = totalHeight - dropdownRect.height;
 
-        //valid bounds
-        if (scroll < 0)
-            scroll = 0;
-        if (scroll > maxScroll)
-            scroll = maxScroll;
-        // Draw the dropdown list
-        DrawRectangle(dropdownRect.x, dropdownRect.y, dropdownRect.width, dropdownRect.height, LIGHTGRAY);
-        DrawRectangleLinesEx(dropdownRect,1, GRAY);
-        int firstVisibleItem = (int)(scroll/(item_height));
-        int lastVisibleItem = (int)((scroll + dropdownRect.height) / item_height);
-        if (lastVisibleItem >= test.size())
-            lastVisibleItem = test.size();
-        // Draw the items
-        for (int i = firstVisibleItem; i < lastVisibleItem; i++)
-        {
-            float itemY = dropdownRect.y + (item_height * i) - scroll;
-            if (itemY>=dropdownRect.y)
-                DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, BLACK);
-            if (CheckCollisionPointRec(GetMousePosition(), { dropdownRect.x, itemY, dropdownRect.width, item_height }))
-            {
-                //Highlight
-                DrawRectangle(dropdownRect.x, itemY, dropdownRect.width, item_height, SKYBLUE);
-                DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, WHITE);
-            }
-        }
-        int speed = 10;
-        scroll -= GetMouseWheelMove() * speed;
-    }
+    //     //valid bounds
+    //     if (scroll < 0)
+    //         scroll = 0;
+    //     if (scroll > maxScroll)
+    //         scroll = maxScroll;
+    //     // Draw the dropdown list
+    //     DrawRectangle(dropdownRect.x, dropdownRect.y, dropdownRect.width, dropdownRect.height, LIGHTGRAY);
+    //     DrawRectangleLinesEx(dropdownRect,1, GRAY);
+    //     int firstVisibleItem = (int)(scroll/(item_height));
+    //     int lastVisibleItem = (int)((scroll + dropdownRect.height) / item_height);
+    //     if (lastVisibleItem >= test.size())
+    //         lastVisibleItem = test.size();
+    //     // Draw the items
+    //     for (int i = firstVisibleItem; i < lastVisibleItem; i++)
+    //     {
+    //         float itemY = dropdownRect.y + (item_height * i) - scroll;
+    //         if (itemY>=dropdownRect.y)
+    //             DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, BLACK);
+    //         if (CheckCollisionPointRec(GetMousePosition(), { dropdownRect.x, itemY, dropdownRect.width, item_height }))
+    //         {
+    //             //Highlight
+    //             DrawRectangle(dropdownRect.x, itemY, dropdownRect.width, item_height, SKYBLUE);
+    //             DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, WHITE);
+    //         }
+    //     }
+    //     int speed = 10;
+    //     scroll -= GetMouseWheelMove() * speed;
+    // }
 }

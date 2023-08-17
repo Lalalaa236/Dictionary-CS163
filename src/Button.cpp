@@ -123,13 +123,16 @@ bool Button_function::isPressed()
     return pressed;
 }
 
-WordButton::WordButton(Word* data, Vector2 origin, Vector2 size, Color color)
-: data(data), showable()
+WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color)
+: data(_data), showable()
 {
-    this->origin = origin;
-    this->size = size;
-    this->color = color;
-    this->createShowable();
+    data = _data;
+    origin = _origin;
+    size = _size;
+    color = _color;
+    button = {origin.x, origin.y, size.x, size.y};
+    text[0] = '\0';
+    createShowable();
 }
 
 WordButton::WordButton()
@@ -138,32 +141,43 @@ WordButton::WordButton()
 
 void WordButton::createShowable()
 {
-    int maxShow = std::min(2, int(data->defs.size())); 
+    int maxShow = std::min(2, int(data->defs.size()));// show max 2 defs
     for (int j = 0; j < maxShow; j++)
     {
         std::string s = data->defs[j]->data;
-        if(s.length() * 13 > button.width - 13)
+        int textWidth = MeasureText(s.c_str(), 25);
+        if(textWidth > (button.width - 20))
         {
-            for (int k = 0; k < 3; k++)
-                s.insert(s.begin() + button.width / 13 + k, '.');
-            s.insert(s.begin() + button.width / 13 + 3, '\n');
+            s = s.substr(0, 45);
+            // cout << s << "\n";
+            for (int k = 0; k < 3; ++k)
+                s.append(".");
         }
+        s.append("\n");
         showable.append(s);
     }
 
-    showable.pop_back();
+    cout << "data: " << data->data << "\n";
+    cout << showable << "\n";
     int length = showable.length();
-    char res[showable.length() + 1];
+    
+    char res[length];
+    
 
-    for(int i = 0; i < length; ++i)
+    for(int i = 0; i < length - 1; ++i)
         res[i] = showable[i];
 
-    res[length] = '\0';
+    res[length - 1] = '\0';
     
-    strcpy(text, res);
+    for(int i = 0; i < length; ++i)
+        text[i] = res[i];
+
+    
+
+    cout << data->data << "\n";
 }
 
-void WordButton::Draw()
+void WordButton::Draw(Vector2 origin)
 {
     Color colorBtn = {51,187,197,255};
     Color colorText = {50,50,50,255};
@@ -174,7 +188,7 @@ void WordButton::Draw()
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
-    DrawText(text, origin.x + 40, origin.y + 50, 20, colorText);
+    DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -182,13 +196,13 @@ void WordButton::Draw()
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, pressColorText);
-            DrawText(text, origin.x + 40, origin.y + 50, 20, pressColorText);
+            DrawText(text, origin.x + 40, origin.y + 60, 25, pressColorText);
         }
         else
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, hoverColorText);
-            DrawText(text, origin.x + 40, origin.y + 50, 20, hoverColorText);
+            DrawText(text, origin.x + 40, origin.y + 60, 25, hoverColorText);
         }
     }
 }

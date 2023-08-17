@@ -24,7 +24,7 @@ public:
     Vector2 size;
     Rectangle button;
     Color color;
-    char text[101];
+    char text[256];
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     virtual void specific_function() {};
@@ -169,11 +169,12 @@ public:
 
     WordButton();
     WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
+    ~WordButton();
     
 
     void createShowable();
 
-    void Draw();
+    void Draw(Vector2 origin);
 };
 
 #endif

@@ -11,13 +11,15 @@ using std::vector;
 class WordList
 {
 private:
-    vector<Word*> list;
+    vector<WordButton*> word;
+    Vector2 origin;
+    Vector2 sizeEach;
+    Color color;
 public:
     WordList() = default;
-    WordList(const vector<Word*>& getList);
+    WordList(const vector<Word*>& list);
     Word* getWord(int i);
-    void DrawWordList(const vector<Word*>& getList);
-
+    void Draw();
 };
 
 #endif

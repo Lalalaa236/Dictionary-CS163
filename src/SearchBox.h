@@ -20,6 +20,7 @@ public:
     Color color;
     Vector2 origin;
     Vector2 size;
+    string input;
 
     char buffer[32];
     int bufflen;

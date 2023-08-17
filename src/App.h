@@ -8,6 +8,9 @@
 #include "SearchBox.h"
 #include <assert.h>
 #include "Button.h"
+#include "WordList.h"
+
+const string ENGENG = "data\\Eng-Eng.txt";
 
 class App;
 
@@ -36,9 +39,9 @@ public:
     games_button* gamesButton;
     reset_button* resetButton;
     modes_buttons* modesButtons;
-    WordButton* findWordButton;
-    Word* word = new Word("test");
-    Definition* def = new Definition("sfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    WordList* list;
+    Dictionary* dict;
+
     SearchWord();
     ~SearchWord();
     void Render(App* app);
@@ -49,7 +52,7 @@ public:
     State state;
     Screen* currentScreen;
     int mode;
-
+    
     App();
     ~App();
 
@@ -61,8 +64,5 @@ public:
     void setNextScreen(Screen* nextScreen);
     void render(Screen* screen);
 };
-
-// void setNextScreen(App* app, Screen* nextScreen);
-// void render(App* app, Screen* screen);
 
 #endif
