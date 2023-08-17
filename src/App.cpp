@@ -32,7 +32,6 @@ void SearchWord::Render(App* app)
         // list->Draw();
 
     list->Draw();
-    findWordButton->Draw();
     if (defButton->isPressed()) {
        //app->setNextScreen(new SearchWord());
     }
