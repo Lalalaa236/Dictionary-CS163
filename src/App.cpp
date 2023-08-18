@@ -10,10 +10,10 @@ ViewWord::ViewWord()
 {}
 
 ViewWord::ViewWord(Word* word, Screen* screen, App* app)
-: word(word), screen(screen), app(app), showable(), origin({150, 150})
+: word(word), screen(screen), app(app), showable(), origin({150, 180})
 {
     SetShowable();
-    backButton = new ReturnButton({1000, 87}, {45, 45}, RAYWHITE);
+    backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
 }
 
 ViewWord::~ViewWord()
@@ -23,18 +23,32 @@ ViewWord::~ViewWord()
 
 void ViewWord::Render(App* app, Screen* screen)
 {
-    DrawRectangle(80, 80, 1000, 70, DARKBLUE);
-    DrawRectangleLinesEx({80, 80, 1000, 600}, 5, BLACK);
-    DrawText(word->data.c_str(), 100, 100, 45, BLACK);
+    DrawRectangleRec({100, 650, 1000, 50}, WHITE);
+    DrawRectangle(100, 100, 1000, 70, DARKBLUE);
+
+    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    
+    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+    
+    DrawText(word->data.c_str(), 120, 120, 45, BLACK);
     Update();
 }
 
 void ViewWord::Update()
 {
-    BeginScissorMode(150, 150, 1000, 530);
+    BeginScissorMode(150, 170, 1000, 480);
     DrawText(showable.c_str(), this->origin.x, this->origin.y, 30, BLACK);
     float offset = GetMouseWheelMove() * 30;
-    this->origin.y += offset;
+    if(MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y > 480)
+    {
+        if(this->origin.y + offset >= 180 && offset > 0)
+            this->origin.y = 180;
+        else if(this->origin.y + offset <= (700 - MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y) && offset < 0)
+            this->origin.y = 700 - MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y;
+        else
+            this->origin.y += offset;
+    }
+    // cout << this->origin.y << "\n";
     EndScissorMode();
     if(backButton->Update())
         this->screen->mode = this->screen->Mode::SEARCH;
