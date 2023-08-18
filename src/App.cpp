@@ -125,15 +125,15 @@ void SearchWord::Render(App* app)
 
         modesButtons->Draw();
 
-        if(historyButton->isPressed()) {
+        if(historyButton->isPressed(true)) {
             app->setNextScreen(new HistoryScreen);
         }
 
-        if(favoriteButton->isPressed()) {
+        if(favoriteButton->isPressed(true)) {
             app->setNextScreen(new FavoriteScreen);
         }
 
-        if(resetButton->isPressed()) {
+        if(resetButton->isPressed(true)) {
             app->setNextScreen(new ResetWarning);
         }
 
@@ -167,7 +167,7 @@ void SearchWord::Render(App* app)
             }
         }
 
-        if(defButton->isPressed())
+        if(defButton->isPressed(true))
             app->setNextScreen(new SearchDef());
     }
     else if(mode == Mode::VIEW)
@@ -278,7 +278,7 @@ void SearchDef::Render(App* app)
             }
         }
 
-        if(wordButton->isPressed())
+        if(wordButton->isPressed(true))
             app->setNextScreen(new SearchWord());
         }
     else if(mode == Mode::VIEW)

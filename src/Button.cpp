@@ -140,7 +140,7 @@ void modes_buttons::Draw() {
     }
 }
 
-bool Button_function::isPressed()
+bool Button_function::isPressed(bool outline)
 {
     // Vector2 mouse = GetMousePosition();
     // bool pressed = false;
@@ -168,7 +168,7 @@ bool Button_function::isPressed()
     }
     else btnState = 0;
 
-    if(btnState == 2)
+    if(btnState == 2 && outline)
         DrawRectangleLinesEx(button, 3, BLACK);
     if (btnAction)
         return true;
@@ -273,7 +273,7 @@ void ReturnButton::Draw()
 bool ReturnButton::Update()
 {
     this->Draw();
-    if(this->isPressed())
+    if(this->isPressed(false))
         return true;
     return false;
 }

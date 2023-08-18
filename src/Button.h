@@ -31,7 +31,7 @@ public:
     void DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text);
 
     virtual void specific_function() {};
-    bool isPressed();
+    bool isPressed(bool outline); //if you want the outline
 
     Button_function() = default;
 };
@@ -200,5 +200,8 @@ public:
     void Draw();
     bool Update();
 };
+
+class FavButton : public Button_function
+{};
 
 #endif

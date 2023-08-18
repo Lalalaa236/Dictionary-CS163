@@ -28,7 +28,7 @@ Word* WordList::getWord()
     BeginScissorMode(300, 235, 850, 525);
     for(int i = 0; i < size; ++i)
     {
-        if(word[i] && word[i]->isPressed() && inRange())
+        if(word[i] && word[i]->isPressed(true) && inRange())
         {
             EndScissorMode();
             return word[i]->data; //cout << word[i]->data->data << "\n";
