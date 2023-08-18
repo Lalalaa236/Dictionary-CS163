@@ -16,7 +16,7 @@ void SearchWord::Render(App* app)
         searchbox->DrawInput();
         defButton->Draw();
 
-        wordButton->Draw();
+        wordButton->DrawSearch();
 
         historyButton->Draw();
 
@@ -59,12 +59,12 @@ void SearchWord::Render(App* app)
 SearchWord::SearchWord()
 : mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
-    constexpr Vector2 origin = {50, 80};
-    constexpr Vector2 size = {1100, 100};
-    searchbox = new SearchBox(origin, size, GRAY);
-    defButton = new search_by_def_button({origin.x, origin.y + size.y + 20}, {200, 75}, GRAY);
+    constexpr Vector2 origin = {50, 120};
+    constexpr Vector2 size = {1100, 85};
+    searchbox = new SearchBox(origin, size, {212,212,212,255});
+    defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
 
-    wordButton = new search_by_word_button({origin.x - 10, defButton->origin.y + defButton->size.y + 15 - 5}, {220, 95}, GRAY);
+    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
 
     historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
 
@@ -75,7 +75,7 @@ SearchWord::SearchWord()
     resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
 
-    constexpr Vector2 mode_origin = {50, 30};
+    constexpr Vector2 mode_origin = {50, 50};
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 }
@@ -102,7 +102,7 @@ void SearchDef::Render(App* app)
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
-        defButton->Draw();
+        defButton->DrawSearch();
 
         wordButton->Draw();
 
@@ -147,12 +147,12 @@ void SearchDef::Render(App* app)
 SearchDef::SearchDef()
 : mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
-    constexpr Vector2 origin = {50, 80};
-    constexpr Vector2 size = {1100, 100};
-    searchbox = new SearchBox(origin, size, GRAY);
-    defButton = new search_by_def_button({origin.x - 10, origin.y + size.y + 20}, {220, 95}, GRAY);
+    constexpr Vector2 origin = {50, 120};
+    constexpr Vector2 size = {1100, 85};
+    searchbox = new SearchBox(origin, size, {212,212,212,255});
+    defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
 
-    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 10}, {200, 75}, GRAY);
+    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
 
     historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
 
@@ -163,7 +163,7 @@ SearchDef::SearchDef()
     resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
 
-    constexpr Vector2 mode_origin = {50, 30};
+    constexpr Vector2 mode_origin = {50, 50};
     constexpr Vector2 mode_size = {200, 45};
     modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 }

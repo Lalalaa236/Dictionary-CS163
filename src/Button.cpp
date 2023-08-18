@@ -2,14 +2,12 @@
 
 void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text) {
     Color colorBtn = {51,187,197,255};
-    Color colorText = {50,50,50,255};
-    Color hoverColorBtn = {133,230,197,255};
-    Color hoverColorText = {50,50,50,255};
+    Color colorText = {255,255,255,255};
+    Color hoverColorBtn = {51,187,197,204};
+    Color hoverColorText = {255,255,255,255};
     Color pressColor = {200,255,224,175};
     Color pressColorText = {150,150,150,255};
 
-    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-    DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -21,10 +19,44 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
         else
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
-            DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, hoverColorText);
+            DrawText(text, origin.x + 40, origin.y + (size.y-36)/2, 20, hoverColorText);
         }
     }
+    else
+    {
+        DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+        DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, colorText);
+    }
 }
+
+void Button_function::DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text)
+{
+    Color colorBtn = {245,245,245,255};
+    Color colorText = {51,187,197,255};
+    Color hoverColorBtn = {133,230,197,255};
+    Color hoverColorText = {50,50,50,255};
+    Color pressColor = {200,255,224,175};
+    Color pressColorText = {150,150,150,255};
+
+    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, colorText);
+    DrawRectangleLinesEx(button, 3, {51,187,197,255});
+
+    // if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
+    // {
+    //     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    //     {
+    //         DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+    //         DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, pressColorText);
+    //     }
+    //     else
+    //     {
+    //         DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+    //         DrawText(text, origin.x + 40, origin.y + (size.y-50)/2, 20, hoverColorText);
+    //     }
+    // }
+}
+
 
 void modes_buttons::Draw() {
     Color colorBtn = {97,75,195,110};

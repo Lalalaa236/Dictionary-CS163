@@ -19,7 +19,10 @@ SearchBox::~SearchBox()
 
 void SearchBox::DrawBox()
 {
-    DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, this->color);
+    if (this->state)
+        DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, {225,225,225,255});
+    else
+        DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, this->color);
 }
 
 bool SearchBox::Pressed()
@@ -91,14 +94,15 @@ void SearchBox::CursorBlink(float time) //blinking cursor
 }
 void SearchBox::DrawInput()
 {
-    DrawText(buffer, this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, SKYBLUE);
+    Color colorBtnLine = {51,187,197,255};
+    DrawText(buffer, this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, colorBtnLine);
     if(bufflen == 0 && this->state == false)
-        DrawText("Search", this->box.x + 10, this->box.y + (this->box.height - 36)/2, 48, LIGHTGRAY);
+        DrawText("Search", this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, {155,155,155,255});
     if(this->state)
     {
         if (cursorBlinkTime < 0.5f)
-            DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, WHITE); //blinking cursor 
-        DrawRectangleLinesEx(this->box, 5, DARKBLUE);    
+            DrawRectangle(this->box.x + 40 + MeasureText(buffer, 48), this->box.y + (this->box.height - 50) / 2, 2, 50, GRAY); //blinking cursor 
+        // DrawRectangleLinesEx(this->box, 2, colorBtnLine);    
     }
     // if (startSearch)
     // {

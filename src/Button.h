@@ -27,6 +27,8 @@ public:
     char text[256];
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
+    void DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text);
+
     virtual void specific_function() {};
     bool isPressed();
 
@@ -50,6 +52,11 @@ public:
         DrawRec(origin, size, color, text);
     }
 
+    void DrawSearch()
+    {
+        DrawRecSearch(origin, size, color, text);
+    }
+
 };
 
 class search_by_word_button : public Button_function
@@ -68,6 +75,12 @@ public:
     {
         DrawRec(origin, size, color, text);
     }
+
+        void DrawSearch()
+    {
+        DrawRecSearch(origin, size, color, text);
+    }
+
 };
 
 class history_button : public Button_function
