@@ -348,3 +348,38 @@ void App::render(Screen* screen)
     screen->Render(this);
 }
 
+void ResetWarning::Render(App* app)
+{
+    Vector2 _origin = {300, 250};
+    Vector2 _size = {600, 200};
+    ClearBackground(LIGHTGRAY);
+    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, WHITE);
+    DrawText("Are you sure you want to reset?", _origin.x + 40, _origin.y + 30, 30, BLACK);
+    DrawRectangle(_origin.x + 140, _origin.y + 140, 120, 40, WHITE);
+    DrawRectangleLinesEx({_origin.x + 140, _origin.y + 140, 120, 40}, 3, BLACK);
+    DrawText("YES", _origin.x + 178, _origin.y + 153, 20, BLACK);
+    DrawRectangle(_origin.x + 340, _origin.y + 140, 120, 40, WHITE);
+    DrawRectangleLinesEx({_origin.x + 340, _origin.y + 140, 120, 40}, 3, BLACK);
+    DrawText("NO", _origin.x + 382, _origin.y + 153, 20, BLACK);
+}
+
+void FavoriteScreen::Render(App* app)
+{
+    Vector2 _origin = {50, 80};
+    Vector2 _size = {1100, 100};
+    ClearBackground(RAYWHITE);
+    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
+    DrawText("Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+}
+
+void HistoryScreen::Render(App* app)
+{
+    Vector2 _origin = {50, 80};
+    Vector2 _size = {1100, 100};
+    ClearBackground(RAYWHITE);
+    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
+    DrawText("History", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+    Vector2 return_origin = {50, 10};
+    Vector2 return_size = {100, 50};
+    DrawRectangle(return_origin.x, return_origin.y, return_size.x, return_size.y, RED);
+}
