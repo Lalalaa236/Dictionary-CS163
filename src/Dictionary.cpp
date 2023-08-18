@@ -75,10 +75,12 @@ void Dictionary::loadData(const string& filePath)
 
         else
         {
+            bool insert = false;
             Word* word;
             if(!trie.findWhole(current[0], word))
             {
                 word = new Word(current[0]);
+                insert = true;
                 if(!trie.insert(current[0], word))
                 {
                     cout << "Cannot insert: " << current[0] << "\n";
@@ -91,12 +93,28 @@ void Dictionary::loadData(const string& filePath)
             Definition* def = new Definition(current[1]);
             def->word = word;
             word->defs.push_back(def);
-            words.push_back(word);
+            int index = words.size();
+            if(insert)
+                words.push_back(word);
+            word->index = index;
             allDef.push_back(def);
             addDefWord(def, current[1]);
         }
     }
 
+    fin.close();
+    fin.open("data\\FavoriteList.txt");
+    string prev;
+    while(getline(fin, line))
+    {
+        if(prev != line)
+        {
+            Word* word;
+            if(trie.findWhole(Normalize(line), word))
+                word->favourite = true;
+            prev = line;
+        }
+    }
     fin.close();
 }
 
@@ -488,14 +506,26 @@ int numPattern(const string& text, const string& pattern) // Z func
 void Dictionary::addToFavList(Word* word)
 {
     word->favourite = true;
+    std::ifstream fin;
     std::ofstream fout;
+    string line;
+    bool insert = true;
+
+    fin.open("data\\FavoriteList.txt");
+    while(getline(fin, line))
+    {
+        if(line == word->data)
+            insert = false;
+    }
+    fin.close();
+
+    if(!insert)
+        return;
+    
     fout.open("data\\FavoriteList.txt", std::ios_base::app);
 
-    for (int i = 0; i < word->defs.size(); i++)
-    {
-        fout << word->data << " " << word->defs[i]->data;
-        fout << std::endl;
-    }
+    fout << word->data << "\n";
+    // fout << word->index << "\n";
 
     fout.close();
 }
@@ -504,35 +534,28 @@ void Dictionary::removeFromFavList(Word* word)
 {
     word->favourite = false;
     
-    std::ifstream fin("data\\FavoriteList.txt");
-    std::ofstream fout("data\\FavoriteList_removeWord.txt");
+    bool del = false;
 
-    std::string deleteLine = word->data + " ("; // Ex: "foo ("
-    std::string line;
+    string line;
 
-    bool deleted = false;
-
-    while (getline(fin, line))
+    ifstream fin;
+    vector<string> newFile;
+    fin.open("data\\FavoriteList.txt");
+    while(getline(fin, line))
     {
-        long long unsigned int position = line.find(deleteLine);
-
-        if (position == string::npos)
-        {
-            fout << line << std::endl;
-        }
+        if(line == word->data)
+            del = true;
         else
-        {
-            deleted = true;
-        }
+            newFile.push_back(line);
     }
-
-    if (deleted)
-        std::cout << "A word is removed from favorite list!";
-
     fin.close();
+    if(!del)
+        return;
+    ofstream fout("data\\FavoriteList.txt");
+    for(string s : newFile)
+        fout << s << "\n";
+
     fout.close();
-    remove("../data/FavoriteList.txt");
-    rename("../data/FavoriteList_removeWord.txt", "../data/FavoriteList.txt");
 }
 
 vector<Word*> Dictionary::viewFavList()
