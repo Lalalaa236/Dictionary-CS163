@@ -29,7 +29,10 @@ Word* WordList::getWord()
     for(int i = 0; i < size; ++i)
     {
         if(word[i] && word[i]->isPressed() && inRange())
+        {
+            EndScissorMode();
             return word[i]->data; //cout << word[i]->data->data << "\n";
+        }
     }
     EndScissorMode();
     return nullptr;
