@@ -41,14 +41,15 @@ private:
     string showable;
     Vector2 origin;
     ReturnButton* backButton;
+    FavButton* favButton;
 public:
-    ViewWord();
     ~ViewWord();
     ViewWord(Word* word, Screen* screen, App* app);
     void Render(App* app, Screen* screen);
     void SetShowable();
     int findNearestSpace(const string& s, int length, int pos);
     void Update();
+    //Word* getWord();
 };
 
 class SearchWord : public Screen

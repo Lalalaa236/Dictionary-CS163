@@ -489,7 +489,7 @@ void Dictionary::addToFavList(Word* word)
 {
     word->favourite = true;
     std::ofstream fout;
-    fout.open("../data/FavoriteList.txt", std::ios_base::app);
+    fout.open("data\\FavoriteList.txt", std::ios_base::app);
 
     for (int i = 0; i < word->defs.size(); i++)
     {
@@ -504,8 +504,8 @@ void Dictionary::removeFromFavList(Word* word)
 {
     word->favourite = false;
     
-    std::ifstream fin("../data/FavoriteList.txt");
-    std::ofstream fout("../data/FavoriteList_removeWord.txt");
+    std::ifstream fin("data\\FavoriteList.txt");
+    std::ofstream fout("data\\FavoriteList_removeWord.txt");
 
     std::string deleteLine = word->data + " ("; // Ex: "foo ("
     std::string line;

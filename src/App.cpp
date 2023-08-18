@@ -5,20 +5,18 @@ State::State()
 : mode(1), dataset(0)
 {}
 
-ViewWord::ViewWord()
-: word(nullptr), screen(nullptr), app(nullptr), rect(), showable()
-{}
-
 ViewWord::ViewWord(Word* word, Screen* screen, App* app)
 : word(word), screen(screen), app(app), showable(), origin({150, 180})
 {
     SetShowable();
     backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+    favButton = new FavButton({1050, 652}, {45, 45}, word);
 }
 
 ViewWord::~ViewWord()
 {
     delete backButton;
+    delete favButton;
 }
 
 void ViewWord::Render(App* app, Screen* screen)
@@ -52,6 +50,17 @@ void ViewWord::Update()
     EndScissorMode();
     if(backButton->Update())
         this->screen->mode = this->screen->Mode::SEARCH;
+
+    if(word->favourite)
+    {
+        if(!favButton->Update(word))
+            this->app->dict->removeFromFavList(word);
+    }
+    else
+    {
+        if(favButton->Update(word))
+            this->app->dict->addToFavList(word);
+    }
 }
 
 void ViewWord::SetShowable()
@@ -97,6 +106,11 @@ int ViewWord::findNearestSpace(const string& s, int length, int pos)
 
     return (pos - i) > (j - pos) ? j : i;
 }
+
+// Word* ViewWord::getWord()
+// {
+//     return word;
+// }
 void SearchWord::Render(App* app)
 {
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)

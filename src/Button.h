@@ -202,6 +202,17 @@ public:
 };
 
 class FavButton : public Button_function
-{};
+{
+    Texture2D base;
+    Texture2D faved;
+    Texture2D cur;
+    bool state;
+public:
+    FavButton(Vector2 origin, Vector2 size, Word* word);
+
+    void Draw();
+    void SetTexture(bool isFav);
+    bool Update(Word* word);
+};
 
 #endif

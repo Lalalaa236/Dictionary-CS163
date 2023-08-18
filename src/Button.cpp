@@ -277,3 +277,50 @@ bool ReturnButton::Update()
         return true;
     return false;
 }
+
+FavButton::FavButton(Vector2 origin, Vector2 size, Word* word)
+: state(word->favourite)
+{
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    base = LoadTexture("assets\\star-button-blank.png");
+    faved = LoadTexture("assets\\star-button-on.png");
+    if(!state)
+        cur = base;
+    else
+        cur = faved;
+}
+
+void FavButton::Draw()
+{
+    DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, RAYWHITE);
+}
+
+void FavButton::SetTexture(bool isFav)
+{
+    if(!isFav)
+        cur = base;
+    else
+        cur = faved;        
+}
+
+bool FavButton::Update(Word* word)
+{
+    this->Draw();
+    if(this->isPressed(false))
+    {
+        if(word->favourite)
+        {
+            word->favourite = false;
+            SetTexture(false);
+        }
+        else
+        {
+            word->favourite = true;
+            SetTexture(true);
+        }
+    }
+    return word->favourite;
+}
