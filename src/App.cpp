@@ -5,12 +5,12 @@ State::State()
 : mode(1), dataset(0)
 {}
 
-ViewWord::ViewWord(Word* word, Screen* screen, App* app)
+ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
 : word(word), screen(screen), app(app), showable(), origin({150, 180})
 {
     SetShowable();
     backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
-    favButton = new FavButton({1050, 652}, {45, 45}, word);
+    favButton = new FavButton({1050, 652}, {45, 45}, word->data);
 }
 
 ViewWord::~ViewWord()
@@ -28,7 +28,7 @@ void ViewWord::Render(App* app, Screen* screen)
     
     DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
     
-    DrawText(word->data.c_str(), 120, 120, 45, BLACK);
+    DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
     Update();
 }
 
@@ -51,24 +51,30 @@ void ViewWord::Update()
     if(backButton->Update())
         this->screen->mode = this->screen->Mode::SEARCH;
 
-    if(word->favourite)
+    if(word->data->favourite)
     {
-        if(!favButton->Update(word))
-            this->app->dict->removeFromFavList(word);
+        if(!favButton->Update(word->data))
+        {
+            this->app->dict->removeFromFavList(word->data);
+            word->cur = word->faved;
+        }
     }
     else
     {
-        if(favButton->Update(word))
-            this->app->dict->addToFavList(word);
+        if(favButton->Update(word->data))
+        {
+            this->app->dict->addToFavList(word->data);
+            word->cur = word->faved;
+        }
     }
 }
 
 void ViewWord::SetShowable()
 {
-    int size = word->defs.size();
+    int size = word->data->defs.size();
     for(int i = 0; i < size; ++i)
     {
-        string cpy = word->defs[i]->data;
+        string cpy = word->data->defs[i]->data;
         int count = 0;
         int length = cpy.length();
         for(int j = 0; j < length; ++j)
@@ -157,7 +163,7 @@ void SearchWord::Render(App* app)
             {
                 delete list;
                 list = nullptr;
-                delete word;
+                // delete word;
                 word = nullptr;
                 list = new WordList(app->dict->searchWord(searchbox->input));
                 mode = Mode::SEARCH;
@@ -268,7 +274,7 @@ void SearchDef::Render(App* app)
             {
                 delete list;
                 list = nullptr;
-                delete word;
+                // delete word;
                 word = nullptr;
                 list = new WordList(app->dict->searchDef(searchbox->input));
                 mode = Mode::SEARCH;

@@ -34,7 +34,7 @@ public:
 class ViewWord
 {
 private:
-    Word* word;
+    WordButton* word;
     Screen* screen;
     App* app;
     Rectangle rect;
@@ -44,7 +44,7 @@ private:
     FavButton* favButton;
 public:
     ~ViewWord();
-    ViewWord(Word* word, Screen* screen, App* app);
+    ViewWord(WordButton* word, Screen* screen, App* app);
     void Render(App* app, Screen* screen);
     void SetShowable();
     int findNearestSpace(const string& s, int length, int pos);
@@ -66,7 +66,7 @@ private:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     WordList* list;
-    Word* word;
+    WordButton* word;
     ViewWord* viewScreen;
 public:
     SearchWord();
@@ -88,7 +88,7 @@ private:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     WordList* list;
-    Word* word;
+    WordButton* word;
     ViewWord* viewScreen;
 public:
     SearchDef();

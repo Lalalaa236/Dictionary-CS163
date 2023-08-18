@@ -3,7 +3,6 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-
 #include "raylib.h"
 #include <iostream>
 #include <stdlib.h>  
@@ -180,10 +179,12 @@ class WordButton : public Button_function
 public:
     Word* data;
     string showable;
+    Texture2D cur;
+    Texture2D base;
+    Texture2D faved;
 
     WordButton();
     WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
-    ~WordButton();
     
 
     void createShowable();

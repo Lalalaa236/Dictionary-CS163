@@ -185,6 +185,12 @@ WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color
     color = _color;
     button = {origin.x, origin.y, size.x, size.y};
     text[0] = '\0';
+    base = LoadTexture("assets\\star-button-blank.png");
+    faved = LoadTexture("assets\\star-button-on.png");
+    if(!data->favourite)
+        cur = base;
+    else
+        cur = faved;
     createShowable();
 }
 
@@ -236,6 +242,7 @@ void WordButton::Draw(Vector2 origin)
     Color pressColorText = {150,150,150,255};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
     DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
 
@@ -244,12 +251,14 @@ void WordButton::Draw(Vector2 origin)
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
             DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, pressColorText);
             DrawText(text, origin.x + 40, origin.y + 60, 25, pressColorText);
         }
         else
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
             DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, hoverColorText);
             DrawText(text, origin.x + 40, origin.y + 60, 25, hoverColorText);
         }

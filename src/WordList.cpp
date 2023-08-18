@@ -21,7 +21,7 @@ WordList::WordList(const vector<Word*>& list)
     }
 }
 
-Word* WordList::getWord()
+WordButton* WordList::getWord()
 {
     int size = word.size();
     // cout << size << "\n";
@@ -31,7 +31,7 @@ Word* WordList::getWord()
         if(word[i] && word[i]->isPressed(true) && inRange())
         {
             EndScissorMode();
-            return word[i]->data; //cout << word[i]->data->data << "\n";
+            return word[i]; //cout << word[i]->data->data << "\n";
         }
     }
     EndScissorMode();
