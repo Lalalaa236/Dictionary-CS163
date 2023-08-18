@@ -25,19 +25,22 @@ Word* WordList::getWord()
 {
     int size = word.size();
     // cout << size << "\n";
+    BeginScissorMode(300, 200, 850, 540);
     for(int i = 0; i < size; ++i)
     {
         if(word[i] && word[i]->isPressed() && inRange())
         {
-            cout << word[i]->data->data << "\n";
-            return word[i]->data;
+            EndScissorMode();
+            return word[i]->data; //cout << word[i]->data->data << "\n";
         }
     }
+    EndScissorMode();
+    return nullptr;
 }
 
 void WordList::Draw()
 {
-    BeginScissorMode(300, 200, 850, 525);
+    BeginScissorMode(300, 200, 850, 540);
     int size = word.size();
     for(int i = 0; i < size; ++i)
     {
@@ -48,8 +51,8 @@ void WordList::Draw()
     // cout << offset << "\n";
     if(size > 3)
     {
-        if((this->origin.y + offset  <= 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
-            this->origin.y = 725 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
+        if((this->origin.y + offset  <= 740 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
+            this->origin.y = 740 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
         else if(this->origin.y + offset >= 180 && offset > 0)
             this->origin.y = 200;
         else

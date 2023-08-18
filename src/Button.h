@@ -25,6 +25,7 @@ public:
     Rectangle button;
     Color color;
     char text[256];
+    bool state = false;
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     void DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text);
@@ -94,7 +95,6 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  History");
     }
-    
     void Draw()
     {
         DrawRec(origin, size, color, text);
@@ -112,7 +112,7 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, " Favorite");
     }
-    
+
     void Draw()
     {
         DrawRec(origin, size, color, text);
@@ -189,6 +189,16 @@ public:
     void createShowable();
 
     void Draw(Vector2 origin);
+    bool Update();
+};
+
+class ReturnButton : public Button_function
+{
+    Texture2D image;
+public:
+    ReturnButton(Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
 };
 
 #endif

@@ -26,14 +26,36 @@ public:
 class Screen
 {
 public:
+    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    int mode;
     virtual void Render(App* app) = 0;
+};
+
+class ViewWord
+{
+private:
+    Word* word;
+    Screen* screen;
+    App* app;
+    Rectangle rect;
+    string showable;
+    Vector2 origin;
+    ReturnButton* backButton;
+public:
+    ViewWord();
+    ~ViewWord();
+    ViewWord(Word* word, Screen* screen, App* app);
+    void Render(App* app, Screen* screen);
+    void SetShowable();
+    int findNearestSpace(const string& s, int length, int pos);
+    void Update();
 };
 
 class SearchWord : public Screen
 {
 private:
-    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
-    int mode;
+    // enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    // int mode;
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
@@ -44,6 +66,7 @@ private:
     modes_buttons* modesButtons;
     WordList* list;
     Word* word;
+    ViewWord* viewScreen;
 public:
     SearchWord();
     ~SearchWord();
@@ -53,8 +76,8 @@ public:
 class SearchDef : public Screen
 {
 private:
-    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
-    int mode;
+    // enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    // int mode;
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
@@ -65,6 +88,7 @@ private:
     modes_buttons* modesButtons;
     WordList* list;
     Word* word;
+    ViewWord* viewScreen;
 public:
     SearchDef();
     ~SearchDef();
@@ -89,6 +113,24 @@ public:
     void Update();
     void setNextScreen(Screen* nextScreen);
     void render(Screen* screen);
+};
+
+class HistoryScreen : public Screen
+{
+public:
+    void Render(App* app);
+};
+
+class FavoriteScreen : public Screen
+{
+public:
+    void Render(App* app);
+};
+
+class ResetWarning : public Screen
+{
+public:
+    void Render(App* app);
 };
 
 #endif
