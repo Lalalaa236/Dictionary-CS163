@@ -25,14 +25,13 @@ Word* WordList::getWord()
 {
     int size = word.size();
     // cout << size << "\n";
+    BeginScissorMode(300, 200, 850, 540);
     for(int i = 0; i < size; ++i)
     {
         if(word[i] && word[i]->isPressed() && inRange())
-        {
-            cout << word[i]->data->data << "\n";
-            return word[i]->data;
-        }
+            return word[i]->data; //cout << word[i]->data->data << "\n";
     }
+    EndScissorMode();
     return nullptr;
 }
 

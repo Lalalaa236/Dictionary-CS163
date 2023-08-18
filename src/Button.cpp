@@ -110,17 +110,38 @@ void modes_buttons::Draw() {
 
 bool Button_function::isPressed()
 {
-    Vector2 mouse = GetMousePosition();
-    bool pressed = false;
-    if(CheckCollisionPointRec(mouse, this->button))
-    {
-        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            pressed = true;
-    }
-    else
-        pressed = false;
+    // Vector2 mouse = GetMousePosition();
+    // bool pressed = false;
+    // if(CheckCollisionPointRec(mouse, this->button))
+    // {
+    //     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    //         pressed = true;
+    // }
+    // else
+    //     pressed = false;
 
-    return pressed;
+    // return pressed;
+
+    Vector2 mousePoint = GetMousePosition();
+    bool btnAction = false;
+    int btnState = 0;
+
+    // Check button state
+    if (CheckCollisionPointRec(mousePoint, button))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
+        else btnState = 1;
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) btnAction = true;
+    }
+    else btnState = 0;
+
+    if(btnState == 2)
+        DrawRectangleLinesEx(button, 3, BLACK);
+    if (btnAction)
+        return true;
+    
+    return false;
 }
 
 WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color)
@@ -201,4 +222,26 @@ void WordButton::Draw(Vector2 origin)
             DrawText(text, origin.x + 40, origin.y + 60, 25, hoverColorText);
         }
     }
+}
+
+ReturnButton::ReturnButton(Vector2 origin, Vector2 size, Color color)
+{
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = LoadTexture("assets\\back-button.png");
+}
+
+void ReturnButton::Draw()
+{
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, RAYWHITE);
+}
+
+bool ReturnButton::Update()
+{
+    this->Draw();
+    if(this->isPressed())
+        return true;
+    return false;
 }

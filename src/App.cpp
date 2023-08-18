@@ -13,14 +13,19 @@ ViewWord::ViewWord(Word* word, Screen* screen, App* app)
 : word(word), screen(screen), app(app), showable(), origin({150, 150})
 {
     SetShowable();
+    backButton = new ReturnButton({1000, 87}, {45, 45}, RAYWHITE);
+}
+
+ViewWord::~ViewWord()
+{
+    delete backButton;
 }
 
 void ViewWord::Render(App* app, Screen* screen)
 {
-    DrawRectangle(80, 80, 1000, 60, DARKBLUE);
+    DrawRectangle(80, 80, 1000, 70, DARKBLUE);
     DrawRectangleLinesEx({80, 80, 1000, 600}, 5, BLACK);
     DrawText(word->data.c_str(), 100, 100, 45, BLACK);
-    
     Update();
 }
 
@@ -31,6 +36,8 @@ void ViewWord::Update()
     float offset = GetMouseWheelMove() * 30;
     this->origin.y += offset;
     EndScissorMode();
+    if(backButton->Update())
+        this->screen->mode = this->screen->Mode::SEARCH;
 }
 
 void ViewWord::SetShowable()
@@ -55,7 +62,7 @@ void ViewWord::SetShowable()
         showable.append("\n\n");
     }
     int length = showable.length();
-    cout << showable;
+    // cout << showable;
 }
 
 int ViewWord::findNearestSpace(const string& s, int length, int pos)
@@ -132,7 +139,7 @@ void SearchWord::Render(App* app)
                 list->Draw();
                 word = list->getWord();
                 if(word)
-                    mode = Mode::VIEW;
+                    this->mode = Mode::VIEW;
             }
         }
         else
@@ -142,7 +149,7 @@ void SearchWord::Render(App* app)
                 list->Draw();
                 word = list->getWord();
                 if(word)
-                    mode = Mode::VIEW;
+                    this->mode = Mode::VIEW;
             }
         }
 
@@ -155,11 +162,13 @@ void SearchWord::Render(App* app)
             viewScreen = new ViewWord(word, this, app);
         viewScreen->Render(app, this);
     }
+    // cout << mode << "\n";
 }
 
 SearchWord::SearchWord()
-: mode(Mode::NOTSEARCH), word(nullptr), list(nullptr), viewScreen(nullptr)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
 {
+    this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
@@ -199,6 +208,11 @@ void SearchDef::Render(App* app)
 {
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
+        if(viewScreen)
+        {
+            delete viewScreen;
+            viewScreen = nullptr;
+        }
         if(word)
             word = nullptr;
         searchbox->DrawBox();
@@ -226,6 +240,8 @@ void SearchDef::Render(App* app)
             {
                 delete list;
                 list = nullptr;
+                delete word;
+                word = nullptr;
                 list = new WordList(app->dict->searchDef(searchbox->input));
                 mode = Mode::SEARCH;
             }
@@ -233,6 +249,8 @@ void SearchDef::Render(App* app)
             {
                 list->Draw();
                 word = list->getWord();
+                if(word)
+                    this->mode = Mode::VIEW;
             }
         }
         else
@@ -241,17 +259,26 @@ void SearchDef::Render(App* app)
             {
                 list->Draw();
                 word = list->getWord();
+                if(word)
+                    this->mode = Mode::VIEW;
             }
         }
 
         if(wordButton->isPressed())
             app->setNextScreen(new SearchWord());
         }
+    else if(mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
 }
 
 SearchDef::SearchDef()
-: mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
 {
+    this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {50, 80};
     constexpr Vector2 size = {1100, 100};
     searchbox = new SearchBox(origin, size, GRAY);
@@ -283,6 +310,7 @@ SearchDef::~SearchDef()
     delete gamesButton;
     delete resetButton;
     delete list;
+    delete viewScreen;
 }
 
 App::App()

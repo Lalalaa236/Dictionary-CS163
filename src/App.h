@@ -26,6 +26,8 @@ public:
 class Screen
 {
 public:
+    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    int mode;
     virtual void Render(App* app) = 0;
 };
 
@@ -38,8 +40,10 @@ private:
     Rectangle rect;
     string showable;
     Vector2 origin;
+    ReturnButton* backButton;
 public:
     ViewWord();
+    ~ViewWord();
     ViewWord(Word* word, Screen* screen, App* app);
     void Render(App* app, Screen* screen);
     void SetShowable();
@@ -50,8 +54,8 @@ public:
 class SearchWord : public Screen
 {
 private:
-    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
-    int mode;
+    // enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    // int mode;
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
@@ -72,8 +76,8 @@ public:
 class SearchDef : public Screen
 {
 private:
-    enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
-    int mode;
+    // enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
+    // int mode;
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
@@ -84,6 +88,7 @@ private:
     modes_buttons* modesButtons;
     WordList* list;
     Word* word;
+    ViewWord* viewScreen;
 public:
     SearchDef();
     ~SearchDef();

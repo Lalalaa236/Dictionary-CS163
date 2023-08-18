@@ -176,6 +176,16 @@ public:
     void createShowable();
 
     void Draw(Vector2 origin);
+    bool Update();
+};
+
+class ReturnButton : public Button_function
+{
+    Texture2D image;
+public:
+    ReturnButton(Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
 };
 
 #endif
