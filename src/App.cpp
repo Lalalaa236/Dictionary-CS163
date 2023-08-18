@@ -171,7 +171,7 @@ SearchWord::SearchWord()
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {50, 120};
     constexpr Vector2 size = {1100, 85};
-    searchbox = new SearchBox(origin, size, GRAY);
+    searchbox = new SearchBox(origin, size, {212,212,212,255});
     defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
 
     wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
@@ -281,7 +281,7 @@ SearchDef::SearchDef()
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {50, 120};
     constexpr Vector2 size = {1100, 85};
-    searchbox = new SearchBox(origin, size, GRAY);
+    searchbox = new SearchBox(origin, size, {212,212,212,255});
     defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
 
     wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
