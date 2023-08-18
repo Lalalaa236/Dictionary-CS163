@@ -25,6 +25,7 @@ public:
     Rectangle button;
     Color color;
     char text[256];
+    bool state = false;
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
     virtual void specific_function() {};
@@ -81,7 +82,6 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  History");
     }
-    
     void Draw()
     {
         DrawRec(origin, size, color, text);
@@ -99,7 +99,7 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, " Favorite");
     }
-    
+
     void Draw()
     {
         DrawRec(origin, size, color, text);
