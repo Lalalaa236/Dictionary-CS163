@@ -10,15 +10,19 @@
 #include "Button.h"
 #include "WordList.h"
 
-const string ENGENG = "data\\Eng-Eng.txt";
+const string ENGENG = "data\\Eng-Eng\\";
+const string ENGVIE = "data\\Eng-Vie\\";
+const string VIEENG = "data\\Vie-Eng\\";
+const string SLANG = "data\\Slang\\";
+const string EMOJI = "data\\Emoji\\";
 
 class App;
 
 class State
 {
 public:
-    int mode;
-    int dataset;
+    bool change;
+    string dataset;
     
     State();
 };

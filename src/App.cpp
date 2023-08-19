@@ -2,7 +2,7 @@
 #include "App.h"
 
 State::State()
-: mode(1), dataset(0)
+: change(false), dataset(ENGENG)
 {}
 
 ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
@@ -55,15 +55,15 @@ void ViewWord::Update()
     {
         if(!favButton->Update(word->data))
         {
-            this->app->dict->removeFromFavList(word->data);
-            word->cur = word->faved;
+            this->app->dict->removeFromFavList(word->data, this->app->state.dataset);
+            word->cur = word->base;
         }
     }
     else
     {
         if(favButton->Update(word->data))
         {
-            this->app->dict->addToFavList(word->data);
+            this->app->dict->addToFavList(word->data, this->app->state.dataset);
             word->cur = word->faved;
         }
     }
@@ -395,6 +395,12 @@ void App::run()
 {
     while(!this->AppShouldClose())
     {
+        if(this->state.change)
+        {
+            this->state.change = false;
+            dict->deleteDict();
+            dict->loadData(this->state.dataset);
+        }
         this->Tick();
     }
 }

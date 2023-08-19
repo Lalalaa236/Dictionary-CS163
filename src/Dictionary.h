@@ -70,8 +70,8 @@ public:
     void addDefWord(Definition*& def, const string& s);
     void removeWord(const string& str, const string filePath); //function for user to delete a word
 
-    void addToFavList(Word* word);
-    void removeFromFavList(Word* word);
+    void addToFavList(Word* word, const string& fileDir);
+    void removeFromFavList(Word* word, const string& fileDir);
     vector<Word*> viewFavList();
 };
 
