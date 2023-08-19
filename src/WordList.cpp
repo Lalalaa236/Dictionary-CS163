@@ -23,8 +23,10 @@ WordList::WordList(const vector<Word*>& list)
 
 Word* WordList::getWord()
 {
+
     int size = word.size();
     // cout << size << "\n";
+    
     for(int i = 0; i < size; ++i)
     {
         if(word[i] && word[i]->isPressed() && inRange())
@@ -45,6 +47,7 @@ void WordList::Draw()
         word[i]->Draw({this->origin.x, this->origin.y + (this->sizeEach.y + 20) * i});
     }
     float offset = GetMouseWheelMove() * 30;
+
     // cout << offset << "\n";
     if(size > 3)
     {
@@ -56,6 +59,7 @@ void WordList::Draw()
             this->origin.y += offset;
     }
     EndScissorMode();
+
 }
 
 bool WordList::inRange()

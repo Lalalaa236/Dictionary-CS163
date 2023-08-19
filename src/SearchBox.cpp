@@ -97,7 +97,7 @@ void SearchBox::DrawInput()
     if(this->state)
     {
         if (cursorBlinkTime < 0.5f)
-            DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, WHITE); //blinking cursor 
+            DrawRectangle(this->box.x + 10 + MeasureText(buffer, 48), this->box.y + (this->box.height - 70) / 2, 2, 70, BLACK); //blinking cursor 
         DrawRectangleLinesEx(this->box, 5, DARKBLUE);    
     }
     // if (startSearch)

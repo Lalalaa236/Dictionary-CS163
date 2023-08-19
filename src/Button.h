@@ -24,10 +24,15 @@ public:
     Vector2 size;
     Rectangle button;
     Color color;
+    Color color_text;
+    char title[256];
+     char content[256];
+    int text_size;
     char text[256];
     bool state = false;
 
-    void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
+    void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
+    void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
     virtual void specific_function() {};
     bool isPressed();
 
@@ -37,18 +42,21 @@ public:
 class search_by_def_button : public Button_function
 {
 public:
-    search_by_def_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    search_by_def_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;
+        color_text = _color_text;
+        text_size = _text_size;    
+     
         button = {origin.x, origin.y, size.x, size.y};   
-        strcpy(text, "Search by \n definition");
+        strcpy(text, "Definition");
     }
     
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawRec(origin, size, color, text,color_text,text_size);
     }
 
 };
@@ -56,112 +64,131 @@ public:
 class search_by_word_button : public Button_function
 {
 public:
-    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;   
+        color_text = _color_text;
+        text_size= _text_size;
         button = {origin.x, origin.y, size.x, size.y};
-        strcpy(text, "Search by \n   word");
+        strcpy(text, "Word");
     }
 
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawRec(origin, size, color, text,color_text,text_size);
     }
 };
 
 class history_button : public Button_function
 {
 public:
-    history_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    history_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;       
+        strcpy(title, _title);
+        strcpy(content, _content);
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  History");
     }
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawTab(origin, size, color, title,content,color_text,text_size);
     }
 };
 
 class favorite_button : public Button_function
 {
 public:
-    favorite_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    favorite_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;  
+        strcpy(title, _title);
+        strcpy(content, _content);      
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, " Favorite");
     }
 
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawTab(origin, size, color, title,content,color_text,text_size);
     }
 };
 
 class games_button : public Button_function
 {
 public:
-    games_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    games_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;      
+        strcpy(title, _title);
+        strcpy(content, _content);    
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Games");
     }
     
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawTab(origin, size, color, title,content,color_text,text_size);
     }
 };
 
 class reset_button : public Button_function
 {
 public:
-    reset_button(Vector2 _origin, Vector2 _size, Color _color) : Button_function()
+    reset_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
     {
         origin = _origin; 
         size = _size;    
         color = _color;   
-        button = {origin.x, origin.y, size.x, size.y};
+        color_text = _color_text;
+text_size = _text_size;        button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Reset");
     }
     
     void Draw()
     {
-        DrawRec(origin, size, color, text);
+        DrawRec(origin, size, color, text,color_text,text_size);
     }
 };
 
 class modes_buttons
 {
 public:
-    vector<string> modes = {"  Eng-Eng", "   Eng-Vie", "   Vie-Eng", "    Slang", "    Emoji"};
+    vector<string> modes = {"Eng-Eng", "Eng-Vie", "Vie-Eng", "Slang", "Emoji"};
     vector<Rectangle> mode_buttons;
 
     Vector2 origin;
     Vector2 size;
     Color color;
+    Color color_text;
     char text[101];
-
-    modes_buttons(Vector2 _origin, Vector2 _size, Color _color) {
+    int text_size;
+    bool isDropdownVisible = false;
+    modes_buttons(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    {
         origin = _origin;
         size = _size;
         color = _color;
+        color_text = _color_text;
+        text_size = _text_size;
     }
 
     void Draw();
 };
-
 class WordButton : public Button_function
 {
 public:

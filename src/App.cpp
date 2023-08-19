@@ -14,6 +14,7 @@ void SearchWord::Render(App* app)
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
+        modesButtons->Draw();
         defButton->Draw();
 
         wordButton->Draw();
@@ -25,9 +26,6 @@ void SearchWord::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
-
-        modesButtons->Draw();
-
         if(historyButton->isPressed()) {
             app->setNextScreen(new HistoryScreen);
         }
@@ -47,20 +45,24 @@ void SearchWord::Render(App* app)
                 delete list;
                 list = nullptr;
                 list = new WordList(app->dict->searchWord(searchbox->input));
+                cout<<"search";
                 mode = Mode::SEARCH;
             }
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
             {
                 list->Draw();
                 word = list->getWord();
+
             }
         }
         else
         {
             if(mode == Mode::SEARCH && list)
             {
+                cout<<"testneee";
                 list->Draw();
                 word = list->getWord();
+
             }
         }
 
@@ -72,25 +74,26 @@ void SearchWord::Render(App* app)
 SearchWord::SearchWord()
 : mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
-    constexpr Vector2 origin = {50, 80};
-    constexpr Vector2 size = {1100, 100};
-    searchbox = new SearchBox(origin, size, GRAY);
-    defButton = new search_by_def_button({origin.x, origin.y + size.y + 20}, {200, 75}, GRAY);
+    constexpr Vector2 origin = {300, 25};
+    constexpr Vector2 size = {700, 70};
+    searchbox = new SearchBox(origin, size, WHITE);
 
-    wordButton = new search_by_word_button({origin.x - 10, defButton->origin.y + defButton->size.y + 15 - 5}, {220, 95}, GRAY);
+    wordButton = new search_by_word_button({20, origin.y}, {110, 50}, PURPLE, WHITE,21);
+    defButton = new search_by_def_button({20+wordButton->size.x, origin.y},  {110, 50}, WHITE,BLACK,21);
 
-    historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
+    historyButton = new history_button({10, wordButton->origin.y + wordButton->size.y + searchbox->size.y+10}, {250, 150},PINK,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
+    favoriteButton = new favorite_button({10, historyButton->origin.y + historyButton->size.y + 10}, {250, 150},ORANGE,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
+    gamesButton = new games_button({10, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 150},DARKGREEN,"Game","Practice your vocabulary skills",BLACK,24);
 
-    resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
+    resetButton = new reset_button({10, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, GREEN,BLACK,24);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
+    
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE,BLACK,25);
 
-    constexpr Vector2 mode_origin = {50, 30};
-    constexpr Vector2 mode_size = {200, 45};
-    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
 }
 
 
@@ -163,25 +166,25 @@ void SearchDef::Render(App* app)
 SearchDef::SearchDef()
 : mode(Mode::NOTSEARCH), word(nullptr), list(nullptr)
 {
-    constexpr Vector2 origin = {50, 80};
-    constexpr Vector2 size = {1100, 100};
-    searchbox = new SearchBox(origin, size, GRAY);
-    defButton = new search_by_def_button({origin.x - 10, origin.y + size.y + 20}, {220, 95}, GRAY);
+ constexpr Vector2 origin = {300, 25};
+    constexpr Vector2 size = {700, 70};
+    searchbox = new SearchBox(origin, size, WHITE);
 
-    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 10}, {200, 75}, GRAY);
+    wordButton = new search_by_word_button({20, origin.y}, {110, 50}, WHITE, BLACK,21);
+    defButton = new search_by_def_button({20+wordButton->size.x, origin.y},  {110, 50}, PURPLE,WHITE,21);
 
-    historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
+    historyButton = new history_button({10, wordButton->origin.y + wordButton->size.y + searchbox->size.y+10}, {250, 150},PINK,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
+    favoriteButton = new favorite_button({10, historyButton->origin.y + historyButton->size.y + 10}, {250, 150},ORANGE,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
+    gamesButton = new games_button({10, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 150},DARKGREEN,"Game","Practice your vocabulary skills",BLACK,24);
 
-    resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
+    resetButton = new reset_button({10, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, GREEN,BLACK,24);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
-
-    constexpr Vector2 mode_origin = {50, 30};
-    constexpr Vector2 mode_size = {200, 45};
-    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
+    
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE,BLACK,25);
 }
 
 SearchDef::~SearchDef()
@@ -231,7 +234,7 @@ void App::Tick()
 
 void App::Draw()
 {
-    ClearBackground(RAYWHITE);
+    ClearBackground(GREY);
 }
 
 void App::Update()
