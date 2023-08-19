@@ -10,19 +10,19 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Color pressColorText = {150,150,150,255};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-    DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 36)/2}, text_size,2, colorText);
+    DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
-            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 36)/2}, text_size,2, pressColorText);
+            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
-            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 36)/2}, text_size,2, hoverColorText);
+            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
@@ -31,29 +31,33 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Color colorBtn = color;
     Color colorText = color_text;
-    Color hoverColorBtn = {133,230,197,255};
+    Color hoverColorBtn = color;
     Color hoverColorText = {50,50,50,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
+    Color pressColor = color;
+    Color pressColorText = {50,50,50,255};
+    Color layerHover = {255,255,255, 100};
+    Color layerPress = {255,255,255, 70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,WHITE);
     Rectangle rec_title = {origin.x+5,origin.y+10,110,35};
     DrawRectangle(rec_title.x,rec_title.y,rec_title.width,rec_title.height,colorBtn);
 
     DrawTextEx(font,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
-     DrawTextEx(font,content,{origin.x + 10, origin.y + (size.y - 36)/2}, text_size-2,2,colorText);
+    DrawTextEx(font,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
-            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 36)/2}, text_size,2, pressColorText);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
-            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 36)/2}, text_size,2, hoverColorText);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
@@ -252,7 +256,7 @@ void WordButton::Draw(Vector2 origin)
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
     DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
 
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 200 && GetMousePosition().y <= 725)
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {

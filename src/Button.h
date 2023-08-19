@@ -80,6 +80,28 @@ public:
 
 };
 
+class add_word_button : public Button_function
+{
+public:
+     add_word_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
+    {
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;      
+        strcpy(title, _title);
+        strcpy(content, _content);    
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, "  Games");
+    }
+    
+    void Draw()
+    {
+        DrawTab(origin, size, color, title,content,color_text,text_size);
+    }
+};
+
 class history_button : public Button_function
 {
 public:
