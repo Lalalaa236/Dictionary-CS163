@@ -9,8 +9,8 @@ ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
 : word(word), screen(screen), app(app), showable(), origin({150, 180})
 {
     SetShowable();
-    backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
-    favButton = new FavButton({1050, 652}, {45, 45}, word->data);
+    backButton = new ReturnButton(app->asset, {1050, 112}, {45, 45}, RAYWHITE);
+    favButton = new FavButton(app->asset, {1050, 652}, {45, 45}, word->data);
 }
 
 ViewWord::~ViewWord()
@@ -56,7 +56,7 @@ void ViewWord::Update()
         if(!favButton->Update(word->data))
         {
             this->app->dict->removeFromFavList(word->data, this->app->state.dataset);
-            word->cur = word->base;
+            word->cur = app->asset->base; //marking
         }
     }
     else
@@ -64,7 +64,8 @@ void ViewWord::Update()
         if(favButton->Update(word->data))
         {
             this->app->dict->addToFavList(word->data, this->app->state.dataset);
-            word->cur = word->faved;
+            // cout << "welp";
+            word->cur = app->asset->faved;
         }
     }
 }
@@ -165,7 +166,7 @@ void SearchWord::Render(App* app)
                 list = nullptr;
                 // delete word;
                 word = nullptr;
-                list = new WordList(app->dict->searchWord(searchbox->input));
+                list = new WordList(app->asset, app->dict->searchWord(searchbox->input));
                 mode = Mode::SEARCH;
             }
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
@@ -276,7 +277,7 @@ void SearchDef::Render(App* app)
                 list = nullptr;
                 // delete word;
                 word = nullptr;
-                list = new WordList(app->dict->searchDef(searchbox->input));
+                list = new WordList(app->asset, app->dict->searchDef(searchbox->input));
                 mode = Mode::SEARCH;
             }
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
@@ -356,7 +357,7 @@ App::App()
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
     currentScreen = new SearchWord();
-    
+    asset = new Asset();
 }
 
 App::~App()
@@ -366,6 +367,7 @@ App::~App()
     CloseWindow();
     delete currentScreen;
     delete dict;
+    delete asset;
 }
 
 bool App::AppShouldClose()

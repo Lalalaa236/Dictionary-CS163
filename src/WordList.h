@@ -15,9 +15,10 @@ private:
     Vector2 origin;
     Vector2 sizeEach;
     Color color;
+    Asset* asset;
 public:
     WordList() = default;
-    WordList(const vector<Word*>& list);
+    WordList(Asset* asset, const vector<Word*>& list);
     ~WordList();
     WordButton* getWord();
     void Draw();

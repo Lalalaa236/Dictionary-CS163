@@ -11,6 +11,7 @@
 #include "SearchBox.h"
 #include <cstring>
 #include <cmath>
+#include "Asset.h"
 
 using std::string;
 using std::vector;
@@ -177,14 +178,15 @@ public:
 class WordButton : public Button_function
 {
 public:
+    Asset* asset;
     Word* data;
     string showable;
     Texture2D cur;
-    Texture2D base;
-    Texture2D faved;
+    // Texture2D base;
+    // Texture2D faved;
 
     WordButton();
-    WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
+    WordButton(Asset* asset, Word* data, Vector2 origin, Vector2 size, Color color);
     ~WordButton();
     
 
@@ -197,20 +199,22 @@ public:
 class ReturnButton : public Button_function
 {
     Texture2D image;
+    Asset* asset;
 public:
-    ReturnButton(Vector2 origin, Vector2 size, Color color);
+    ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
     void Draw();
     bool Update();
 };
 
 class FavButton : public Button_function
 {
-    Texture2D base;
-    Texture2D faved;
+    // Texture2D base;
+    // Texture2D faved;
+    Asset* asset;
     Texture2D cur;
     bool state;
 public:
-    FavButton(Vector2 origin, Vector2 size, Word* word);
+    FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word);
 
     void Draw();
     void SetTexture(bool isFav);

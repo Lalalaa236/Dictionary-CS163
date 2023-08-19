@@ -1,8 +1,9 @@
 #include "WordList.h"
 
-WordList::WordList(const vector<Word*>& list)
+WordList::WordList(Asset* asset, const vector<Word*>& list)
 : origin({300, 235}), sizeEach({850, 150}), color(GRAY)
 {
+    this->asset = asset;
     // cout << "loli\n";
     int size = list.size();
     // cout << list[17]->data << "\n";
@@ -14,7 +15,7 @@ WordList::WordList(const vector<Word*>& list)
             continue;
         else
         {
-            WordButton* newWord = new WordButton(list[i], {this->origin.x, this->origin.y + 20 + this->sizeEach.y * count}, this->sizeEach, this->color);
+            WordButton* newWord = new WordButton(asset, list[i], {this->origin.x, this->origin.y + 20 + this->sizeEach.y * count}, this->sizeEach, this->color);
             word.push_back(newWord);
             ++count;
         }

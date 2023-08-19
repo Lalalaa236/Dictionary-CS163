@@ -107,6 +107,7 @@ public:
     Screen* currentScreen;
     int mode;
     Dictionary* dict;
+    Asset* asset;
     
     App();
     ~App();

@@ -176,8 +176,8 @@ bool Button_function::isPressed(bool outline)
     return false;
 }
 
-WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color)
-: data(_data), showable()
+WordButton::WordButton(Asset* asset, Word* _data, Vector2 _origin, Vector2 _size, Color _color)
+: asset(asset), data(_data), showable()
 {
     data = _data;
     origin = _origin;
@@ -185,12 +185,12 @@ WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color
     color = _color;
     button = {origin.x, origin.y, size.x, size.y};
     text[0] = '\0';
-    base = LoadTexture("assets\\star-button-blank.png");
-    faved = LoadTexture("assets\\star-button-on.png");
+    // base = LoadTexture("assets\\star-button-blank.png");
+    // faved = LoadTexture("assets\\star-button-on.png");
     if(!data->favourite)
-        cur = base;
+        cur = asset->base;
     else
-        cur = faved;
+        cur = asset->faved;
     createShowable();
 }
 
@@ -265,13 +265,14 @@ void WordButton::Draw(Vector2 origin)
     }
 }
 
-ReturnButton::ReturnButton(Vector2 origin, Vector2 size, Color color)
+ReturnButton::ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+: asset(asset)
 {
     this->origin = origin; 
     this->size = size;
     this->color = color;
     button = {origin.x, origin.y, size.x, size.y};
-    image = LoadTexture("assets\\back-button.png");
+    image = asset->image;
 }
 
 void ReturnButton::Draw()
@@ -287,19 +288,19 @@ bool ReturnButton::Update()
     return false;
 }
 
-FavButton::FavButton(Vector2 origin, Vector2 size, Word* word)
-: state(word->favourite)
+FavButton::FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word)
+: asset(asset), state(word->favourite)
 {
     this->origin = origin; 
     this->size = size;
     this->color = color;
     button = {origin.x, origin.y, size.x, size.y};
-    base = LoadTexture("assets\\star-button-blank.png");
-    faved = LoadTexture("assets\\star-button-on.png");
+    // base = LoadTexture("assets\\star-button-blank.png");
+    // faved = LoadTexture("assets\\star-button-on.png");
     if(!state)
-        cur = base;
+        cur = asset->base;
     else
-        cur = faved;
+        cur = asset->faved;
 }
 
 void FavButton::Draw()
@@ -310,9 +311,9 @@ void FavButton::Draw()
 void FavButton::SetTexture(bool isFav)
 {
     if(!isFav)
-        cur = base;
+        cur = this->asset->base;
     else
-        cur = faved;        
+        cur = this->asset->faved;        
 }
 
 bool FavButton::Update(Word* word)
