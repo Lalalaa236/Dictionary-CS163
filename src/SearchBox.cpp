@@ -19,10 +19,7 @@ SearchBox::~SearchBox()
 
 void SearchBox::DrawBox()
 {
-    if (this->state)
-        DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, {225,225,225,255});
-    else
-        DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, this->color);
+    DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, this->color);
 }
 
 bool SearchBox::Pressed()

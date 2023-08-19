@@ -562,7 +562,7 @@ void Dictionary::removeFromFavList(Word* word, const string& fileDir)
 
 vector<Word*> Dictionary::viewFavList()
 {
-    std::ifstream fin("../data/FavoriteList.txt");
+    std::ifstream fin("data\\FavoriteList.txt");
 
     vector<Word*> favList;
 

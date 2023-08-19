@@ -1,7 +1,7 @@
 #include "WordList.h"
 
 WordList::WordList(Asset* asset, const vector<Word*>& list)
-: origin({300, 235}), sizeEach({850, 150}), color(GRAY)
+: origin({300, 180}), sizeEach({850, 150}), color(GRAY)
 {
     this->asset = asset;
     // cout << "loli\n";
@@ -26,7 +26,7 @@ WordButton* WordList::getWord()
 {
     int size = word.size();
     // cout << size << "\n";
-    BeginScissorMode(300, 235, 850, 525);
+    BeginScissorMode(300, 180, 850, 525);
     for(int i = 0; i < size; ++i)
     {
         if(word[i] && word[i]->isPressed(true) && inRange())
@@ -41,7 +41,7 @@ WordButton* WordList::getWord()
 
 void WordList::Draw()
 {
-    BeginScissorMode(300, 235, 850, 525);
+    BeginScissorMode(300, 180, 850, 535);
     int size = word.size();
     for(int i = 0; i < size; ++i)
     {
@@ -52,10 +52,10 @@ void WordList::Draw()
     // cout << offset << "\n";
     if(size > 3)
     {
-        if((this->origin.y + offset  <= 760 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
-            this->origin.y = 760 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
+        if((this->origin.y + offset  <= 715 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y + 20) && (offset < 0))
+            this->origin.y = 715 - (this->sizeEach.y + 20) * (size - 1) - sizeEach.y;
         else if(this->origin.y + offset >= 180 && offset > 0)
-            this->origin.y = 235;
+            this->origin.y = 180;
         else
             this->origin.y += offset;
     }
@@ -65,7 +65,7 @@ void WordList::Draw()
 bool WordList::inRange()
 {
     Vector2 mouse = GetMousePosition();
-    if(mouse.y >= 235 && mouse.y < 725)
+    if(mouse.y >= 180 && mouse.y < 725)
         return true;
     return false;
 }

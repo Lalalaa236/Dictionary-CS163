@@ -1,4 +1,3 @@
-// app.cpp
 #include "App.h"
 
 State::State()
@@ -129,12 +128,18 @@ void SearchWord::Render(App* app)
         }
         if(word)
             word = nullptr;
+        
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
-        defButton->Draw();
+        
+        modesButtons->Draw();
+        //cout << "fuck\n";
 
-        wordButton->DrawSearch();
+        defButton->Draw();
+        wordButton->Draw();
+
+        addWordButton->Draw();
 
         historyButton->Draw();
 
@@ -144,18 +149,20 @@ void SearchWord::Render(App* app)
 
         resetButton->Draw();
 
-        modesButtons->Draw();
-
-        if(historyButton->isPressed(true)) {
-            app->setNextScreen(new HistoryScreen);
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
         }
 
-        if(favoriteButton->isPressed(true)) {
-            app->setNextScreen(new FavoriteScreen);
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
         }
 
-        if(resetButton->isPressed(true)) {
-            app->setNextScreen(new ResetWarning);
+        if(favoriteButton->isPressed(false)) {
+            app->setNextScreen(new FavoriteScreen(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
         }
 
         if(!searchbox->state)
@@ -189,7 +196,7 @@ void SearchWord::Render(App* app)
         }
 
         if(defButton->isPressed(true))
-            app->setNextScreen(new SearchDef());
+            app->setNextScreen(new SearchDef(this->app));
     }
     else if(mode == Mode::VIEW)
     {
@@ -200,29 +207,33 @@ void SearchWord::Render(App* app)
     // cout << mode << "\n";
 }
 
-SearchWord::SearchWord()
+SearchWord::SearchWord(App* app)
 : word(nullptr), list(nullptr), viewScreen(nullptr)
 {
+    this->app = app;
     this->mode = Mode::NOTSEARCH;
-    constexpr Vector2 origin = {50, 120};
-    constexpr Vector2 size = {1100, 85};
-    searchbox = new SearchBox(origin, size, {212,212,212,255});
-    defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+    searchbox = new SearchBox(origin, size, {WHITE});
 
-    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
+    wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, PURPLE, WHITE,21);
+    defButton = new search_by_def_button(this->app->asset, {30+wordButton->size.x, origin.y },  {125, 70}, WHITE,BLACK,21);
 
-    historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
+    addWordButton = new add_word_button(this->app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
 
-    favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
+    historyButton = new history_button(this->app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
 
-    gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
+    favoriteButton = new favorite_button(this->app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
 
-    resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
+    gamesButton = new games_button(this->app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Practice your vocabulary skills",BLACK,24);
+
+    resetButton = new reset_button(this->app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
 
-    constexpr Vector2 mode_origin = {50, 50};
-    constexpr Vector2 mode_size = {200, 45};
-    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(this->app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    //cout << "jesus christ!\n";
 }
 
 
@@ -253,9 +264,12 @@ void SearchDef::Render(App* app)
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
-        defButton->DrawSearch();
+        modesButtons->Draw();
 
+        defButton->Draw();
         wordButton->Draw();
+
+        addWordButton->Draw();
 
         historyButton->Draw();
 
@@ -265,9 +279,21 @@ void SearchDef::Render(App* app)
 
         resetButton->Draw();
 
-        modesButtons->Draw();
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
+        }
 
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
+        }
 
+        if(favoriteButton->isPressed(false)) {
+            app->setNextScreen(new FavoriteScreen(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
+        }
 
         if(!searchbox->state)
         {
@@ -300,7 +326,7 @@ void SearchDef::Render(App* app)
         }
 
         if(wordButton->isPressed(true))
-            app->setNextScreen(new SearchWord());
+            app->setNextScreen(new SearchWord(this->app));
         }
     else if(mode == Mode::VIEW)
     {
@@ -310,29 +336,30 @@ void SearchDef::Render(App* app)
     }
 }
 
-SearchDef::SearchDef()
+SearchDef::SearchDef(App* app)
 : word(nullptr), list(nullptr), viewScreen(nullptr)
 {
+    this->app = app;
     this->mode = Mode::NOTSEARCH;
-    constexpr Vector2 origin = {50, 120};
-    constexpr Vector2 size = {1100, 85};
-    searchbox = new SearchBox(origin, size, {212,212,212,255});
-    defButton = new search_by_def_button({origin.x, origin.y + size.y + 30}, {200, 75}, GRAY);
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+    searchbox = new SearchBox(origin, size, WHITE);
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, WHITE,BLACK,21);
+    defButton = new search_by_def_button(app->asset, {30+wordButton->size.x, origin.y }, {125, 70}, PURPLE, WHITE,21);
 
-    wordButton = new search_by_word_button({origin.x, defButton->origin.y + defButton->size.y + 15}, {200, 75}, GRAY);
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
 
-    historyButton = new history_button({origin.x, wordButton->origin.y + wordButton->size.y + 15}, {200, 75}, GRAY);
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button({origin.x, historyButton->origin.y + historyButton->size.y + 15}, {200, 75}, GRAY);
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button({origin.x, favoriteButton->origin.y + favoriteButton->size.y + 15}, {200, 75}, GRAY);
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Practice your vocabulary skills",BLACK,24);
 
-    resetButton = new reset_button({origin.x, gamesButton->origin.y + gamesButton->size.y + 15}, {200, 75}, GRAY);
-    // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
 
-    constexpr Vector2 mode_origin = {50, 50};
-    constexpr Vector2 mode_size = {200, 45};
-    modesButtons = new modes_buttons(mode_origin, mode_size, WHITE);
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
 }
 
 SearchDef::~SearchDef()
@@ -356,8 +383,8 @@ App::App()
     dict->loadData(ENGENG);
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
-    currentScreen = new SearchWord();
     asset = new Asset();
+    currentScreen = new SearchWord(this);
 }
 
 App::~App()
@@ -385,7 +412,7 @@ void App::Tick()
 
 void App::Draw()
 {
-    ClearBackground(RAYWHITE);
+    ClearBackground(GREY);
 }
 
 void App::Update()
@@ -435,11 +462,119 @@ void ResetWarning::Render(App* app)
 
 void FavoriteScreen::Render(App* app)
 {
-    Vector2 _origin = {50, 80};
-    Vector2 _size = {1100, 100};
-    ClearBackground(RAYWHITE);
-    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
-    DrawText("Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+    if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
+    {
+        ClearBackground(GREY);
+
+        if(viewScreen)
+        {
+            delete viewScreen;
+            viewScreen = nullptr;
+        }
+        if(word)
+            word = nullptr;
+
+        defButton->Draw();
+        wordButton->Draw();
+
+        addWordButton->Draw();
+
+        historyButton->Draw();
+
+        favoriteButton->Draw();
+
+        gamesButton->Draw();
+
+        resetButton->Draw();
+
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
+        }
+
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
+        }
+        
+        if(defButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchDef(this->app));
+        }
+
+        if(wordButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchWord(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
+        }
+
+        Vector2 _origin = {300, 50};
+        Vector2 _size = {850, 70};
+        ClearBackground(RAYWHITE);
+        DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, ORANGE);
+        DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
+        // backButton->Draw();
+        // delete word;
+
+        if (!list)
+            list = new WordList(app->asset, app->dict->viewFavList());
+    
+        list->Draw();
+
+        word = list->getWord();
+        if(word)
+        {
+            this->mode = Mode::VIEW;
+        }
+
+        // if(backButton->Update())
+        //     app->setNextScreen(new SearchDef);
+    }
+    if (mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
+    
+}
+
+FavoriteScreen::FavoriteScreen(App* app)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
+{
+    this->app = app;
+    this->mode = Mode::NOTSEARCH;
+    // backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, {114,93,255,255}, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, {114,93,255,255}, WHITE,21);
+
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
+
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
+
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
+
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Practice your vocabulary skills",BLACK,24);
+
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
+
+}
+
+FavoriteScreen::~FavoriteScreen()
+{
+    delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete list;
+    delete viewScreen;
 }
 
 void HistoryScreen::Render(App* app)
@@ -452,4 +587,31 @@ void HistoryScreen::Render(App* app)
     Vector2 return_origin = {50, 10};
     Vector2 return_size = {100, 50};
     DrawRectangle(return_origin.x, return_origin.y, return_size.x, return_size.y, RED);
+}
+
+void AddWord::Render(App* app)
+{
+    Vector2 _origin = {50, 80};
+    Vector2 _size = {1100, 100};
+    ClearBackground(RAYWHITE);
+    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
+    DrawText("Add a Word", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+    Vector2 return_origin = {50, 10};
+    Vector2 return_size = {100, 50};
+    DrawRectangle(return_origin.x, return_origin.y, return_size.x, return_size.y, RED);
+}
+
+HistoryScreen::HistoryScreen(App* app)
+{
+    this->app = app;
+}
+
+ResetWarning::ResetWarning(App* app)
+{
+    this->app = app;
+}
+
+AddWord::AddWord(App* app)
+{
+    this->app = app;
 }

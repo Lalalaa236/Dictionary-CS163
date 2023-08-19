@@ -30,6 +30,7 @@ public:
 class Screen
 {
 public:
+    App* app;
     enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
     int mode;
     virtual void Render(App* app) = 0;
@@ -68,12 +69,13 @@ private:
     favorite_button* favoriteButton;
     games_button* gamesButton;
     reset_button* resetButton;
+    add_word_button* addWordButton;
     modes_buttons* modesButtons;
     WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
 public:
-    SearchWord();
+    SearchWord(App* app);
     ~SearchWord();
     void Render(App* app);
 };
@@ -86,6 +88,7 @@ private:
     SearchBox* searchbox;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
+    add_word_button* addWordButton;
     history_button* historyButton;
     favorite_button* favoriteButton;
     games_button* gamesButton;
@@ -95,7 +98,7 @@ private:
     WordButton* word;
     ViewWord* viewScreen;
 public:
-    SearchDef();
+    SearchDef(App* app);
     ~SearchDef();
     void Render(App* app);
 };
@@ -125,11 +128,28 @@ class HistoryScreen : public Screen
 {
 public:
     void Render(App* app);
+
+    HistoryScreen(App* app);
 };
 
 class FavoriteScreen : public Screen
 {
+private:
+    search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    add_word_button* addWordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
+    ReturnButton* backButton;
+    WordList* list;
+    WordButton* word;
+    ViewWord* viewScreen;
 public:
+    FavoriteScreen(App* app);
+    ~FavoriteScreen();
     void Render(App* app);
 };
 
@@ -137,6 +157,16 @@ class ResetWarning : public Screen
 {
 public:
     void Render(App* app);
+
+    ResetWarning(App* app);
+};
+
+class AddWord : public Screen
+{
+public:
+    void Render(App* app);
+
+    AddWord(App* app);
 };
 
 #endif

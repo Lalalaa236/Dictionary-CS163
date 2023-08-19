@@ -1,141 +1,152 @@
 #include "Button.h"
 
-void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text) {
-    Color colorBtn = {51,187,197,255};
-    Color colorText = {255,255,255,255};
-    Color hoverColorBtn = {51,187,197,204};
-    Color hoverColorText = {255,255,255,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
+void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
+    Color colorBtn = color;
+    Color colorText = color_text;
+    Color hoverColorBtn = color;
+    Color hoverColorText = color_text;
+    Color pressColor = color;
+    Color pressColorText = color_text;
+    Color layerHover = {100,100,100,70};
+    Color layerPress = {255,255,255,70};
 
+    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
-            DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, pressColorText);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
-            DrawText(text, origin.x + 40, origin.y + (size.y-36)/2, 20, hoverColorText);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
-    else
+}
+
+void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size) {
+    Color colorBtn = color;
+    Color colorText = color_text;
+    Color hoverColorBtn = color;
+    Color hoverColorText = {50,50,50,255};
+    Color pressColor = color;
+    Color pressColorText = {50,50,50,255};
+    Color layerHover = {255,255,255, 100};
+    Color layerPress = {255,255,255, 70};
+
+    DrawRectangle(origin.x,origin.y,size.x,size.y,WHITE);
+    Rectangle rec_title = {origin.x+5,origin.y+10,110,35};
+    DrawRectangle(rec_title.x,rec_title.y,rec_title.width,rec_title.height,colorBtn);
+
+    DrawTextEx(asset->font,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
+    DrawTextEx(asset->font,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
-        DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-        DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, colorText);
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
+        }
+        else
+        {   
+            DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
+        }
     }
 }
 
-void Button_function::DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text)
+void modes_buttons::Draw() 
 {
-    Color colorBtn = {245,245,245,255};
-    Color colorText = {51,187,197,255};
-    Color hoverColorBtn = {133,230,197,255};
-    Color hoverColorText = {50,50,50,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
-
-    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-    DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, colorText);
-    DrawRectangleLinesEx(button, 3, {51,187,197,255});
-
-    // if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
-    // {
-    //     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-    //     {
-    //         DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
-    //         DrawText(text, origin.x + 40, origin.y + (size.y - 36)/2, 20, pressColorText);
-    //     }
-    //     else
-    //     {
-    //         DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
-    //         DrawText(text, origin.x + 40, origin.y + (size.y-50)/2, 20, hoverColorText);
-    //     }
-    // }
-}
-
-
-void modes_buttons::Draw() {
-    Color colorBtn = {97,75,195,110};
-    Color colorText = {50,50,50,255};
+    Color colorBtn = color;
+    Color colorText = color_text;
     Color hoverColorBtn = {97,75,195,170};
     Color hoverColorText = {10,10,10,255};
     Color pressColor = {151,187,197,175};
     Color pressColorText = {100,100,100,255};
-
+    Rectangle dataset = {origin.x,origin.y,size.x,size.y};
+    DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
+    DrawTextEx(asset->font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
-        mode.x = origin.x + (size.x + 25)*i;
-        mode.y = origin.y - 10;
+        mode.x = origin.x;
+        mode.y = origin.y + size.y*(i+1);
         mode.width = size.x;
         mode.height = size.y;
         mode_buttons.push_back(mode);
     }
-    for(int i = 0; i < 5; ++i) {
-        DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
-        DrawText(modes[i].c_str(), mode_buttons[i].x + 40, mode_buttons[i].y + 10, 20, colorText);
-    }
-    if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdownVisible) 
         {
-            DrawRectangleRec(mode_buttons[0], pressColor);
-            DrawText(modes[0].c_str(), mode_buttons[0].x + 40, mode_buttons[0].y + 10, 20, pressColorText);
+                isDropdownVisible = true; 
         }
-        else
-        {
-            DrawRectangleRec(mode_buttons[0], hoverColorBtn);
-            DrawText(modes[0].c_str(), mode_buttons[0].x + 40, mode_buttons[0].y + 10, 20, hoverColorText);
+        else {
+                isDropdownVisible = false; 
         }
     }
-    if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            DrawRectangleRec(mode_buttons[1], pressColor);
-            DrawText(modes[1].c_str(), mode_buttons[1].x + 40, mode_buttons[1].y + 10, 20, pressColorText);
+    if (isDropdownVisible) 
+    {
+            for (int i = 0; i < 5; ++i) {
+                DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
+                DrawTextEx(asset->font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
+            }
+        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                DrawRectangleRec(mode_buttons[0], pressColor);
+            }
+            else
+            {
+                DrawRectangleRec(mode_buttons[0], hoverColorBtn);
+            }
         }
-        else
-        {
-            DrawRectangleRec(mode_buttons[1], hoverColorBtn);
-            DrawText(modes[1].c_str(), mode_buttons[1].x + 40, mode_buttons[1].y + 10, 20, hoverColorText);
+        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                DrawRectangleRec(mode_buttons[1], pressColor);
+            }
+            else
+            {
+                DrawRectangleRec(mode_buttons[1], hoverColorBtn);
+            }
         }
-    }
-    if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            DrawRectangleRec(mode_buttons[2], pressColor);
-            DrawText(modes[2].c_str(), mode_buttons[2].x + 40, mode_buttons[2].y + 10, 20, pressColorText);
+        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                DrawRectangleRec(mode_buttons[2], pressColor);
+            }
+            else
+            {
+                DrawRectangleRec(mode_buttons[2], hoverColorBtn);
+            }
         }
-        else
-        {
-            DrawRectangleRec(mode_buttons[2], hoverColorBtn);
-            DrawText(modes[2].c_str(), mode_buttons[2].x + 40, mode_buttons[2].y + 10, 20, hoverColorText);
+        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                DrawRectangleRec(mode_buttons[3], pressColor);
+            }
+            else
+            {
+                DrawRectangleRec(mode_buttons[3], hoverColorBtn);
+            }
         }
-    }
-    if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            DrawRectangleRec(mode_buttons[3], pressColor);
-            DrawText(modes[3].c_str(), mode_buttons[3].x + 40, mode_buttons[3].y + 10, 20, pressColorText);
-        }
-        else
-        {
-            DrawRectangleRec(mode_buttons[3], hoverColorBtn);
-            DrawText(modes[3].c_str(), mode_buttons[3].x + 40, mode_buttons[3].y + 10, 20, hoverColorText);
-        }
-    }
-    if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            DrawRectangleRec(mode_buttons[4], pressColor);
-            DrawText(modes[4].c_str(), mode_buttons[4].x + 40, mode_buttons[4].y + 10, 20, pressColorText);
-        }
-        else
-        {
-            DrawRectangleRec(mode_buttons[4], hoverColorBtn);
-            DrawText(modes[4].c_str(), mode_buttons[4].x + 40, mode_buttons[4].y + 10, 20, hoverColorText);
+        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            {
+                DrawRectangleRec(mode_buttons[4], pressColor);
+            }
+            else
+            {
+                DrawRectangleRec(mode_buttons[4], hoverColorBtn);
+            }
         }
     }
 }
@@ -177,8 +188,9 @@ bool Button_function::isPressed(bool outline)
 }
 
 WordButton::WordButton(Asset* asset, Word* _data, Vector2 _origin, Vector2 _size, Color _color)
-: asset(asset), data(_data), showable()
+: data(_data), showable()
 {
+    this->asset = asset;
     data = _data;
     origin = _origin;
     size = _size;
@@ -246,7 +258,7 @@ void WordButton::Draw(Vector2 origin)
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
     DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
 
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 200 && GetMousePosition().y <= 725)
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
@@ -266,8 +278,8 @@ void WordButton::Draw(Vector2 origin)
 }
 
 ReturnButton::ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
-: asset(asset)
 {
+    this->asset = asset;
     this->origin = origin; 
     this->size = size;
     this->color = color;
@@ -289,8 +301,9 @@ bool ReturnButton::Update()
 }
 
 FavButton::FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word)
-: asset(asset), state(word->favourite)
+: state(word->favourite)
 {
+    this->asset = asset;
     this->origin = origin; 
     this->size = size;
     this->color = color;
