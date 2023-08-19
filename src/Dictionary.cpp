@@ -49,7 +49,7 @@ void Dictionary::insertDef(const string& str, Word*& word)
 
 void Dictionary::loadData(const string& filePath)
 {
-    ifstream fin(filePath);
+    ifstream fin(filePath + "data.txt");
     if(!fin.is_open())
     {
         cout << "Error opening file!\n";
@@ -103,7 +103,7 @@ void Dictionary::loadData(const string& filePath)
     }
 
     fin.close();
-    fin.open("data\\FavoriteList.txt");
+    fin.open(filePath + "FavoriteList.txt");
     string prev;
     while(getline(fin, line))
     {
@@ -122,7 +122,10 @@ vector<Word*> Dictionary::searchWord(const string& str)
 {
     if(str.length() == 0)
         return vector<Word*>();
-    return trie.findPrefix(str);
+    vector<Word*> res = trie.findPrefix(str);
+    if(res.size() > 100)
+        res.resize(100);
+    return res;
 }
 
 vector<string> Split(const string& s)
@@ -247,11 +250,10 @@ void playGame(Dictionary& dictionary)
 
 void Dictionary::deleteDict()
 {
-    trie.~Trie();
-
+    trieNode<Word*>* root = trie.getRoot();
+    trie.deallocate(root);
+    trie.setRoot();
     history.clear();
-
-    return;
 }
 
 void Dictionary::removeWord(const string& str, const string filePath)
@@ -503,7 +505,7 @@ int numPattern(const string& text, const string& pattern) // Z func
     return res;
 }
 
-void Dictionary::addToFavList(Word* word)
+void Dictionary::addToFavList(Word* word, const string& fileDir)
 {
     word->favourite = true;
     std::ifstream fin;
@@ -511,7 +513,7 @@ void Dictionary::addToFavList(Word* word)
     string line;
     bool insert = true;
 
-    fin.open("data\\FavoriteList.txt");
+    fin.open(fileDir + "FavoriteList.txt");
     while(getline(fin, line))
     {
         if(line == word->data)
@@ -522,7 +524,7 @@ void Dictionary::addToFavList(Word* word)
     if(!insert)
         return;
     
-    fout.open("data\\FavoriteList.txt", std::ios_base::app);
+    fout.open(fileDir + "FavoriteList.txt", std::ios_base::app);
 
     fout << word->data << "\n";
     // fout << word->index << "\n";
@@ -530,7 +532,7 @@ void Dictionary::addToFavList(Word* word)
     fout.close();
 }
 
-void Dictionary::removeFromFavList(Word* word)
+void Dictionary::removeFromFavList(Word* word, const string& fileDir)
 {
     word->favourite = false;
     
@@ -540,7 +542,7 @@ void Dictionary::removeFromFavList(Word* word)
 
     ifstream fin;
     vector<string> newFile;
-    fin.open("data\\FavoriteList.txt");
+    fin.open(fileDir + "FavoriteList.txt");
     while(getline(fin, line))
     {
         if(line == word->data)
@@ -551,7 +553,7 @@ void Dictionary::removeFromFavList(Word* word)
     fin.close();
     if(!del)
         return;
-    ofstream fout("data\\FavoriteList.txt");
+    ofstream fout(fileDir + "FavoriteList.txt");
     for(string s : newFile)
         fout << s << "\n";
 

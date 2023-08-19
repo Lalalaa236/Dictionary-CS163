@@ -1,7 +1,6 @@
 #include "Button.h"
 
 void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
-    Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Color colorBtn = color;
     Color colorText = color_text;
     Color hoverColorBtn = color;
@@ -12,7 +11,7 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Color layerPress = {255,255,255,70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-    DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
+    DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -20,19 +19,18 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
-            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
+            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
-            DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
+            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
 
 void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size) {
-    Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Color colorBtn = color;
     Color colorText = color_text;
     Color hoverColorBtn = color;
@@ -46,8 +44,8 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     Rectangle rec_title = {origin.x+5,origin.y+10,110,35};
     DrawRectangle(rec_title.x,rec_title.y,rec_title.width,rec_title.height,colorBtn);
 
-    DrawTextEx(font,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
-    DrawTextEx(font,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
+    DrawTextEx(asset->font,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
+    DrawTextEx(asset->font,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -55,13 +53,13 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
-            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
+            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
-            DrawTextEx(font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
+            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
@@ -74,10 +72,9 @@ void modes_buttons::Draw()
     Color hoverColorText = {10,10,10,255};
     Color pressColor = {151,187,197,175};
     Color pressColorText = {100,100,100,255};
-    Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
-    DrawTextEx(font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
+    DrawTextEx(asset->font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
@@ -99,7 +96,7 @@ void modes_buttons::Draw()
     {
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
-                DrawTextEx(font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
+                DrawTextEx(asset->font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
             }
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
@@ -190,21 +187,22 @@ bool Button_function::isPressed(bool outline)
     return false;
 }
 
-WordButton::WordButton(Word* _data, Vector2 _origin, Vector2 _size, Color _color)
+WordButton::WordButton(Asset* asset, Word* _data, Vector2 _origin, Vector2 _size, Color _color)
 : data(_data), showable()
 {
+    this->asset = asset;
     data = _data;
     origin = _origin;
     size = _size;
     color = _color;
     button = {origin.x, origin.y, size.x, size.y};
     text[0] = '\0';
-    base = LoadTexture("assets\\star-button-blank.png");
-    faved = LoadTexture("assets\\star-button-on.png");
+    // base = LoadTexture("assets\\star-button-blank.png");
+    // faved = LoadTexture("assets\\star-button-on.png");
     if(!data->favourite)
-        cur = base;
+        cur = asset->base;
     else
-        cur = faved;
+        cur = asset->faved;
     createShowable();
 }
 
@@ -279,13 +277,14 @@ void WordButton::Draw(Vector2 origin)
     }
 }
 
-ReturnButton::ReturnButton(Vector2 origin, Vector2 size, Color color)
+ReturnButton::ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
 {
+    this->asset = asset;
     this->origin = origin; 
     this->size = size;
     this->color = color;
     button = {origin.x, origin.y, size.x, size.y};
-    image = LoadTexture("assets\\back-button.png");
+    image = asset->image;
 }
 
 void ReturnButton::Draw()
@@ -301,19 +300,20 @@ bool ReturnButton::Update()
     return false;
 }
 
-FavButton::FavButton(Vector2 origin, Vector2 size, Word* word)
+FavButton::FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word)
 : state(word->favourite)
 {
+    this->asset = asset;
     this->origin = origin; 
     this->size = size;
     this->color = color;
     button = {origin.x, origin.y, size.x, size.y};
-    base = LoadTexture("assets\\star-button-blank.png");
-    faved = LoadTexture("assets\\star-button-on.png");
+    // base = LoadTexture("assets\\star-button-blank.png");
+    // faved = LoadTexture("assets\\star-button-on.png");
     if(!state)
-        cur = base;
+        cur = asset->base;
     else
-        cur = faved;
+        cur = asset->faved;
 }
 
 void FavButton::Draw()
@@ -324,9 +324,9 @@ void FavButton::Draw()
 void FavButton::SetTexture(bool isFav)
 {
     if(!isFav)
-        cur = base;
+        cur = this->asset->base;
     else
-        cur = faved;        
+        cur = this->asset->faved;        
 }
 
 bool FavButton::Update(Word* word)
@@ -347,3 +347,6 @@ bool FavButton::Update(Word* word)
     }
     return word->favourite;
 }
+
+WordButton::~WordButton()
+{}

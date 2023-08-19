@@ -10,15 +10,19 @@
 #include "Button.h"
 #include "WordList.h"
 
-const string ENGENG = "data\\Eng-Eng.txt";
+const string ENGENG = "data\\Eng-Eng\\";
+const string ENGVIE = "data\\Eng-Vie\\";
+const string VIEENG = "data\\Vie-Eng\\";
+const string SLANG = "data\\Slang\\";
+const string EMOJI = "data\\Emoji\\";
 
 class App;
 
 class State
 {
 public:
-    int mode;
-    int dataset;
+    bool change;
+    string dataset;
     
     State();
 };
@@ -26,6 +30,7 @@ public:
 class Screen
 {
 public:
+    App* app;
     enum Mode {NOTSEARCH = 0, SEARCH = 1, VIEW = 2};
     int mode;
     virtual void Render(App* app) = 0;
@@ -70,7 +75,7 @@ private:
     WordButton* word;
     ViewWord* viewScreen;
 public:
-    SearchWord();
+    SearchWord(App* app);
     ~SearchWord();
     void Render(App* app);
 };
@@ -93,7 +98,7 @@ private:
     WordButton* word;
     ViewWord* viewScreen;
 public:
-    SearchDef();
+    SearchDef(App* app);
     ~SearchDef();
     void Render(App* app);
 };
@@ -105,6 +110,7 @@ public:
     Screen* currentScreen;
     int mode;
     Dictionary* dict;
+    Asset* asset;
     
     App();
     ~App();
@@ -122,6 +128,8 @@ class HistoryScreen : public Screen
 {
 public:
     void Render(App* app);
+
+    HistoryScreen(App* app);
 };
 
 class FavoriteScreen : public Screen
@@ -140,7 +148,7 @@ private:
     WordButton* word;
     ViewWord* viewScreen;
 public:
-    FavoriteScreen();
+    FavoriteScreen(App* app);
     ~FavoriteScreen();
     void Render(App* app);
 };
@@ -149,12 +157,16 @@ class ResetWarning : public Screen
 {
 public:
     void Render(App* app);
+
+    ResetWarning(App* app);
 };
 
 class AddWord : public Screen
 {
 public:
     void Render(App* app);
+
+    AddWord(App* app);
 };
 
 #endif

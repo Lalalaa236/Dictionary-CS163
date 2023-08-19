@@ -11,6 +11,7 @@
 #include "SearchBox.h"
 #include <cstring>
 #include <cmath>
+#include "Asset.h"
 
 using std::string;
 using std::vector;
@@ -19,6 +20,7 @@ using std::vector;
 class Button_function
 {
 public:
+    Asset* asset;
     Vector2 origin;
     Vector2 size;
     Rectangle button;
@@ -36,13 +38,18 @@ public:
     bool isPressed(bool outline);
 
     Button_function() = default;
+    Button_function(Asset* asset)
+    : asset(asset)
+    {}
 };
 
 class search_by_def_button : public Button_function
 {
 public:
-    search_by_def_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
+    search_by_def_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;
@@ -62,8 +69,10 @@ public:
 class search_by_word_button : public Button_function
 {
 public:
-    search_by_word_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
+    search_by_word_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -83,8 +92,10 @@ public:
 class add_word_button : public Button_function
 {
 public:
-     add_word_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
+    add_word_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -105,8 +116,10 @@ public:
 class history_button : public Button_function
 {
 public:
-    history_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
+    history_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -126,8 +139,10 @@ public:
 class favorite_button : public Button_function
 {
 public:
-    favorite_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
+    favorite_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -148,8 +163,10 @@ public:
 class games_button : public Button_function
 {
 public:
-     games_button(Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) : Button_function()
+    games_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, char* _title, char* _content, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -170,8 +187,10 @@ public:
 class reset_button : public Button_function
 {
 public:
-    reset_button(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) : Button_function()
+    reset_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    : Button_function()
     {
+        this->asset = asset;
         origin = _origin; 
         size = _size;    
         color = _color;   
@@ -200,8 +219,10 @@ public:
     char text[101];
     int text_size;
     bool isDropdownVisible = false;
-    modes_buttons(Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    Asset* asset;
+    modes_buttons(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
     {
+        this->asset = asset;
         origin = _origin;
         size = _size;
         color = _color;
@@ -218,18 +239,18 @@ public:
     Word* data;
     string showable;
     Texture2D cur;
-    Texture2D base;
-    Texture2D faved;
+    // Texture2D base;
+    // Texture2D faved;
 
     WordButton();
-    WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
+    WordButton(Asset* asset, Word* data, Vector2 origin, Vector2 size, Color color);
     ~WordButton();
     
 
     void createShowable();
 
     void Draw(Vector2 origin);
-    bool Update();
+    //bool Update();
 };
 
 
@@ -237,19 +258,19 @@ class ReturnButton : public Button_function
 {
     Texture2D image;
 public:
-    ReturnButton(Vector2 origin, Vector2 size, Color color);
+    ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
     void Draw();
     bool Update();
 };
 
 class FavButton : public Button_function
 {
-    Texture2D base;
-    Texture2D faved;
+    // Texture2D base;
+    // Texture2D faved;
     Texture2D cur;
     bool state;
 public:
-    FavButton(Vector2 origin, Vector2 size, Word* word);
+    FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word);
 
     void Draw();
     void SetTexture(bool isFav);
