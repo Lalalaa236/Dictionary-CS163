@@ -11,13 +11,18 @@ using std::vector;
 class WordList
 {
 private:
-    vector<Word*> list;
+    vector<WordButton*> word;
+    Vector2 origin;
+    Vector2 sizeEach;
+    Color color;
+    Asset* asset;
 public:
     WordList() = default;
-    WordList(const vector<Word*>& getList);
-    Word* getWord(int i);
-    void DrawWordList(const vector<Word*>& getList);
-
+    WordList(Asset* asset, const vector<Word*>& list);
+    ~WordList();
+    WordButton* getWord();
+    void Draw();
+    bool inRange();
 };
 
 #endif

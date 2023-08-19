@@ -41,10 +41,11 @@ class Trie
 
         bool isEmpty(trieNode<Data>* cur);// check if cur is not prefix of any other word
         void removeAKey(const string& str);
+        void setRoot();
+        void deallocate(trieNode<Data>*& root);
 
     private:
         trieNode<Data>* root;
-        void deallocate(trieNode<Data>*& root);
         trieNode<Data>* remove(trieNode<Data>*& root, const string& str, int depth = 0);
 };
 
@@ -238,6 +239,18 @@ trieNode<Data>* Trie<Data>::remove(trieNode<Data>*& root, const string& str, int
     root->children[index] = remove(root->children[index], str, depth + 1);
 
     return root;
+}
+
+template<class Data>
+void Trie<Data>::setRoot()
+{
+    this->root = nullptr;
+}
+
+template<class Data>
+trieNode<Data>* Trie<Data>::getRoot()
+{
+    return this->root;
 }
 
 #endif 

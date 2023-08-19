@@ -20,6 +20,7 @@ public:
     Color color;
     Vector2 origin;
     Vector2 size;
+    string input;
 
     char buffer[32];
     int bufflen;
@@ -33,7 +34,6 @@ public:
     void HandleInput(char* input, int& length);
     void CursorBlink(float deltaTime);
     void DrawInput();
-    string getInput();
 };
 
 #endif

@@ -3,7 +3,6 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-
 #include "raylib.h"
 #include <iostream>
 #include <stdlib.h>  
@@ -11,6 +10,8 @@
 #include "Dictionary.h"
 #include "SearchBox.h"
 #include <cstring>
+#include <cmath>
+#include "Asset.h"
 
 using std::string;
 using std::vector;
@@ -23,10 +24,16 @@ public:
     Vector2 size;
     Rectangle button;
     Color color;
-    char text[101];
+    char text[256];
+    bool state = false;
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text);
+    void DrawRecSearch(Vector2 origin, Vector2 size, Color color, char* text);
+
     virtual void specific_function() {};
+    bool isPressed(bool outline); //if you want the outline
+
+    Button_function() = default;
 };
 
 class search_by_def_button : public Button_function
@@ -36,13 +43,21 @@ public:
     {
         origin = _origin; 
         size = _size;    
-        color = _color;   
+        color = _color;
+        button = {origin.x, origin.y, size.x, size.y};   
         strcpy(text, "Search by \n definition");
     }
+    
     void Draw()
     {
-        DrawRec(origin,size,color, text);
+        DrawRec(origin, size, color, text);
     }
+
+    void DrawSearch()
+    {
+        DrawRecSearch(origin, size, color, text);
+    }
+
 };
 
 class search_by_word_button : public Button_function
@@ -61,6 +76,12 @@ public:
     {
         DrawRec(origin, size, color, text);
     }
+
+        void DrawSearch()
+    {
+        DrawRecSearch(origin, size, color, text);
+    }
+
 };
 
 class history_button : public Button_function
@@ -74,7 +95,7 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  History");
     }
-        void Draw()
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -91,7 +112,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, " Favorite");
     }
-        void Draw()
+
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -108,7 +130,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Games");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -125,7 +148,8 @@ public:
         button = {origin.x, origin.y, size.x, size.y};
         strcpy(text, "  Reset");
     }
-        void Draw()
+    
+    void Draw()
     {
         DrawRec(origin, size, color, text);
     }
@@ -153,7 +177,48 @@ public:
 
 class WordButton : public Button_function
 {
+public:
+    Asset* asset;
+    Word* data;
+    string showable;
+    Texture2D cur;
+    // Texture2D base;
+    // Texture2D faved;
 
+    WordButton();
+    WordButton(Asset* asset, Word* data, Vector2 origin, Vector2 size, Color color);
+    ~WordButton();
+    
+
+    void createShowable();
+
+    void Draw(Vector2 origin);
+    //bool Update();
+};
+
+class ReturnButton : public Button_function
+{
+    Texture2D image;
+    Asset* asset;
+public:
+    ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
+};
+
+class FavButton : public Button_function
+{
+    // Texture2D base;
+    // Texture2D faved;
+    Asset* asset;
+    Texture2D cur;
+    bool state;
+public:
+    FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word);
+
+    void Draw();
+    void SetTexture(bool isFav);
+    bool Update(Word* word);
 };
 
 #endif
