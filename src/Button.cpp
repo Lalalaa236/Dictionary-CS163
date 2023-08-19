@@ -4,10 +4,12 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Color colorBtn = color;
     Color colorText = color_text;
-    Color hoverColorBtn = {133,230,197,255};
-    Color hoverColorText = {50,50,50,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
+    Color hoverColorBtn = color;
+    Color hoverColorText = color_text;
+    Color pressColor = color;
+    Color pressColorText = color_text;
+    Color layerHover = {100,100,100,70};
+    Color layerPress = {255,255,255,70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
     DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
@@ -17,11 +19,13 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
             DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
             DrawTextEx(font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
@@ -73,7 +77,7 @@ void modes_buttons::Draw()
     Font font = LoadFont("data\\Open_Sans\\static\\OpenSans_Condensed-Bold.ttf");
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
-    DrawTextEx(font,"Dataset",{origin.x + 10, origin.y + 25}, 25,2, WHITE);
+    DrawTextEx(font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
@@ -95,7 +99,7 @@ void modes_buttons::Draw()
     {
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
-                DrawTextEx(font,modes[0].c_str(),{mode_buttons[i].x + 5,mode_buttons[i].y + 10}, 25,2, colorText);
+                DrawTextEx(font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
             }
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))

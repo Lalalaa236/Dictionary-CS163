@@ -2,7 +2,7 @@
 #include "App.h"
 
 State::State()
-: mode(1), dataset(0)
+: mode(1), dataset(1)
 {}
 
 ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
@@ -334,6 +334,7 @@ void SearchDef::Render(App* app)
 SearchDef::SearchDef()
 : word(nullptr), list(nullptr), viewScreen(nullptr)
 {
+    this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
     searchbox = new SearchBox(origin, size, WHITE);
@@ -450,6 +451,8 @@ void FavoriteScreen::Render(App* app)
 {
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
+        ClearBackground(GREY);
+
         if(viewScreen)
         {
             delete viewScreen;
@@ -492,7 +495,7 @@ void FavoriteScreen::Render(App* app)
         if(resetButton->isPressed(false)) {
             app->setNextScreen(new ResetWarning);
         }
-        
+
         Vector2 _origin = {300, 50};
         Vector2 _size = {850, 70};
         ClearBackground(RAYWHITE);
@@ -533,8 +536,8 @@ FavoriteScreen::FavoriteScreen()
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
 
-    wordButton = new search_by_word_button({30, origin.y },  {125, 70}, {126,170,146,255}, WHITE,21);
-    defButton = new search_by_def_button({30 + wordButton->size.x, origin.y }, {125, 70}, {126,170,146,255}, WHITE,21);
+    wordButton = new search_by_word_button({30, origin.y },  {125, 70}, {114,93,255,255}, WHITE,21);
+    defButton = new search_by_def_button({30 + wordButton->size.x, origin.y }, {125, 70}, {114,93,255,255}, WHITE,21);
 
     addWordButton = new add_word_button({30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
 
@@ -550,7 +553,14 @@ FavoriteScreen::FavoriteScreen()
 
 FavoriteScreen::~FavoriteScreen()
 {
-
+    delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete list;
+    delete viewScreen;
 }
 
 void HistoryScreen::Render(App* app)
