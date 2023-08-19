@@ -560,11 +560,13 @@ void Dictionary::removeFromFavList(Word* word, const string& fileDir)
     fout.close();
 }
 
-vector<Word*> Dictionary::viewFavList()
+vector<Word*> Dictionary::viewFavList(const string& fileDir)
 {
-    std::ifstream fin("data\\FavoriteList.txt");
+    std::ifstream fin(fileDir + "FavoriteList.txt");
 
     vector<Word*> favList;
+
+    vector<string> words;
 
     std::string line;
     std::string curWord;
@@ -572,22 +574,30 @@ vector<Word*> Dictionary::viewFavList()
     while(getline(fin, line))
     {
 
-        vector<string> current = Split(line);
+        // vector<string> current = Split(line);
 
-        if (current.size() == 2)
-        {
-            Word* word;
-            if(current[0] != curWord)
-            {
+        // if (current.size() == 2)
+        // {
+        //     Word* word;
+        //     if(current[0] != curWord)
+        //     {
 
-                curWord = current[0];
-                word = new Word(current[0]);
+        //         curWord = current[0];
+        //         word = new Word(current[0]);
 
-                favList.push_back(word);
-            }
-            Definition* def = new Definition(current[1]);
-            word->defs.push_back(def);
-        }
+        //         favList.push_back(word);
+        //     }
+        //     Definition* def = new Definition(current[1]);
+        //     word->defs.push_back(def);
+        // }
+        words.push_back(line);
+    }
+
+    for (int i = words.size() - 1; i >= 0; i--)
+    {
+        Word* newWord;
+        trie.findWhole(words[i], newWord);
+        favList.push_back(newWord);
     }
 
     for (int i = 0; i < favList.size(); i++)

@@ -518,7 +518,7 @@ void FavoriteScreen::Render(App* app)
         // delete word;
 
         if (!list)
-            list = new WordList(app->asset, app->dict->viewFavList());
+            list = new WordList(app->asset, app->dict->viewFavList(this->app->state.dataset));
     
         list->Draw();
 
