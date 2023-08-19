@@ -333,3 +333,6 @@ bool FavButton::Update(Word* word)
     }
     return word->favourite;
 }
+
+WordButton::~WordButton()
+{}

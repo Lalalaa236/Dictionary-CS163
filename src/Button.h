@@ -185,12 +185,13 @@ public:
 
     WordButton();
     WordButton(Word* data, Vector2 origin, Vector2 size, Color color);
+    ~WordButton();
     
 
     void createShowable();
 
     void Draw(Vector2 origin);
-    bool Update();
+    //bool Update();
 };
 
 class ReturnButton : public Button_function

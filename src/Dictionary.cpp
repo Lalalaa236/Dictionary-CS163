@@ -122,7 +122,10 @@ vector<Word*> Dictionary::searchWord(const string& str)
 {
     if(str.length() == 0)
         return vector<Word*>();
-    return trie.findPrefix(str);
+    vector<Word*> res = trie.findPrefix(str);
+    if(res.size() > 100)
+        res.resize(100);
+    return res;
 }
 
 vector<string> Split(const string& s)

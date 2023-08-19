@@ -68,3 +68,12 @@ bool WordList::inRange()
         return true;
     return false;
 }
+
+WordList::~WordList()
+{
+    int size = word.size();
+    for(int i = 0; i < size; ++i)
+    {
+        delete word[i];
+    }
+}

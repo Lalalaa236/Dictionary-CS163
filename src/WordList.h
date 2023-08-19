@@ -18,6 +18,7 @@ private:
 public:
     WordList() = default;
     WordList(const vector<Word*>& list);
+    ~WordList();
     WordButton* getWord();
     void Draw();
     bool inRange();
