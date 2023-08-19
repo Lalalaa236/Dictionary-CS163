@@ -124,7 +124,14 @@ public:
 
 class FavoriteScreen : public Screen
 {
+private:
+    WordList* list;
+    WordButton* word;
+    ViewWord* viewScreen;
+    ReturnButton* backButton;
 public:
+    FavoriteScreen();
+    ~FavoriteScreen();
     void Render(App* app);
 };
 

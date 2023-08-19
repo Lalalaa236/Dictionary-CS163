@@ -6,7 +6,7 @@ WordList::WordList(const vector<Word*>& list)
     // cout << "loli\n";
     int size = list.size();
     // cout << list[17]->data << "\n";
-    // cout << "list size: " << size << "\n";
+    cout << "list size: " << size << "\n";
     int count = 0;
     for(int i = 0; i < size; ++i)
     {

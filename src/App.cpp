@@ -266,7 +266,17 @@ void SearchDef::Render(App* app)
 
         modesButtons->Draw();
 
+        if(historyButton->isPressed(true)) {
+            app->setNextScreen(new HistoryScreen);
+        }
 
+        if(favoriteButton->isPressed(true)) {
+            app->setNextScreen(new FavoriteScreen);
+        }
+
+        if(resetButton->isPressed(true)) {
+            app->setNextScreen(new ResetWarning);
+        }
 
         if(!searchbox->state)
         {
@@ -427,11 +437,49 @@ void ResetWarning::Render(App* app)
 
 void FavoriteScreen::Render(App* app)
 {
-    Vector2 _origin = {50, 80};
-    Vector2 _size = {1100, 100};
-    ClearBackground(RAYWHITE);
-    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
-    DrawText("Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+    if (mode == Mode::NOTSEARCH || mode == Mode::SEARCH)
+    {
+        Vector2 _origin = {50, 80};
+        Vector2 _size = {900, 100};
+        ClearBackground(RAYWHITE);
+        DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
+        DrawText("Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
+        backButton->Draw();
+        // delete word;
+
+        if (!list)
+            list = new WordList(app->dict->viewFavList());
+    
+        list->Draw();
+
+        word = list->getWord();
+        if(word)
+        {
+            this->mode = Mode::VIEW;
+        }
+
+        if(backButton->Update())
+            app->setNextScreen(new SearchDef);
+    }
+    if (mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
+    
+}
+
+FavoriteScreen::FavoriteScreen()
+: word(nullptr), list(nullptr), viewScreen(nullptr)
+{
+    this->mode = Mode::NOTSEARCH;
+    backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+}
+
+FavoriteScreen::~FavoriteScreen()
+{
+
 }
 
 void HistoryScreen::Render(App* app)
