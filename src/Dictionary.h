@@ -73,6 +73,9 @@ public:
     void addToFavList(Word* word, const string& fileDir);
     void removeFromFavList(Word* word, const string& fileDir);
     vector<Word*> viewFavList(const string& fileDir);
+
+    vector<Word*> getHis();
+
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def

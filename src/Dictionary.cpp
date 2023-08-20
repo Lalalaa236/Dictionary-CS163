@@ -600,14 +600,29 @@ vector<Word*> Dictionary::viewFavList(const string& fileDir)
         favList.push_back(newWord);
     }
 
-    for (int i = 0; i < favList.size(); i++)
-    {
-        std::cout << i + 1 << ". " << favList[i]->data << '\n';
-        for (int j = 0; j < favList[i]->defs.size(); j++)
-        {
-            std::cout << "  " << favList[i]->defs[j]->data << '\n';
-        }
-    }
+    // for (int i = 0; i < favList.size(); i++)
+    // {
+    //     std::cout << i + 1 << ". " << favList[i]->data << '\n';
+    //     for (int j = 0; j < favList[i]->defs.size(); j++)
+    //     {
+    //         std::cout << "  " << favList[i]->defs[j]->data << '\n';
+    //     }
+    // }
 
     return favList;
+}
+
+vector<Word*> Dictionary::getHis()
+{
+    vector<Word*> his;
+    Word* newElement = nullptr;
+    for (int i = history.size() - 1; i >= 0; i--)
+    {
+        newElement = history[i];
+        his.push_back(newElement);
+        // std::cout << i << "\n";
+    }
+    // delete newElement;
+    // cout << "hi";
+    return his;
 }
