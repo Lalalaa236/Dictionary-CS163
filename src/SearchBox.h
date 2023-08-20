@@ -7,13 +7,14 @@
 #include <iostream>
 #include <string>
 #include "Dictionary.h"
+#include "Asset.h"
 using std::string;
 
 class SearchBox
 {
 private:
     float cursorBlinkTime = 0.0f;
-    std::vector<std::string> test;
+    //std::vector<std::string> test;
     float scroll;
 public:
     Rectangle box;
@@ -27,7 +28,8 @@ public:
     bool state;
     bool startSearch;
     vector<Word*> searchResults;
-    SearchBox(Vector2 origin, Vector2 size, Color color);
+    Asset* asset;
+    SearchBox(Asset* asset, Vector2 origin, Vector2 size, Color color);
     ~SearchBox();
     bool Pressed();
     void DrawBox();

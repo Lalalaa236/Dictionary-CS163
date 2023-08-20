@@ -11,7 +11,7 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Color layerPress = {255,255,255,70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
-    DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
+    DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -19,13 +19,13 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
-            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
-            DrawTextEx(asset->font,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
@@ -44,8 +44,8 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     Rectangle rec_title = {origin.x+5,origin.y+10,110,35};
     DrawRectangle(rec_title.x,rec_title.y,rec_title.width,rec_title.height,colorBtn);
 
-    DrawTextEx(asset->font,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
-    DrawTextEx(asset->font,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
+    DrawTextEx(asset->font30,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
+    DrawTextEx(asset->font30,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
@@ -53,13 +53,13 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
-            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
+            DrawTextEx(asset->font30,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, pressColorText);
         }
         else
         {   
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
-            DrawTextEx(asset->font,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
+            DrawTextEx(asset->font30,title, {origin.x + 10, origin.y + (size.y - 20)/2}, text_size,2, hoverColorText);
         }
     }
 }
@@ -74,7 +74,7 @@ void modes_buttons::Draw()
     Color pressColorText = {100,100,100,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
-    DrawTextEx(asset->font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
+    DrawTextEx(asset->font30,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
@@ -96,7 +96,7 @@ void modes_buttons::Draw()
     {
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
-                DrawTextEx(asset->font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
+                DrawTextEx(asset->font30,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
             }
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
@@ -255,8 +255,8 @@ void WordButton::Draw(Vector2 origin)
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
     DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
-    DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
-    DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
+    DrawTextEx(asset->font30, data->data.c_str(), {origin.x + 20, origin.y + 20}, 35, 0, colorText);
+    DrawTextEx(asset->font30, text, {origin.x + 40, origin.y + 60}, 25, 0, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
     {
@@ -264,15 +264,15 @@ void WordButton::Draw(Vector2 origin)
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
             DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
-            DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, pressColorText);
-            DrawText(text, origin.x + 40, origin.y + 60, 25, pressColorText);
+            DrawTextEx(asset->font30, data->data.c_str(), {origin.x + 20, origin.y + 20}, 35, 0, pressColorText);
+            DrawTextEx(asset->font30, text, {origin.x + 40, origin.y + 60}, 25, 0, pressColorText);
         }
         else
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
             DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
-            DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, hoverColorText);
-            DrawText(text, origin.x + 40, origin.y + 60, 25, hoverColorText);
+            DrawTextEx(asset->font30, data->data.c_str(), {origin.x + 20, origin.y + 20}, 35, 0, hoverColorText);
+            DrawTextEx(asset->font30, text, {origin.x + 40, origin.y + 60}, 25, 0, hoverColorText);
         }
     }
 }

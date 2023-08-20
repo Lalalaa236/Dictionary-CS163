@@ -27,21 +27,23 @@ void ViewWord::Render(App* app, Screen* screen)
     
     DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
     
-    DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
+    DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+    //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
     Update();
 }
 
 void ViewWord::Update()
 {
     BeginScissorMode(150, 170, 1000, 480);
-    DrawText(showable.c_str(), this->origin.x, this->origin.y, 30, BLACK);
+    //DrawText(showable.c_str(), this->origin.x, this->origin.y, 30, BLACK);
+    DrawTextEx(app->asset->font30, showable.c_str(), {this->origin.x, this->origin.y}, 30, 0, BLACK);
     float offset = GetMouseWheelMove() * 30;
     if(MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y > 480)
     {
         if(this->origin.y + offset >= 180 && offset > 0)
             this->origin.y = 180;
-        else if(this->origin.y + offset <= (700 - MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y) && offset < 0)
-            this->origin.y = 700 - MeasureTextEx(GetFontDefault(), showable.c_str(), 30, 0).y;
+        else if(this->origin.y + offset <= (700 - MeasureTextEx(app->asset->font30, showable.c_str(), 30, 0).y) && offset < 0)
+            this->origin.y = 700 - MeasureTextEx(app->asset->font30, showable.c_str(), 30, 0).y;
         else
             this->origin.y += offset;
     }
@@ -79,10 +81,13 @@ void ViewWord::SetShowable()
         int length = cpy.length();
         for(int j = 0; j < length; ++j)
         {
-            if(count == 50)
+            if(count == 80)
             {
                 int k = findNearestSpace(cpy, length, j);
-                cpy[k] = '\n';
+                if(cpy[k] == ' ')
+                    cpy[k] = '\n';
+                else
+                    cpy.insert(70, "-");
                 count = 0;
             }
             ++count;
@@ -101,16 +106,18 @@ int ViewWord::findNearestSpace(const string& s, int length, int pos)
         if(s[i] == ' ')
             break;
     
-    int j = pos;
-    for(; j < length; ++j)
-        if(s[j] == ' ')
-            break;
-    if(s[i] != ' ')
-        return j;
-    if(s[j] != ' ')
-        return i;
+    // int j = pos;
+    // for(; j < length; ++j)
+    //     if(s[j] == ' ')
+    //         break;
+    // if(s[i] != ' ')
+    //     return j;
+    // if(s[j] != ' ')
+    //     return i;
 
-    return (pos - i) > (j - pos) ? j : i;
+    // return (pos - i) > (j - pos) ? j : i;
+
+    return i;
 }
 
 // Word* ViewWord::getWord()
@@ -214,7 +221,7 @@ SearchWord::SearchWord(App* app)
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
-    searchbox = new SearchBox(origin, size, {WHITE});
+    searchbox = new SearchBox(app->asset, origin, size, {WHITE});
 
     wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, PURPLE, WHITE,21);
     defButton = new search_by_def_button(this->app->asset, {30+wordButton->size.x, origin.y },  {125, 70}, WHITE,BLACK,21);
@@ -343,7 +350,7 @@ SearchDef::SearchDef(App* app)
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
-    searchbox = new SearchBox(origin, size, WHITE);
+    searchbox = new SearchBox(app->asset, origin, size, WHITE);
     wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, WHITE,BLACK,21);
     defButton = new search_by_def_button(app->asset, {30+wordButton->size.x, origin.y }, {125, 70}, PURPLE, WHITE,21);
 

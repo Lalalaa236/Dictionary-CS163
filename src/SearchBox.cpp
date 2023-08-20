@@ -1,6 +1,6 @@
 #include "SearchBox.h"
-SearchBox::SearchBox(Vector2 origin, Vector2 size, Color color)
-: origin(origin), size(size), bufflen(0), input(), state(false), startSearch(false), color(color)
+SearchBox::SearchBox(Asset* asset, Vector2 origin, Vector2 size, Color color)
+: asset(asset), origin(origin), size(size), bufflen(0), input(), state(false), startSearch(false), color(color)
 {
     box.x = this->origin.x;
     box.y = this->origin.y;
@@ -92,59 +92,15 @@ void SearchBox::CursorBlink(float time) //blinking cursor
 void SearchBox::DrawInput()
 {
     Color colorBtnLine = {51,187,197,255};
-    DrawText(buffer, this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, colorBtnLine);
+    //DrawText(buffer, this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, colorBtnLine);
+    DrawTextEx(asset->font50, buffer, {this->box.x + 40, this->box.y + (this->box.height - 45)/2}, 48, 0, colorBtnLine);
     if(bufflen == 0 && this->state == false)
-        DrawText("Search", this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, {155,155,155,255});
+        //DrawText("Search", this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, {155,155,155,255});
+        DrawTextEx(asset->font50, "Search", {this->box.x + 40, this->box.y + (this->box.height - 45)/2}, 48, 0, {155,155,155,255});
     if(this->state)
     {
         if (cursorBlinkTime < 0.5f)
-            DrawRectangle(this->box.x + 40 + MeasureText(buffer, 48), this->box.y + (this->box.height - 50) / 2, 2, 50, GRAY); //blinking cursor 
-        // DrawRectangleLinesEx(this->box, 2, colorBtnLine);    
+            DrawTextEx(asset->font50, "|", {this->box.x + 40 + MeasureTextEx(asset->font50, buffer, 48, 0).x, this->box.y + (this->box.height - 50) / 2}, 48, 0, {155,155,155,255});
+            //DrawRectangle(this->box.x + 40 + MeasureTextEx(asset->font, buffer, 48, 0).x, this->box.y + (this->box.height - 50) / 2, 2, 50, GRAY); //blinking cursor 
     }
-    // if (startSearch)
-    // {
-    //     float item_height = 40.0f; 
-    //     int item_num =0;
-    //     if (test.size()-1>=10)
-    //          item_num = 10;     
-    //     else 
-    //          item_num = test.size()-1;
-    //     Rectangle dropdownRect = {
-    //         this->box.x + 220,
-    //         this->box.y + this->box.height + 20,
-    //         this->box.width - 220,
-    //         item_height * (item_num+3),
-    //     };
-
-    //     float totalHeight = item_height * test.size();
-    //     float maxScroll = totalHeight - dropdownRect.height;
-
-    //     //valid bounds
-    //     if (scroll < 0)
-    //         scroll = 0;
-    //     if (scroll > maxScroll)
-    //         scroll = maxScroll;
-    //     // Draw the dropdown list
-    //     DrawRectangle(dropdownRect.x, dropdownRect.y, dropdownRect.width, dropdownRect.height, LIGHTGRAY);
-    //     DrawRectangleLinesEx(dropdownRect,1, GRAY);
-    //     int firstVisibleItem = (int)(scroll/(item_height));
-    //     int lastVisibleItem = (int)((scroll + dropdownRect.height) / item_height);
-    //     if (lastVisibleItem >= test.size())
-    //         lastVisibleItem = test.size();
-    //     // Draw the items
-    //     for (int i = firstVisibleItem; i < lastVisibleItem; i++)
-    //     {
-    //         float itemY = dropdownRect.y + (item_height * i) - scroll;
-    //         if (itemY>=dropdownRect.y)
-    //             DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, BLACK);
-    //         if (CheckCollisionPointRec(GetMousePosition(), { dropdownRect.x, itemY, dropdownRect.width, item_height }))
-    //         {
-    //             //Highlight
-    //             DrawRectangle(dropdownRect.x, itemY, dropdownRect.width, item_height, SKYBLUE);
-    //             DrawText(test[i].c_str(), dropdownRect.x + 10, itemY+5,20, WHITE);
-    //         }
-    //     }
-    //     int speed = 10;
-    //     scroll -= GetMouseWheelMove() * speed;
-    // }
 }
