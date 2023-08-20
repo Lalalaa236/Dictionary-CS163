@@ -41,11 +41,11 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     Color layerPress = {255,255,255, 70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,WHITE);
-    Rectangle rec_title = {origin.x+5,origin.y+10,110,35};
+    Rectangle rec_title = {origin.x+5,origin.y+10,130,35};
     DrawRectangle(rec_title.x,rec_title.y,rec_title.width,rec_title.height,colorBtn);
 
     DrawTextEx(asset->font30,title,{rec_title.x + 10, rec_title.y + 5}, text_size,2, WHITE);
-    DrawTextEx(asset->font30,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-2,2,colorText);
+    DrawTextEx(asset->font30,content,{origin.x + 10, origin.y + (size.y)/2}, text_size-4,2,colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
     {
