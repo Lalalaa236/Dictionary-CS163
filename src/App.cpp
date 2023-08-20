@@ -133,7 +133,6 @@ void SearchWord::Render(App* app)
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
         
-        modesButtons->Draw();
         //cout << "fuck\n";
 
         defButton->Draw();
@@ -148,6 +147,7 @@ void SearchWord::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
+        modesButtons->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -197,6 +197,7 @@ void SearchWord::Render(App* app)
 
         if(defButton->isPressed(true))
             app->setNextScreen(new SearchDef(this->app));
+        modesButtons->Draw();
     }
     else if(mode == Mode::VIEW)
     {
@@ -204,6 +205,7 @@ void SearchWord::Render(App* app)
             viewScreen = new ViewWord(word, this, app);
         viewScreen->Render(app, this);
     }
+
     // cout << mode << "\n";
 }
 
@@ -264,8 +266,6 @@ void SearchDef::Render(App* app)
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
-        modesButtons->Draw();
-
         defButton->Draw();
         wordButton->Draw();
 
@@ -327,6 +327,7 @@ void SearchDef::Render(App* app)
 
         if(wordButton->isPressed(true))
             app->setNextScreen(new SearchWord(this->app));
+        modesButtons->Draw();
         }
     else if(mode == Mode::VIEW)
     {

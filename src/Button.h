@@ -19,7 +19,13 @@ using std::vector;
 
 class Button_function
 {
+protected:
+    bool is_dataset;
 public:
+    Button_function() : is_dataset(false) {}
+    bool get_dataset() const {
+        return is_dataset;
+    }
     Asset* asset;
     Vector2 origin;
     Vector2 size;
@@ -31,16 +37,13 @@ public:
     int text_size;
     char text[256];
     bool state = false;
-
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
     void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
     virtual void specific_function() {};
     bool isPressed(bool outline);
-
-    Button_function() = default;
     Button_function(Asset* asset)
-    : asset(asset)
-    {}
+        : is_dataset(false), asset(asset) {
+    }
 };
 
 class search_by_def_button : public Button_function
@@ -206,19 +209,17 @@ public:
     }
 };
 
-class modes_buttons
+class modes_buttons:Button_function
 {
 public:
     vector<string> modes = {"Eng-Eng", "Eng-Vie", "Vie-Eng", "Slang", "Emoji"};
     vector<Rectangle> mode_buttons;
-
     Vector2 origin;
     Vector2 size;
     Color color;
     Color color_text;
     char text[101];
     int text_size;
-    bool isDropdownVisible = false;
     Asset* asset;
     modes_buttons(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
     {
@@ -231,6 +232,10 @@ public:
     }
 
     void Draw();
+    void change_dataset(bool val){
+        is_dataset = val;    
+    }
+
 };
 
 class WordButton : public Button_function
@@ -241,7 +246,6 @@ public:
     Texture2D cur;
     // Texture2D base;
     // Texture2D faved;
-
     WordButton();
     WordButton(Asset* asset, Word* data, Vector2 origin, Vector2 size, Color color);
     ~WordButton();

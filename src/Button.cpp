@@ -74,7 +74,7 @@ void modes_buttons::Draw()
     Color pressColorText = {100,100,100,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
-    DrawTextEx(asset->font,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
+    DrawTextEx(asset->font,"Dataset",{origin.x + 20, origin.y + 25}, 27,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
@@ -84,70 +84,78 @@ void modes_buttons::Draw()
         mode_buttons.push_back(mode);
     }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdownVisible) 
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!get_dataset()) 
         {
-                isDropdownVisible = true; 
+                change_dataset(true);
+                cout<<"set to true \n";
+                cout << "local ne" << is_dataset<<"\n";
+                cout << "class cha ne"<< get_dataset();
         }
-        else {
-                isDropdownVisible = false; 
+        else if(!CheckCollisionPointRec(GetMousePosition(), dataset)){
+            cout<<"set to false \n";
+            change_dataset(false);
+
         }
     }
-    if (isDropdownVisible) 
+    if (get_dataset()) 
     {
+        cout <<get_dataset();
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
                 DrawTextEx(asset->font,modes[i].c_str(),{mode_buttons[i].x + 15,mode_buttons[i].y + 10}, 25,2, colorText);
             }
-        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) 
             {
-                DrawRectangleRec(mode_buttons[0], pressColor);
+                    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                    {
+                        DrawRectangleRec(mode_buttons[0], pressColor);
+                    }
+                    else
+                    {
+                        DrawRectangleRec(mode_buttons[0], hoverColorBtn);
+                    }
+                }
+                if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
+                    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                    {
+                        DrawRectangleRec(mode_buttons[1], pressColor);
+                    }
+                    else
+                    {
+                        DrawRectangleRec(mode_buttons[1], hoverColorBtn);
+                    }
+                }
+                if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
+                    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                    {
+                        DrawRectangleRec(mode_buttons[2], pressColor);
+                    }
+                    else
+                    {
+                        DrawRectangleRec(mode_buttons[2], hoverColorBtn);
+                    }
+                }
+                if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
+                    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                    {
+                        DrawRectangleRec(mode_buttons[3], pressColor);
+                    }
+                    else
+                    {
+                        DrawRectangleRec(mode_buttons[3], hoverColorBtn);
+                    }
+
+                }
+                if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
+                    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                    {
+                        DrawRectangleRec(mode_buttons[4], pressColor);
+                    }   
+                    else
+                    {
+                        DrawRectangleRec(mode_buttons[4], hoverColorBtn);
+                    }
             }
-            else
-            {
-                DrawRectangleRec(mode_buttons[0], hoverColorBtn);
-            }
-        }
-        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-            {
-                DrawRectangleRec(mode_buttons[1], pressColor);
-            }
-            else
-            {
-                DrawRectangleRec(mode_buttons[1], hoverColorBtn);
-            }
-        }
-        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-            {
-                DrawRectangleRec(mode_buttons[2], pressColor);
-            }
-            else
-            {
-                DrawRectangleRec(mode_buttons[2], hoverColorBtn);
-            }
-        }
-        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-            {
-                DrawRectangleRec(mode_buttons[3], pressColor);
-            }
-            else
-            {
-                DrawRectangleRec(mode_buttons[3], hoverColorBtn);
-            }
-        }
-        if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
-            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-            {
-                DrawRectangleRec(mode_buttons[4], pressColor);
-            }
-            else
-            {
-                DrawRectangleRec(mode_buttons[4], hoverColorBtn);
-            }
-        }
     }
 }
 
@@ -257,9 +265,9 @@ void WordButton::Draw(Vector2 origin)
     DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
     DrawText(data->data.c_str(), origin.x + 20, origin.y + 20, 30, colorText);
     DrawText(text, origin.x + 40, origin.y + 60, 25, colorText);
-
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725 && !get_dataset())
     {
+        cout << get_dataset();
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
             DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
