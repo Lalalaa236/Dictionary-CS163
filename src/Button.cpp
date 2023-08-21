@@ -347,6 +347,191 @@ bool FavButton::Update(Word* word)
     }
     return word->favourite;
 }
+void AddWordScreen::CursorBlink(float time) //blinking cursor 
+{
+    cursorBlinkTime += time;
+    if (cursorBlinkTime >= 1.0f)
+        cursorBlinkTime = 0.0f;
+}
+void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type)
+{
+    Rectangle word_rec = {50,90,500,70};
+    Vector2 origin = {50,150};
+    Rectangle def_rec = {30,origin.y+70,1100,400};
+    Rectangle type_rec = {origin.x+500+10,origin.y-50,300,70};
+    DrawRectangle(30,50,1100,650,WHITE);
+    DrawLine(origin.x,origin.y,500,origin.y,BLACK);
+    DrawTextEx(asset->font50, buffer,{origin.x,origin.y-60}, 45, 0,BLACK);
+    DrawTextEx(asset->font50, buffer_def,{origin.x,origin.y+70}, 38, 0,BLACK);
+    DrawTextEx(asset->font50,buffer_type,{origin.x+500+20,origin.y-50}, 45, 0,BLACK);
+    strcpy(text, "  Save");
+    DrawRec({30,720},{120,40},PURPLE,text,WHITE,35);
+    if(bufflen == 0 && is_enter_word == false)
+      {
+            DrawTextEx(asset->font50, "Enter a word",{origin.x,origin.y-60}, 45, 0,  BLACK);
+      }
+    if(bufflen_def == 0 && is_enter_def == false)
+        DrawTextEx(asset->font50, "Add the definition here",{origin.x,origin.y+70}, 38,2,  {155,155,155,255});
+    if(bufflen_type == 0 && is_enter_type == false)
+        DrawTextEx(asset->font50, "(Type of the word)",{origin.x+500+10,origin.y-50}, 45,2,  {155,155,155,255});
+    if(is_enter_word)
+    {
+        if (cursorBlinkTime < 0.5f)
+            DrawTextEx(asset->font50, "|", {origin.x + MeasureTextEx(asset->font50, buffer, 45, 0).x, origin.y-60}, 45, 0,BLACK);
+    }
+    if(is_enter_def)
+    {
+        if (cursorBlinkTime < 0.5f)
+            DrawTextEx(asset->font50, "|", {origin.x + MeasureTextEx(asset->font50, buffer_def, 38, 0).x, origin.y+70}, 38, 0,BLACK);
+    }
+    if(is_enter_type)
+    {
+        if (cursorBlinkTime < 0.5f)
+            DrawTextEx(asset->font50, "|", {origin.x + 500 +20 + MeasureTextEx(asset->font50, buffer_type, 45, 0).x, origin.y-50}, 38, 0,BLACK);
+    }  
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
+        if (CheckCollisionPointRec(GetMousePosition(), word_rec))
+        {
+            is_enter_word = true;
+            is_enter_def = false;
+            is_enter_type  =false;
 
+        }   
+        else if (is_enter_word)
+            is_enter_word = false;
+        else if (CheckCollisionPointRec(GetMousePosition(), def_rec))
+        {
+            is_enter_def = true;  
+            is_enter_word = false;
+            is_enter_type  =false;
+
+        }
+        else if (is_enter_def)
+            is_enter_def = false;  
+        else if (CheckCollisionPointRec(GetMousePosition(), type_rec))
+        {
+            is_enter_type = true;  
+            is_enter_word = false;
+            is_enter_def = false;
+        }
+        else if (is_enter_type)
+            is_enter_type = false; 
+
+     }
+    if (is_enter_word)
+    {
+        SetMouseCursor(MOUSE_CURSOR_IBEAM);
+        int key = GetCharPressed();
+        if((key >= 32) && (key <= 125) && (length < 31))
+        {
+            input[length] = (char)key;
+            input[length + 1] = '\0'; // Add null terminator at the end of the string.
+            length++;
+        }
+
+        key = GetCharPressed();  // Check next character in the queue
+
+        if(IsKeyPressed(KEY_BACKSPACE))
+        {
+            length--;
+            if(length < 0) 
+                length = 0;
+            input[length] = '\0';
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_ENTER))
+        {
+            this->startAdd = true;
+            this->input = buffer;
+            is_enter_word = false;
+        }
+        CursorBlink(GetFrameTime());
+         std::cout << "input: " << input << "!\n";
+        std::cout << "buffer: " << buffer << "!\n";
+
+    
+    }
+    else if (!is_enter_def&&!is_enter_type)
+                SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+    if (is_enter_def)
+    {
+     SetMouseCursor(MOUSE_CURSOR_IBEAM);
+        int key = GetCharPressed();
+        if((key >= 32) && (key <= 125) && (length_def < 256))
+        {
+            input_def[length_def] = (char)key;
+            input_def[length_def + 1] = '\0'; // Add null terminator at the end of the string.
+            length_def++;
+        }
+
+        key = GetCharPressed();  // Check next character in the queue
+
+        if(IsKeyPressed(KEY_BACKSPACE))
+        {
+            length_def--;
+            if(length_def < 0) 
+                length_def = 0;
+            input_def[length_def] = '\0';
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_ENTER))
+        {
+            this->startAdd = true;
+            this->input_def = buffer_def;
+            is_enter_def = false;
+        }
+        CursorBlink(GetFrameTime());
+         std::cout << "input: " << input_def << "!\n";
+        std::cout << "buffer: " << buffer_def << "!\n";
+
+    
+    }
+    else if (!is_enter_word && !is_enter_type)
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+    if (is_enter_type)
+    {
+     SetMouseCursor(MOUSE_CURSOR_IBEAM);
+        int key = GetCharPressed();
+        if((key >= 32) && (key <= 125) && (length_type < 31))
+        {
+            input_type[length_type] = (char)key;
+            input_type[length_type + 1] = '\0'; // Add null terminator at the end of the string.
+            length_type++;
+        }
+
+        key = GetCharPressed();  // Check next character in the queue
+
+        if(IsKeyPressed(KEY_BACKSPACE))
+        {
+            length_type--;
+            if(length_type < 0) 
+                length_type = 0;
+            input_type[length_type] = '\0';
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_ENTER))
+        {
+            this->startAdd = true;
+            this->input_type = buffer_type;
+            is_enter_type = false;
+        }
+        CursorBlink(GetFrameTime());
+         std::cout << "input: " << input_type << "!\n";
+        std::cout << "buffer: " << buffer_type << "!\n";
+
+    
+    }
+    else if (!is_enter_word && !is_enter_def)
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+
+
+}
 WordButton::~WordButton()
 {}

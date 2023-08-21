@@ -276,5 +276,42 @@ public:
     void SetTexture(bool isFav);
     bool Update(Word* word);
 };
+class AddWordScreen : public Button_function
+{
+    int text_size;
+    bool isDropdownVisible = false;
+    Texture2D cur;
+public:
+    bool is_enter_word = false;
+    bool is_enter_def = false;
+    bool is_enter_type = false;
 
+    string input;
+    string input_def;
+    string input_type;
+
+    bool startAdd = false;
+    char buffer[32];
+    char buffer_def[257];
+    char buffer_type[32];
+
+    int bufflen;
+    int bufflen_def;
+    int bufflen_type;
+
+    Asset* asset;
+    AddWordScreen(Asset*asset):
+    bufflen(0),is_enter_word(false),bufflen_def(0),bufflen_type(0)
+    {
+        this->asset = asset;
+        buffer[0] = '\0';
+        buffer_def[0] = '\0';
+        buffer_type[0]= '\0';
+
+
+    }
+    float cursorBlinkTime = 0.0f;
+    void CursorBlink(float time);
+    void Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type);
+};
 #endif

@@ -17,6 +17,17 @@ ViewWord::~ViewWord()
     delete backButton;
     delete favButton;
 }
+AddWord::AddWord(App* app)
+{
+    this->app = app;
+    addwordScreen = new AddWordScreen(this->app->asset);
+
+
+}
+AddWord::~AddWord()
+{
+    delete addwordScreen;
+}
 
 void ViewWord::Render(App* app, Screen* screen)
 {
@@ -70,7 +81,10 @@ void ViewWord::Update()
         }
     }
 }
-
+void AddWord::Render(App* app)
+{
+    addwordScreen->Draw(addwordScreen->buffer, addwordScreen->bufflen,addwordScreen->buffer_def, addwordScreen->bufflen_def,addwordScreen->buffer_type, addwordScreen->bufflen_type);
+}
 void ViewWord::SetShowable()
 {
     int size = word->data->defs.size();
@@ -750,25 +764,7 @@ HistoryScreen::~HistoryScreen()
 // {
 //     this->app = app;
 // }
-
-void AddWord::Render(App* app)
-{
-    Vector2 _origin = {50, 80};
-    Vector2 _size = {1100, 100};
-    ClearBackground(RAYWHITE);
-    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, BLUE);
-    DrawText("Add a Word", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, LIGHTGRAY);
-    Vector2 return_origin = {50, 10};
-    Vector2 return_size = {100, 50};
-    DrawRectangle(return_origin.x, return_origin.y, return_size.x, return_size.y, RED);
-}
-
 ResetWarning::ResetWarning(App* app)
-{
-    this->app = app;
-}
-
-AddWord::AddWord(App* app)
 {
     this->app = app;
 }

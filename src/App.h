@@ -57,6 +57,7 @@ public:
     //Word* getWord();
 };
 
+
 class SearchWord : public Screen
 {
 private:
@@ -174,13 +175,18 @@ public:
 
     ResetWarning(App* app);
 };
-
-class AddWord : public Screen
+class AddWord:public Screen
 {
-public:
-    void Render(App* app);
-
+    private:
+    Rectangle rect;
+    string showable;
+    Vector2 origin;
+    ReturnButton* backButton;
+    AddWordScreen* addwordScreen;
+   public:
     AddWord(App* app);
-};
-
+    ~AddWord();
+    void Render(App* app);
+    //Word* getWord();
+}; 
 #endif
