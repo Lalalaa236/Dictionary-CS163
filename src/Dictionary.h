@@ -5,8 +5,10 @@
 #include <fstream>
 #include <algorithm>
 
+
 using std::ifstream;
 using std::ofstream;
+using std::pair;
 
 class Definition;
 
@@ -54,6 +56,8 @@ public:
     vector<Word*> words; //save all the words in dict for playing game
     vector<Definition*> allDef;//save all the def in dict for playing game
 
+    typedef pair<vector<pair<Word*, bool>>, Definition*> gameRes;
+
     Dictionary();
     void insertWord(const string& str); //function for user to insert word
     void insertDef(const string& str, Word*& word); //function for user to insert a definition to an already existing word
@@ -77,6 +81,9 @@ public:
     void addToHis(Word* word, const string& fileDir);
     vector<Word*> getHis(const string& fileDir);
 
+    Word* randomWord();
+    
+    void resetDictionary();
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def

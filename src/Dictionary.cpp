@@ -25,7 +25,7 @@ Definition::~Definition()
 Dictionary::Dictionary()
 {}
 
-void Dictionary::insertWord(const string& str) //insert new word into the dictionary
+void Dictionary::insertWord(const string& str) 
 {
     Word* word;
     if(trie.findWhole(str, word))
@@ -185,30 +185,18 @@ vector<string> SplitDef(const string& s)
 void Dictionary::editDef(const string& word_edit_def, const string& old_def,const string& new_def)
 {
     Word* word;
-    if(trie.findWhole(word_edit_def, word))
-    {
+    if(trie.findWhole(word_edit_def, word)) {
         int defIndex = -1;
-        for(int i = 0; i < word->defs.size(); ++i)
-        {
-            if(word->defs[i]->data.find(old_def) != string::npos)
-            {
+        for(int i = 0; i < word->defs.size(); ++i) {
+            if(word->defs[i]->data.find(old_def) != string::npos) {
                 defIndex = i;
                 break;
             }
         }
-        if(defIndex == -1)
-        {
-            cout << "Definition not found!\n";
-            return;
-        }
+        if(defIndex == -1) return;
         Definition* def = word->defs[defIndex];
         def->data.replace(def->data.find(')') + 2, def->data.size() - (def->data.find(')') + 2), new_def);   
-    }
-
-    else
-    {
-        cout << "Word not found\n";
-    }
+    } else return;
 }
 
 void playGame(Dictionary& dictionary) 
@@ -256,44 +244,27 @@ void Dictionary::deleteDict()
     history.clear();
 }
 
-void Dictionary::removeWord(const string& str, const string filePath)
-{
+void Dictionary::removeWord(const string& str, const string filePath) {
     Word* word;
-
     bool isExist = trie.findWhole(str, word);
-
-    if (isExist)
-    {
+    if (isExist) {
         trie.removeAKey(str);
         std::ifstream fin(filePath);
-        std::string tempFilePath = filePath.substr(0, filePath.size() - 4) + "_removeWord.txt";
+        std::string tempFilePath = filePath.substr(0, filePath.size() - 4)
+         + "_removeWord.txt";
         std::ofstream fout(tempFilePath);
-
-        std::string deleteLine = word->data + " ("; // Ex: "foo ("
+        std::string deleteLine = word->data + " ("; 
         std::string line;
-
-        while (getline(fin, line))
-        {
+        while (getline(fin, line)) {
             long long unsigned int position = line.find(deleteLine);
-
-            if (position == string::npos)
-            {
-                fout << line << std::endl;
-            }
-            
+            if (position == string::npos) fout << line << std::endl;
         }
-
         fin.close();
         fout.close();
         remove(filePath.c_str());
         rename(tempFilePath.c_str(), filePath.c_str());
-
-        // delete word;
         return;
-    }
-
-    std::cout << "The word does not exist.";
-    return;
+    } return;
 }
 
 void Dictionary::addDefWord(Definition*& def, const string& s)
@@ -512,7 +483,6 @@ void Dictionary::addToFavList(Word* word, const string& fileDir)
     std::ofstream fout;
     string line;
     bool insert = true;
-
     fin.open(fileDir + "FavoriteList.txt");
     while(getline(fin, line))
     {
@@ -520,15 +490,9 @@ void Dictionary::addToFavList(Word* word, const string& fileDir)
             insert = false;
     }
     fin.close();
-
-    if(!insert)
-        return;
-    
+    if(!insert) return;
     fout.open(fileDir + "FavoriteList.txt", std::ios_base::app);
-
     fout << word->data << "\n";
-    // fout << word->index << "\n";
-
     fout.close();
 }
 
@@ -583,16 +547,6 @@ vector<Word*> Dictionary::viewFavList(const string& fileDir)
         trie.findWhole(words[i], newWord);
         favList.push_back(newWord);
     }
-
-    // for (int i = 0; i < favList.size(); i++)
-    // {
-    //     std::cout << i + 1 << ". " << favList[i]->data << '\n';
-    //     for (int j = 0; j < favList[i]->defs.size(); j++)
-    //     {
-    //         std::cout << "  " << favList[i]->defs[j]->data << '\n';
-    //     }
-    // }
-
     return favList;
 }
 
@@ -653,4 +607,56 @@ vector<Word*> Dictionary::getHis(const string& fileDir)
         his.push_back(newWord);
     }
     return his;
+}
+
+void Dictionary::resetDictionary() {
+    history.clear();
+    ifstream in;
+    ofstream out;
+    in.open("data\\Eng-Eng\\backup.txt");
+    out.open("data\\Eng-Eng\\data.txt");
+    out << in.rdbuf();
+    in.close(); out.close();
+    in.open("data\\Eng-Vie\\backup.txt");
+    out.open("data\\Eng-Vie\\data.txt");
+    out << in.rdbuf();
+    in.close(); out.close();
+    in.open("data\\Emoji\\backup.txt");
+    out.open("data\\Emoji\\data.txt");
+    out << in.rdbuf();
+    in.close(); out.close();
+    in.open("data\\Vie-Eng\\backup.txt");
+    out.open("data\\Vie-Eng\\data.txt");
+    out << in.rdbuf();
+    in.close(); out.close();
+    in.open("data\\Slang\\backup.txt");
+    out.open("data\\Slang\\data.txt");
+    out << in.rdbuf();
+    in.close(); out.close();
+    loadData("Eng-Eng");
+    out.open("data\\Eng-Eng\\Language.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Eng-Vie\\Language.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Vie-Eng\\Language.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Emoji\\Language.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Slang\\Language.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Eng-Eng\\History.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Eng-Vie\\History.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Vie-Eng\\History.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Emoji\\History.txt", std::ios::trunc);
+    out.close();
+    out.open("data\\Slang\\History.txt", std::ios::trunc);
+    out.close();
+}
+
+Word* Dictionary::randomWord() 
+{
+    return words[rand() % words.size()];
 }
