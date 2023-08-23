@@ -241,6 +241,8 @@ void Dictionary::deleteDict()
     trieNode<Word*>* root = trie.getRoot();
     trie.deallocate(root);
     trie.setRoot();
+    words.clear();
+    allDef.clear();
     history.clear();
 }
 

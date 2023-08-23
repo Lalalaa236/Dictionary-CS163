@@ -52,7 +52,7 @@ void SearchBox::HandleInput(char* input, int& length)
     {
         SetMouseCursor(MOUSE_CURSOR_IBEAM);
         int key = GetCharPressed();
-        if((key >= 32) && (key <= 125) && (length < 31))
+        if((key >= 32) && (key <= 125) && (length <= 20))
         {
             input[length] = (char)key;
             input[length + 1] = '\0'; // Add null terminator at the end of the string.
