@@ -170,10 +170,14 @@ public:
 
 class ResetWarning : public Screen
 {
+private:
+    YesNo_button* YesBtn;
+    YesNo_button* NoBtn;
 public:
     void Render(App* app);
 
     ResetWarning(App* app);
+    ~ResetWarning();
 };
 class AddWord:public Screen
 {

@@ -486,20 +486,7 @@ void App::render(Screen* screen)
     screen->Render(this);
 }
 
-void ResetWarning::Render(App* app)
-{
-    Vector2 _origin = {300, 250};
-    Vector2 _size = {600, 200};
-    ClearBackground(LIGHTGRAY);
-    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, WHITE);
-    DrawText("Are you sure you want to reset?", _origin.x + 40, _origin.y + 30, 30, BLACK);
-    DrawRectangle(_origin.x + 140, _origin.y + 140, 120, 40, WHITE);
-    DrawRectangleLinesEx({_origin.x + 140, _origin.y + 140, 120, 40}, 3, BLACK);
-    DrawText("YES", _origin.x + 178, _origin.y + 153, 20, BLACK);
-    DrawRectangle(_origin.x + 340, _origin.y + 140, 120, 40, WHITE);
-    DrawRectangleLinesEx({_origin.x + 340, _origin.y + 140, 120, 40}, 3, BLACK);
-    DrawText("NO", _origin.x + 382, _origin.y + 153, 20, BLACK);
-}
+
 
 void FavoriteScreen::Render(App* app)
 {
@@ -774,7 +761,50 @@ HistoryScreen::~HistoryScreen()
 // {
 //     this->app = app;
 // }
+
+void ResetWarning::Render(App* app)
+{
+
+
+
+    Vector2 _origin = {300, 250};
+    Vector2 _size = {600, 200};
+    ClearBackground({255,235,250,100});
+    DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, WHITE);
+    DrawText("Are you sure you want to reset?", _origin.x + 40, _origin.y + 30, 30, {255,8,74,255});
+    // DrawRectangle(_origin.x + 140, _origin.y + 140, 120, 40, WHITE);
+    // DrawRectangleLinesEx({_origin.x + 140, _origin.y + 140, 120, 40}, 3, BLACK);
+    // DrawText("YES", _origin.x + 178, _origin.y + 153, 20, BLACK);
+    // DrawRectangle(_origin.x + 340, _origin.y + 140, 120, 40, WHITE);
+    // DrawRectangleLinesEx({_origin.x + 340, _origin.y + 140, 120, 40}, 3, BLACK);
+    // DrawText("NO", _origin.x + 382, _origin.y + 153, 20, BLACK);
+    YesBtn->Draw();
+    NoBtn->Draw();
+
+    if (NoBtn->isPressed(false))
+    {
+        app->setNextScreen(new SearchWord(this->app));
+    }
+    if (YesBtn->isPressed(false))
+    {
+        app->dict->resetDictionary();
+        app->setNextScreen(new SearchWord(this->app));
+    }
+}
+
 ResetWarning::ResetWarning(App* app)
 {
+    Vector2 origin = {300, 250};
+    Vector2 size = {600, 200};
+    Color noBtnColor = {255,98,137,255};
+    Color yesBtnColor = {255,98,137,150};
+
     this->app = app;
+    YesBtn = new YesNo_button(app->asset, {origin.x + 140, origin.y + 140}, {120, 40}, yesBtnColor, WHITE,"  YES", 24);
+    NoBtn = new YesNo_button(app->asset, {origin.x + 340, origin.y + 140}, {120, 40}, noBtnColor, WHITE,"   NO", 24);
+}
+
+ResetWarning::~ResetWarning()
+{
+
 }
