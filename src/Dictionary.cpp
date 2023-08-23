@@ -574,22 +574,6 @@ vector<Word*> Dictionary::viewFavList(const string& fileDir)
     while(getline(fin, line))
     {
 
-        // vector<string> current = Split(line);
-
-        // if (current.size() == 2)
-        // {
-        //     Word* word;
-        //     if(current[0] != curWord)
-        //     {
-
-        //         curWord = current[0];
-        //         word = new Word(current[0]);
-
-        //         favList.push_back(word);
-        //     }
-        //     Definition* def = new Definition(current[1]);
-        //     word->defs.push_back(def);
-        // }
         words.push_back(line);
     }
 
@@ -612,17 +596,55 @@ vector<Word*> Dictionary::viewFavList(const string& fileDir)
     return favList;
 }
 
-vector<Word*> Dictionary::getHis()
+void Dictionary::addToHis(Word* word, const string& fileDir)
 {
-    vector<Word*> his;
-    Word* newElement = nullptr;
-    for (int i = history.size() - 1; i >= 0; i--)
+    word->favourite = true;
+    std::ifstream fin;
+    std::ofstream fout;
+    string line;
+    bool insert = true;
+
+    fin.open(fileDir + "History.txt");
+    while(getline(fin, line))
     {
-        newElement = history[i];
-        his.push_back(newElement);
-        // std::cout << i << "\n";
+        if(line == word->data)
+            insert = false;
     }
-    // delete newElement;
-    // cout << "hi";
+    fin.close();
+
+    if(!insert)
+        return;
+    
+    fout.open(fileDir + "History.txt", std::ios_base::app);
+
+    fout << word->data << "\n";
+    // fout << word->index << "\n";
+
+    fout.close();
+}
+
+vector<Word*> Dictionary::getHis(const string& fileDir)
+{
+    std::ifstream fin(fileDir + "History.txt");
+
+    vector<Word*> his;
+
+    vector<string> words;
+
+    std::string line;
+    std::string curWord;
+
+    while(getline(fin, line))
+    {
+
+        words.push_back(line);
+    }
+
+    for (int i = words.size() - 1; i >= 0; i--)
+    {
+        Word* newWord;
+        trie.findWhole(words[i], newWord);
+        his.push_back(newWord);
+    }
     return his;
 }

@@ -204,7 +204,8 @@ void SearchWord::Render(App* app)
                 if(word)
                 {
                     this->mode = Mode::VIEW;
-                    this->app->dict->history.push_back(word->data);
+                    // this->app->dict->history.push_back(word->data);
+                    this->app->dict->addToHis(word->data, this->app->state.dataset);
                 }
             }
         }
@@ -217,7 +218,9 @@ void SearchWord::Render(App* app)
                 if(word)
                 {
                     this->mode = Mode::VIEW;
-                    this->app->dict->history.push_back(word->data);
+                    // this->app->dict->history.push_back(word->data);
+                    this->app->dict->addToHis(word->data, this->app->state.dataset);
+
                 }
             }
         }
@@ -340,7 +343,8 @@ void SearchDef::Render(App* app)
                 if(word)
                 {
                     this->mode = Mode::VIEW;
-                    this->app->dict->history.push_back(word->data);
+                    // this->app->dict->history.push_back(word->data);
+                    this->app->dict->addToHis(word->data, this->app->state.dataset);
                 }
             }
         }
@@ -353,7 +357,8 @@ void SearchDef::Render(App* app)
                 if(word)
                 {
                     this->mode = Mode::VIEW;
-                    this->app->dict->history.push_back(word->data);
+                    // this->app->dict->history.push_back(word->data);
+                    this->app->dict->addToHis(word->data, this->app->state.dataset);
                 }
             }
         }
@@ -678,7 +683,7 @@ void HistoryScreen::Render(App* app)
         // delete word;
 
         if (!list)
-            list = new WordList(app->asset, his);
+            list = new WordList(app->asset, app->dict->getHis(this->app->state.dataset));
             // std::cout << "fuck";
     
         list->Draw();
@@ -730,7 +735,7 @@ HistoryScreen::HistoryScreen(App* app)
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
     // cout << "ah\n";
-    his = app->dict->getHis();
+    // his = app->dict->getHis();
 
 }
 

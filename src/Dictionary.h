@@ -74,7 +74,8 @@ public:
     void removeFromFavList(Word* word, const string& fileDir);
     vector<Word*> viewFavList(const string& fileDir);
 
-    vector<Word*> getHis();
+    void addToHis(Word* word, const string& fileDir);
+    vector<Word*> getHis(const string& fileDir);
 
 };
 
