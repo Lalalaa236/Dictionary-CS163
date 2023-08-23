@@ -598,29 +598,35 @@ vector<Word*> Dictionary::viewFavList(const string& fileDir)
 
 void Dictionary::addToHis(Word* word, const string& fileDir)
 {
-    word->favourite = true;
     std::ifstream fin;
     std::ofstream fout;
     string line;
-    bool insert = true;
+    // bool insert = true;
 
     fin.open(fileDir + "History.txt");
+
+    vector<string> newFile;
     while(getline(fin, line))
     {
-        if(line == word->data)
-            insert = false;
+        if(line != word->data && line != "")
+            // line.replace(line.find(word->data),line.length(),"");
+            // line.replace('\n',1,"");
+            // insert = false;
+            newFile.push_back(line);
     }
     fin.close();
 
-    if(!insert)
-        return;
-    
-    fout.open(fileDir + "History.txt", std::ios_base::app);
+    // if(!insert)
+    //     return;
+    fout.open(fileDir + "History.txt");
+    if (newFile.size() > 100)
+        newFile[0] = "";
+    for(string s : newFile)
+        fout << s << "\n";
 
-    fout << word->data << "\n";
-    // fout << word->index << "\n";
-
+    fout << word->data;
     fout.close();
+    
 }
 
 vector<Word*> Dictionary::getHis(const string& fileDir)
