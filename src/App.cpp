@@ -10,12 +10,14 @@ ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
     SetShowable();
     backButton = new ReturnButton(app->asset, {1050, 112}, {45, 45}, RAYWHITE);
     favButton = new FavButton(app->asset, {1050, 652}, {45, 45}, word->data);
+    removeButton = new remove_button(app->asset, {105, 654},{130,40}, {255,194,205,255}, BLACK, "REMOVE", 24);
 }
 
 ViewWord::~ViewWord()
 {
     delete backButton;
     delete favButton;
+    delete removeButton;
 }
 AddWord::AddWord(App* app)
 {
@@ -39,6 +41,8 @@ void ViewWord::Render(App* app, Screen* screen)
     DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
     
     DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+
+    removeButton->Draw();
     //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
     Update();
 }
@@ -79,6 +83,14 @@ void ViewWord::Update()
             // cout << "welp";
             word->cur = app->asset->faved;
         }
+    }
+
+    if (removeButton->isPressed(false))
+    {
+        this->app->dict->removeWord(this->word->data->data,this->app->state.dataset);
+        app->dict->deleteDict();
+        app->dict->loadData(this->app->state.dataset);
+        this->app->setNextScreen(new SearchWord(this->app));
     }
 }
 void AddWord::Render(App* app)
@@ -783,6 +795,8 @@ void ResetWarning::Render(App* app)
     if (YesBtn->isPressed(false))
     {
         app->dict->resetDictionary();
+        app->dict->deleteDict();
+        app->dict->loadData(app->state.dataset);
         app->setNextScreen(new SearchWord(this->app));
     }
 }

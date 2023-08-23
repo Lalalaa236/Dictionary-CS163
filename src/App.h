@@ -47,6 +47,7 @@ private:
     Vector2 origin;
     ReturnButton* backButton;
     FavButton* favButton;
+    remove_button* removeButton;
 public:
     ~ViewWord();
     ViewWord(WordButton* word, Screen* screen, App* app);
