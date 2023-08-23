@@ -91,7 +91,7 @@ void SearchBox::CursorBlink(float time) //blinking cursor
 }
 void SearchBox::DrawInput()
 {
-    Color colorBtnLine = {51,187,197,255};
+    Color colorBtnLine = {255,8,74,255};
     DrawTextEx(asset->font50, buffer, {this->box.x + 40, this->box.y + (this->box.height - 45)/2}, 48, 0, colorBtnLine);
     if(bufflen == 0 && this->state == false)
         //DrawText("Search", this->box.x + 40, this->box.y + (this->box.height - 45)/2, 48, {155,155,155,255});

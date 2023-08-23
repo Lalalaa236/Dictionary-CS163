@@ -7,7 +7,7 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Color hoverColorText = color_text;
     Color pressColor = color;
     Color pressColorText = color_text;
-    Color layerHover = {100,100,100,70};
+    Color layerHover = {200,200,200, 100};
     Color layerPress = {255,255,255,70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
@@ -66,14 +66,14 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
 
 void modes_buttons::Draw() 
 {
-    Color colorBtn = color;
+    Color colorBtn = {255,98,137,105};
     Color colorText = color_text;
-    Color hoverColorBtn = {97,75,195,170};
-    Color hoverColorText = {10,10,10,255};
-    Color pressColor = {151,187,197,175};
-    Color pressColorText = {100,100,100,255};
+    Color hoverColorBtn = {255,98,137,155};
+    Color hoverColorText = {200,200,200,255};
+    Color pressColor = {255,98,137,175};
+    Color pressColorText = {200,200,200,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
-    DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
+    DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,{255,98,137,255});
     DrawTextEx(asset->font30,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
@@ -246,12 +246,12 @@ void WordButton::createShowable()
 
 void WordButton::Draw(Vector2 origin)
 {
-    Color colorBtn = {51,187,197,255};
-    Color colorText = {50,50,50,255};
-    Color hoverColorBtn = {133,230,197,255};
-    Color hoverColorText = {50,50,50,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
+    Color colorBtn = WHITE;
+    Color colorText = {255,8,74,255};
+    Color hoverColorBtn = {255,98,137,30};
+    Color hoverColorText = {255,98,137,255};
+    Color pressColor = {255,98,137,50};
+    Color pressColorText = {255,98,137,255};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
     DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);

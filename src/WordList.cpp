@@ -29,7 +29,7 @@ WordButton* WordList::getWord()
     BeginScissorMode(300, 180, 850, 525);
     for(int i = 0; i < size; ++i)
     {
-        if(word[i] && word[i]->isPressed(true) && inRange())
+        if(word[i] && word[i]->isPressed(false) && inRange())
         {
             EndScissorMode();
             return word[i]; //cout << word[i]->data->data << "\n";

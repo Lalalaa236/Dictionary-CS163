@@ -31,8 +31,8 @@ AddWord::~AddWord()
 
 void ViewWord::Render(App* app, Screen* screen)
 {
-    DrawRectangleRec({100, 650, 1000, 50}, WHITE);
-    DrawRectangle(100, 100, 1000, 70, DARKBLUE);
+    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
 
     DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
     
@@ -225,7 +225,7 @@ void SearchWord::Render(App* app)
             }
         }
 
-        if(defButton->isPressed(true))
+        if(defButton->isPressed(false))
             app->setNextScreen(new SearchDef(this->app));
     }
     else if(mode == Mode::VIEW)
@@ -244,20 +244,22 @@ SearchWord::SearchWord(App* app)
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {680, 70};
+    Color btnColor = {255,98,137,255};
+
     searchbox = new SearchBox(app->asset, origin, size, {WHITE});
 
-    wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, PURPLE, WHITE,21);
+    wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, btnColor, WHITE,21);
     defButton = new search_by_def_button(this->app->asset, {30+wordButton->size.x, origin.y },  {125, 70}, WHITE,BLACK,21);
 
-    addWordButton = new add_word_button(this->app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
+    addWordButton = new add_word_button(this->app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
 
-    historyButton = new history_button(this->app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
+    historyButton = new history_button(this->app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button(this->app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
+    favoriteButton = new favorite_button(this->app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button(this->app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Enhance your vocabulary",BLACK,24);
+    gamesButton = new games_button(this->app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
 
-    resetButton = new reset_button(this->app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
+    resetButton = new reset_button(this->app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
     // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
 
     constexpr Vector2 mode_origin = {origin.x+size.x + 20, origin.y};
@@ -363,7 +365,7 @@ void SearchDef::Render(App* app)
             }
         }
 
-        if(wordButton->isPressed(true))
+        if(wordButton->isPressed(false))
             app->setNextScreen(new SearchWord(this->app));
         }
     else if(mode == Mode::VIEW)
@@ -381,23 +383,24 @@ SearchDef::SearchDef(App* app)
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {680, 70};
+    Color btnColor = {255,98,137,255};
     searchbox = new SearchBox(app->asset, origin, size, WHITE);
     wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, WHITE,BLACK,21);
-    defButton = new search_by_def_button(app->asset, {30+wordButton->size.x, origin.y }, {125, 70}, PURPLE, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30+wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
 
-    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
 
-    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Enhance your vocabulary",BLACK,24);
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
 
-    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
 
     constexpr Vector2 mode_origin = {origin.x+size.x + 20, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
-    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,BLACK,25);
 }
 
 SearchDef::~SearchDef()
@@ -450,7 +453,7 @@ void App::Tick()
 
 void App::Draw()
 {
-    ClearBackground(GREY);
+    ClearBackground({255,235,250,100});
 }
 
 void App::Update()
@@ -550,7 +553,7 @@ void FavoriteScreen::Render(App* app)
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
         ClearBackground(RAYWHITE);
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, ORANGE);
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   FAVORITE", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
@@ -591,19 +594,20 @@ FavoriteScreen::FavoriteScreen(App* app)
 
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
+    Color btnColor = {255,98,137,255};
 
-    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, {114,93,255,255}, WHITE,21);
-    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, {114,93,255,255}, WHITE,21);
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, btnColor, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
 
-    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
 
-    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Enhance your vocabulary",BLACK,24);
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
 
-    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
@@ -675,7 +679,7 @@ void HistoryScreen::Render(App* app)
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
         ClearBackground(RAYWHITE);
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, PINK);
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   HISTORY", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
@@ -717,19 +721,20 @@ HistoryScreen::HistoryScreen(App* app)
 
     constexpr Vector2 origin = {300, 50};
     constexpr Vector2 size = {700, 70};
+    Color btnColor = {255,98,137,255};
 
-    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, {114,93,255,255}, WHITE,21);
-    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, {114,93,255,255}, WHITE,21);
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, btnColor, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
 
-    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},SKYBLUE,"Add a word","Add a word that you want",BLACK,24);
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
 
-    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},PINK,"History","Words you have searched",BLACK,24);
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
 
-    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},ORANGE,"Favorite","Your favorite word list",BLACK,24);
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
 
-    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},DARKGREEN,"Game","Enhance your vocabulary",BLACK,24);
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
 
-    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, {158,210,190,255},BLACK,24);
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
