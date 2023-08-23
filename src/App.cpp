@@ -486,8 +486,6 @@ void App::render(Screen* screen)
     screen->Render(this);
 }
 
-
-
 void FavoriteScreen::Render(App* app)
 {
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
@@ -764,9 +762,6 @@ HistoryScreen::~HistoryScreen()
 
 void ResetWarning::Render(App* app)
 {
-
-
-
     Vector2 _origin = {300, 250};
     Vector2 _size = {600, 200};
     ClearBackground({255,235,250,100});

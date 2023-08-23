@@ -633,7 +633,7 @@ void Dictionary::resetDictionary() {
     out.open("data\\Slang\\data.txt");
     out << in.rdbuf();
     in.close(); out.close();
-    loadData("Eng-Eng");
+    deleteDict();
     out.open("data\\Eng-Eng\\FavoriteList.txt", std::ios::trunc);
     out.close();
     out.open("data\\Eng-Vie\\FavoriteList.txt", std::ios::trunc);
@@ -654,6 +654,7 @@ void Dictionary::resetDictionary() {
     out.close();
     out.open("data\\Slang\\History.txt", std::ios::trunc);
     out.close();
+    loadData("data\\Eng-Eng\\");
 }
 
 Word* Dictionary::randomWord() 
