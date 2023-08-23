@@ -247,13 +247,13 @@ void Dictionary::deleteDict()
 }
 
 void Dictionary::removeWord(const string& str, const string filePath) {
+    string file = filePath + "data.txt";
     Word* word;
     bool isExist = trie.findWhole(str, word);
     if (isExist) {
         trie.removeAKey(str);
-        std::ifstream fin(filePath);
-        std::string tempFilePath = filePath.substr(0, filePath.size() - 4)
-         + "_removeWord.txt";
+        std::ifstream fin(file);
+        std::string tempFilePath = filePath + "data_removeWord.txt";
         std::ofstream fout(tempFilePath);
         std::string deleteLine = word->data + " ("; 
         std::string line;
@@ -263,10 +263,47 @@ void Dictionary::removeWord(const string& str, const string filePath) {
         }
         fin.close();
         fout.close();
-        remove(filePath.c_str());
-        rename(tempFilePath.c_str(), filePath.c_str());
+        remove(file.c_str());
+        rename(tempFilePath.c_str(), file.c_str());
+
+        fin.open(filePath + "History.txt");
+
+        vector<string> newFile;
+        while(getline(fin, line))
+        {
+            if(line != word->data && line != "")
+                newFile.push_back(line);
+        }
+        fin.close();
+        
+        fout.open(filePath + "History.txt");
+        if (newFile.size() > 100)
+            newFile[0] = "";
+        for(string s : newFile)
+            fout << s << "\n";
+
+        fout.close();
+
+        fin.open(filePath + "FavoriteList.txt");
+
+        newFile.clear();
+        while(getline(fin, line))
+        {
+            if(line != word->data && line != "")
+                newFile.push_back(line);
+        }
+        fin.close();
+        
+        fout.open(filePath + "FavoriteList.txt");
+        if (newFile.size() > 100)
+            newFile[0] = "";
+        for(string s : newFile)
+            fout << s << "\n";
+
+        fout.close();
         return;
-    } return;
+    } 
+    return;
 }
 
 void Dictionary::addDefWord(Definition*& def, const string& s)
@@ -565,15 +602,10 @@ void Dictionary::addToHis(Word* word, const string& fileDir)
     while(getline(fin, line))
     {
         if(line != word->data && line != "")
-            // line.replace(line.find(word->data),line.length(),"");
-            // line.replace('\n',1,"");
-            // insert = false;
             newFile.push_back(line);
     }
     fin.close();
 
-    // if(!insert)
-    //     return;
     fout.open(fileDir + "History.txt");
     if (newFile.size() > 100)
         newFile[0] = "";

@@ -336,4 +336,26 @@ public:
         DrawRec(origin, size, color, text,color_text,text_size);
     }
 };
+
+class remove_button : public Button_function
+{
+public:
+    remove_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text,string t, int _text_size) 
+    : Button_function()
+    {
+        this->asset = asset;
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;        
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, t.c_str());
+    }
+    
+    void Draw()
+    {
+        DrawRec(origin, size, color, text,color_text,text_size);
+    }
+};
 #endif
