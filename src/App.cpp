@@ -797,14 +797,15 @@ ResetWarning::ResetWarning(App* app)
     Vector2 origin = {300, 250};
     Vector2 size = {600, 200};
     Color noBtnColor = {255,98,137,255};
-    Color yesBtnColor = {255,98,137,150};
+    Color yesBtnColor = {255,98,137,255};
 
     this->app = app;
-    YesBtn = new YesNo_button(app->asset, {origin.x + 140, origin.y + 140}, {120, 40}, yesBtnColor, WHITE,"  YES", 24);
+    YesBtn = new YesNo_button(app->asset, {origin.x + 140, origin.y + 140}, {120, 40}, yesBtnColor, WHITE,"   YES", 24);
     NoBtn = new YesNo_button(app->asset, {origin.x + 340, origin.y + 140}, {120, 40}, noBtnColor, WHITE,"   NO", 24);
 }
 
 ResetWarning::~ResetWarning()
 {
-
+    delete YesBtn;
+    delete NoBtn;
 }
