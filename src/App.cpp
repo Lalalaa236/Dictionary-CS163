@@ -171,8 +171,6 @@ void SearchWord::Render(App* app)
 
         defButton->Draw();
 
-
-
         wordButton->Draw();
 
         addWordButton->Draw();
@@ -184,6 +182,11 @@ void SearchWord::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
+
+        if (shuffleButton->Update())
+        {
+            //randomWord
+        }
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -258,10 +261,12 @@ SearchWord::SearchWord(App* app)
     this->app = app;
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
-    constexpr Vector2 size = {680, 70};
+    constexpr Vector2 size = {605, 70};
     Color btnColor = {255,98,137,255};
 
     searchbox = new SearchBox(app->asset, origin, size, {WHITE});
+
+    shuffleButton = new ShuffleButton(app->asset, {origin.x + size.x + 5, 50}, {70, 70}, btnColor);
 
     wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, btnColor, WHITE,21);
 
@@ -279,7 +284,7 @@ SearchWord::SearchWord(App* app)
     
 
 
-    constexpr Vector2 mode_origin = {origin.x+size.x + 20, origin.y};
+    constexpr Vector2 mode_origin = {origin.x+size.x + 95, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(this->app->asset, mode_origin, mode_size, WHITE,BLACK,25);
     //cout << "jesus christ!\n";
@@ -327,6 +332,11 @@ void SearchDef::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
+
+        if (shuffleButton->Update())
+        {
+            //randomWord
+        }
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -399,9 +409,12 @@ SearchDef::SearchDef(App* app)
     this->app = app;
     this->mode = Mode::NOTSEARCH;
     constexpr Vector2 origin = {300, 50};
-    constexpr Vector2 size = {680, 70};
+    constexpr Vector2 size = {605, 70};
     Color btnColor = {255,98,137,255};
     searchbox = new SearchBox(app->asset, origin, size, WHITE);
+
+    shuffleButton = new ShuffleButton(app->asset, {origin.x + size.x + 5, 50}, {70, 70}, btnColor);
+
     wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, WHITE,BLACK,21);
     defButton = new search_by_def_button(app->asset, {30+wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
 
@@ -415,7 +428,7 @@ SearchDef::SearchDef(App* app)
 
     resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
 
-    constexpr Vector2 mode_origin = {origin.x+size.x + 20, origin.y};
+    constexpr Vector2 mode_origin = {origin.x+size.x + 95, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,BLACK,25);
 }

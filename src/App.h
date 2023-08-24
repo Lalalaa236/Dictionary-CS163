@@ -76,6 +76,7 @@ private:
     WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
+    ShuffleButton* shuffleButton;
 public:
     SearchWord(App* app);
     ~SearchWord();
@@ -99,6 +100,7 @@ private:
     WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
+    ShuffleButton* shuffleButton;
 public:
     SearchDef(App* app);
     ~SearchDef();

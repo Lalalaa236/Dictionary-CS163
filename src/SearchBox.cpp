@@ -19,7 +19,7 @@ SearchBox::~SearchBox()
 
 void SearchBox::DrawBox()
 {
-    DrawRectangle(this->box.x, this->box.y, this->box.width - this->box.height - 10, this->box.height, this->color);
+    DrawRectangle(this->box.x, this->box.y, this->box.width, this->box.height, this->color);
 }
 
 bool SearchBox::Pressed()

@@ -262,6 +262,15 @@ public:
     bool Update();
 };
 
+class ShuffleButton : public Button_function
+{
+    Texture2D image;
+public:
+    ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
+};
+
 class FavButton : public Button_function
 {
     // Texture2D base;

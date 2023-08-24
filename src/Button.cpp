@@ -300,6 +300,30 @@ bool ReturnButton::Update()
     return false;
 }
 
+ShuffleButton::ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->shuffle;
+}
+
+void ShuffleButton::Draw()
+{
+    DrawRec(origin, size, color, "", color, 0);
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x + 10, origin.y + 10, size.x - 20, size.y - 20}, {0, 0}, 0, RAYWHITE);
+}
+
+bool ShuffleButton::Update()
+{
+    this->Draw();
+    if(this->isPressed(false))
+        return true;
+    return false;
+}
+
 FavButton::FavButton(Asset* asset, Vector2 origin, Vector2 size, Word* word)
 : state(word->favourite)
 {
