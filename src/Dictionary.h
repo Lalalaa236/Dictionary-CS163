@@ -64,7 +64,7 @@ public:
     //functions type should be changed in order to implement the front end (void -> ???)
     void editDef(const string& word_edit_def,const string& old_def,const string& new_def);
 
-    gameRes chooseWord();
+    gameRes chooseWord(Definition*& gameDef, string& wordAns, int& posAns, vector<string>& multiChoices);
 
 
     vector<Word*> searchWord(const string& str);

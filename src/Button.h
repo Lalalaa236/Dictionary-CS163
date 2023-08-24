@@ -385,7 +385,7 @@ public:
         // strcpy(text, t.c_str());
     }
     
-    void Draw(string t)
+    void DrawChoice(string t)
     {
         int i = 85;
         if (t.length() > 90)
@@ -413,6 +413,36 @@ public:
         }
         strcpy(text, t.c_str());
         DrawChoiceRec(origin, size, color, text,color_text,text_size);
+    }
+
+    void Draw(string t)
+    {
+        int i = 85;
+        if (t.length() > 90)
+        {
+            while(t[i] != ' ')
+                i++;
+            if (i < t.length())
+                t.insert(i, "\n");
+            i = 175;
+            if (t.length() > 180)
+            {
+                while(t[i] != ' ')
+                    i++;
+                if (i < t.length())
+                    t.insert(i, "\n");
+                i = 265;
+                if (t.length() > 270)
+                {
+                    while(t[i] != ' ')
+                        i++;
+                    if (i < t.length())
+                    t.insert(i, "\n");
+                }
+            }
+        }
+        strcpy(text, t.c_str());
+        DrawRec(origin, size, color, text,color_text,text_size);
     }
 };
 

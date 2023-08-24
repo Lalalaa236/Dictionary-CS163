@@ -232,25 +232,23 @@ void Dictionary::guessDef(Word*& gameWord, string& defAns, int& posAns, vector<s
         }
         defAns = def_ans;
         posAns = pos_ans;
-        // multiChoices = multi_choices;
-        // string guess;
-        // cin >> guess;
-        // if(guess == def_ans) {
-        //     cout << "Correct!\n";
-        // } 
-        // else {
-        //     cout << "Incorrect, the word was: " << def_ans<< "\n";
-        // }
     }
 }
 
-Dictionary::gameRes Dictionary::chooseWord() 
+Dictionary::gameRes Dictionary::chooseWord(Definition*& gameDef, string& wordAns, int& posAns, vector<string>& multiChoices) 
 {
 	Definition* ques = allDef[rand() % allDef.size()];
+    gameDef = ques;
+
 	Word* ans = ques->word;
+    wordAns = ans->data;
+
 	vector<pair<Word*, bool>> res(4);
 	int ans_index = rand() % 4;
+    posAns = ans_index;
+
 	res[ans_index] = {ans, true};
+
 	for(int i = 0; i < 4;)
 	{
 		if(i != ans_index)
@@ -268,10 +266,18 @@ Dictionary::gameRes Dictionary::chooseWord()
 			if(exist)
 				continue;
 			else
+            {
+                multiChoices.push_back(res[i].first->data);
+                // cout << res[i].first->data << '\n';
 				++i;
+            }
 		}
 		else
+        {
+            multiChoices.push_back(res[i].first->data);
+            // cout << res[i].first->data << '\n';
 			++i;
+        }
 	}
 	pair result = {res, ques};
     return result;
