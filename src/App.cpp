@@ -200,6 +200,10 @@ void SearchWord::Render(App* app)
             app->setNextScreen(new FavoriteScreen(this->app));
         }
 
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
+        }
+
         if(resetButton->isPressed(false)) {
             app->setNextScreen(new ResetWarning(this->app));
         }
@@ -348,6 +352,10 @@ void SearchDef::Render(App* app)
 
         if(favoriteButton->isPressed(false)) {
             app->setNextScreen(new FavoriteScreen(this->app));
+        }
+
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
         }
 
         if(resetButton->isPressed(false)) {
@@ -561,6 +569,10 @@ void FavoriteScreen::Render(App* app)
             app->setNextScreen(new SearchWord(this->app));
         }
 
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
+        }
+
         if(resetButton->isPressed(false)) {
             app->setNextScreen(new ResetWarning(this->app));
         }
@@ -685,6 +697,10 @@ void HistoryScreen::Render(App* app)
         if(wordButton->isPressed(false))
         {
             app->setNextScreen(new SearchWord(this->app));
+        }
+
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
         }
 
         if(resetButton->isPressed(false)) {
@@ -835,4 +851,393 @@ ResetWarning::~ResetWarning()
 {
     delete YesBtn;
     delete NoBtn;
+}
+
+
+void GameScreen::Render(App* app)
+{
+    if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
+    {
+        ClearBackground(GREY);
+
+        if(viewScreen)
+        {
+            delete viewScreen;
+            viewScreen = nullptr;
+        }
+        if(word)
+            word = nullptr;
+
+        defButton->Draw();
+        wordButton->Draw();
+
+        addWordButton->Draw();
+
+        historyButton->Draw();
+
+        favoriteButton->Draw();
+
+        gamesButton->Draw();
+
+        resetButton->Draw();
+
+        guessDefBtn->Draw();
+
+        guessWordBtn->Draw();
+
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
+        }
+
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
+        }
+
+        if(favoriteButton->isPressed(false)) {
+            app->setNextScreen(new FavoriteScreen(this->app));
+        }
+        
+        if(defButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchDef(this->app));
+        }
+
+        if(wordButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchWord(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
+        }
+
+        if(guessDefBtn->isPressed(false)) {
+            app->setNextScreen(new GuessDefScreen(this->app));
+        }
+
+        if(guessWordBtn->isPressed(false)) {
+            app->setNextScreen(new GuessDefScreen(this->app));
+        }
+
+        Vector2 _origin = {300, 50};
+        Vector2 _size = {700, 70};
+        ClearBackground(RAYWHITE);
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
+
+        DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
+        DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 10, _origin.y + (_size.y - 55)/2 + 250}, 55,3, WHITE);
+
+        modesButtons->Draw();
+    }
+    if (mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
+    
+}
+
+GameScreen::GameScreen(App* app)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
+{
+    this->app = app;
+    this->mode = Mode::NOTSEARCH;
+    // backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+    Color btnColor = {255,98,137,255};
+
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, btnColor, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
+
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
+
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
+
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
+
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
+
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
+
+    guessDefBtn = new Guess_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "   Guess Definition", 30);
+    guessWordBtn = new Guess_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "       Guess Word", 30);
+
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    // cout << "ah\n";
+    // his = app->dict->getHis();
+}
+
+GameScreen::~GameScreen()
+{
+    delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete list;
+    delete viewScreen;
+}
+
+
+void GuessDefScreen::Render(App* app)
+{
+    if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
+    {
+        ClearBackground(GREY);
+
+        if(viewScreen)
+        {
+            delete viewScreen;
+            viewScreen = nullptr;
+        }
+        if(word)
+            word = nullptr;
+
+        defButton->Draw();
+        wordButton->Draw();
+
+        addWordButton->Draw();
+
+        historyButton->Draw();
+
+        favoriteButton->Draw();
+
+        gamesButton->Draw();
+
+        resetButton->Draw();
+
+        guessDefBtn->Draw();
+
+        guessWordBtn->Draw();
+
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
+        }
+
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
+        }
+
+        if(favoriteButton->isPressed(false)) {
+            app->setNextScreen(new FavoriteScreen(this->app));
+        }
+        
+        if(defButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchDef(this->app));
+        }
+
+        if(wordButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchWord(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
+        }
+
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
+        }
+
+        Vector2 _origin = {300, 50};
+        Vector2 _size = {700, 70};
+        ClearBackground(RAYWHITE);
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
+
+        // DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
+        // DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 10, _origin.y + (_size.y - 55)/2 + 250}, 55,3, WHITE);
+
+        modesButtons->Draw();
+    }
+    if (mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
+    
+}
+
+GuessDefScreen::GuessDefScreen(App* app)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
+{
+    this->app = app;
+    this->mode = Mode::NOTSEARCH;
+    // backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+    Color btnColor = {255,98,137,255};
+
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, btnColor, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
+
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
+
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
+
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
+
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
+
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
+
+    guessDefBtn = new Guess_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "   Guess Definition", 30);
+    guessWordBtn = new Guess_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "       Guess Word", 30);
+
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    // cout << "ah\n";
+    // his = app->dict->getHis();
+
+}
+
+GuessDefScreen::~GuessDefScreen()
+{
+    delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete list;
+    delete viewScreen;
+}
+
+void GuessWordScreen::Render(App* app)
+{
+    if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
+    {
+        ClearBackground(GREY);
+
+        if(viewScreen)
+        {
+            delete viewScreen;
+            viewScreen = nullptr;
+        }
+        if(word)
+            word = nullptr;
+
+        defButton->Draw();
+        wordButton->Draw();
+
+        addWordButton->Draw();
+
+        historyButton->Draw();
+
+        favoriteButton->Draw();
+
+        gamesButton->Draw();
+
+        resetButton->Draw();
+
+        guessDefBtn->Draw();
+
+        guessWordBtn->Draw();
+
+        if(addWordButton->isPressed(false)) {
+            app->setNextScreen(new AddWord(this->app));
+        }
+
+        if(historyButton->isPressed(false)) {
+            app->setNextScreen(new HistoryScreen(this->app));
+        }
+
+        if(favoriteButton->isPressed(false)) {
+            app->setNextScreen(new FavoriteScreen(this->app));
+        }
+        
+        if(defButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchDef(this->app));
+        }
+
+        if(wordButton->isPressed(false))
+        {
+            app->setNextScreen(new SearchWord(this->app));
+        }
+
+        if(resetButton->isPressed(false)) {
+            app->setNextScreen(new ResetWarning(this->app));
+        }
+
+        if(gamesButton->isPressed(false)) {
+            app->setNextScreen(new GameScreen(this->app));
+        }
+
+        Vector2 _origin = {300, 50};
+        Vector2 _size = {700, 70};
+        ClearBackground(RAYWHITE);
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
+
+        // DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
+        // DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 10, _origin.y + (_size.y - 55)/2 + 250}, 55,3, WHITE);
+
+        modesButtons->Draw();
+    }
+    if (mode == Mode::VIEW)
+    {
+        if(!viewScreen)
+            viewScreen = new ViewWord(word, this, app);
+        viewScreen->Render(app, this);
+    }
+    
+}
+
+GuessWordScreen::GuessWordScreen(App* app)
+: word(nullptr), list(nullptr), viewScreen(nullptr)
+{
+    this->app = app;
+    this->mode = Mode::NOTSEARCH;
+    // backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
+
+    constexpr Vector2 origin = {300, 50};
+    constexpr Vector2 size = {700, 70};
+    Color btnColor = {255,98,137,255};
+
+    wordButton = new search_by_word_button(app->asset, {30, origin.y },  {125, 70}, btnColor, WHITE,21);
+    defButton = new search_by_def_button(app->asset, {30 + wordButton->size.x, origin.y }, {125, 70}, btnColor, WHITE,21);
+
+    addWordButton = new add_word_button(app->asset, {30, wordButton->origin.y + wordButton->size.y + 60}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
+
+    historyButton = new history_button(app->asset, {30, addWordButton->origin.y + addWordButton->size.y + 10}, {250, 100},btnColor,"History","Words you have searched",BLACK,24);
+
+    favoriteButton = new favorite_button(app->asset, {30, historyButton->origin.y + historyButton->size.y + 10}, {250, 100},btnColor,"Favorite","Your favorite word list",BLACK,24);
+
+    gamesButton = new games_button(app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
+
+    resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
+
+    guessDefBtn = new Guess_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "   Guess Definition", 30);
+    guessWordBtn = new Guess_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "       Guess Word", 30);
+
+    constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
+    constexpr Vector2 mode_size = {150,size.y};
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    // cout << "ah\n";
+    // his = app->dict->getHis();
+
+}
+
+GuessWordScreen::~GuessWordScreen()
+{
+    delete defButton;
+    delete wordButton;
+    delete historyButton;
+    delete favoriteButton;
+    delete gamesButton;
+    delete resetButton;
+    delete list;
+    delete viewScreen;
 }

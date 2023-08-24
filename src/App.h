@@ -196,4 +196,75 @@ class AddWord:public Screen
     void Render(App* app);
     //Word* getWord();
 }; 
+
+class GameScreen : public Screen
+{
+private:
+    search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    add_word_button* addWordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
+    ReturnButton* backButton;
+    WordList* list;
+    WordButton* word;
+    ViewWord* viewScreen;
+    Guess_button* guessDefBtn;
+    Guess_button* guessWordBtn;
+public:
+    GameScreen(App* app);
+    ~GameScreen();
+    void Render(App* app);
+};
+
+class GuessDefScreen : public Screen
+{
+private:
+    search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    add_word_button* addWordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
+    ReturnButton* backButton;
+    WordList* list;
+    WordButton* word;
+    ViewWord* viewScreen;
+    Guess_button* guessDefBtn;
+    Guess_button* guessWordBtn;
+public:
+    GuessDefScreen(App* app);
+    ~GuessDefScreen();
+    void Render(App* app);
+};
+
+class GuessWordScreen : public Screen
+{
+private:
+    search_by_def_button* defButton; 
+    search_by_word_button* wordButton;
+    add_word_button* addWordButton;
+    history_button* historyButton;
+    favorite_button* favoriteButton;
+    games_button* gamesButton;
+    reset_button* resetButton;
+    modes_buttons* modesButtons;
+    ReturnButton* backButton;
+    WordList* list;
+    WordButton* word;
+    ViewWord* viewScreen;
+    Guess_button* guessDefBtn;
+    Guess_button* guessWordBtn;
+public:
+    GuessWordScreen(App* app);
+    ~GuessWordScreen();
+    void Render(App* app);
+};
+
+
 #endif
