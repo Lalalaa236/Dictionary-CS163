@@ -183,11 +183,6 @@ void SearchWord::Render(App* app)
 
         resetButton->Draw();
 
-        if (shuffleButton->Update())
-        {
-            //randomWord
-        }
-
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
         }
@@ -202,6 +197,23 @@ void SearchWord::Render(App* app)
 
         if(resetButton->isPressed(false)) {
             app->setNextScreen(new ResetWarning(this->app));
+        }
+
+        if(shuffleButton->Update()) 
+        {
+            delete list;
+            list = nullptr;
+            list = new WordList(app->asset, app->dict->randomWord());
+            mode = Mode::SEARCH;
+            if(mode == Mode::SEARCH && list)
+            {
+                list->Draw();
+                word = list->getWord();
+                if(word)
+                {
+                    this->mode = Mode::VIEW;
+                }
+            }
         }
 
         if(!searchbox->state)
@@ -333,9 +345,21 @@ void SearchDef::Render(App* app)
 
         resetButton->Draw();
 
-        if (shuffleButton->Update())
+        if(shuffleButton->Update()) 
         {
-            //randomWord
+            delete list;
+            list = nullptr;
+            list = new WordList(app->asset, app->dict->randomWord());
+            mode = Mode::SEARCH;
+            if(mode == Mode::SEARCH && list)
+            {
+                list->Draw();
+                word = list->getWord();
+                if(word)
+                {
+                    this->mode = Mode::VIEW;
+                }
+            }
         }
 
         if(addWordButton->isPressed(false)) {
