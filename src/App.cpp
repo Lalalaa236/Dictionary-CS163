@@ -170,6 +170,9 @@ void SearchWord::Render(App* app)
         //cout << "fuck\n";
 
         defButton->Draw();
+
+
+
         wordButton->Draw();
 
         addWordButton->Draw();
@@ -261,6 +264,7 @@ SearchWord::SearchWord(App* app)
     searchbox = new SearchBox(app->asset, origin, size, {WHITE});
 
     wordButton = new search_by_word_button(this->app->asset, {30, origin.y }, {125, 70}, btnColor, WHITE,21);
+
     defButton = new search_by_def_button(this->app->asset, {30+wordButton->size.x, origin.y },  {125, 70}, WHITE,BLACK,21);
 
     addWordButton = new add_word_button(this->app->asset, {30, wordButton->origin.y + wordButton->size.y + searchbox->size.y - 10}, {250, 100},btnColor,"Add a word","Add a word that you want",BLACK,24);
@@ -272,7 +276,8 @@ SearchWord::SearchWord(App* app)
     gamesButton = new games_button(this->app->asset, {30, favoriteButton->origin.y + favoriteButton->size.y + 10}, {250, 100},btnColor,"Game","Enhance your vocabulary",BLACK,24);
 
     resetButton = new reset_button(this->app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
-    // cout << gamesButton->origin.y + gamesButton->size.y + 90 << "\n";
+    
+
 
     constexpr Vector2 mode_origin = {origin.x+size.x + 20, origin.y};
     constexpr Vector2 mode_size = {150,size.y};

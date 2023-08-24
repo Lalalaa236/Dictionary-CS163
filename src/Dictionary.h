@@ -81,7 +81,7 @@ public:
     void addToHis(Word* word, const string& fileDir);
     vector<Word*> getHis(const string& fileDir);
 
-    Word* randomWord();
+    vector<Word*> randomWord();
     
     void resetDictionary();
 };

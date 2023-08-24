@@ -691,7 +691,10 @@ void Dictionary::resetDictionary() {
     loadData("data\\Eng-Eng\\");
 }
 
-Word* Dictionary::randomWord() 
+vector<Word*> Dictionary::randomWord() 
 {
-    return words[rand() % words.size()];
+    vector<Word*> res;
+    Word* ran = words[rand() % words.size()];
+    res.push_back(ran);
+    return res;
 }

@@ -34,7 +34,6 @@ public:
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
     void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
-    virtual void specific_function() {};
     bool isPressed(bool outline);
 
     Button_function() = default;
