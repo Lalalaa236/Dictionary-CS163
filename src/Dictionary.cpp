@@ -236,6 +236,39 @@ void playGame(Dictionary& dictionary)
   
 }
 
+Dictionary::gameRes Dictionary::chooseWord() 
+{
+	Definition* ques = allDef[rand() % allDef.size()];
+	Word* ans = ques->word;
+	vector<pair<Word*, bool>> res(4);
+	int ans_index = rand() % 4;
+	res[ans_index] = {ans, true};
+	for(int i = 0; i < 4;)
+	{
+		if(i != ans_index)
+		{
+			bool exist = false;
+			res[i] = {words[rand() % words.size()], false};
+			for(int j = 0; j < i; ++j)
+			{
+				if(res[j].first == res[i].first)
+				{
+					exist = true;
+					break;
+				}
+			}
+			if(exist)
+				continue;
+			else
+				++i;
+		}
+		else
+			++i;
+	}
+	pair result = {res, ques};
+    return result;
+}
+
 void Dictionary::deleteDict()
 {
     trieNode<Word*>* root = trie.getRoot();
