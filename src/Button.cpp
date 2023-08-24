@@ -312,8 +312,8 @@ ShuffleButton::ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color c
 
 void ShuffleButton::Draw()
 {
-    DrawRec(origin, size, color, "", color, 0);
-    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x + 10, origin.y + 10, size.x - 20, size.y - 20}, {0, 0}, 0, RAYWHITE);
+    DrawRec({origin.x + 7, origin.y}, size, color, "", color, 0);
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x + 10, origin.y + 10, size.x - 20, size.y - 20}, {-6, 0}, 0, RAYWHITE);
 }
 
 bool ShuffleButton::Update()
