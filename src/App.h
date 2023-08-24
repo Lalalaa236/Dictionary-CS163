@@ -209,7 +209,6 @@ private:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     ReturnButton* backButton;
-    WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
     Guess_button* guessDefBtn;
@@ -223,6 +222,8 @@ public:
 class GuessDefScreen : public Screen
 {
 private:
+    enum ModeGame {PREPARE = 0, START = 1, RIGHT = 2, WRONG = 3, MIDPHASE = 4};
+    int modeGame;
     search_by_def_button* defButton; 
     search_by_word_button* wordButton;
     add_word_button* addWordButton;
@@ -232,11 +233,22 @@ private:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     ReturnButton* backButton;
-    WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
     Guess_button* guessDefBtn;
     Guess_button* guessWordBtn;
+    YesNo_button* yesBtn;
+    YesNo_button* noBtn;
+    Word* gameWord;
+    string def_ans;
+    int pos_ans;
+    vector<string> multi_choices;
+    Choices_button* firstChoice;
+    Choices_button* secondChoice;
+    Choices_button* thirdChoice;
+    Choices_button* fourthChoice;
+    int counter;
+    // Word* word, string def_ans, int pos_ans, vector<string> multi_choices
 public:
     GuessDefScreen(App* app);
     ~GuessDefScreen();
@@ -255,7 +267,6 @@ private:
     reset_button* resetButton;
     modes_buttons* modesButtons;
     ReturnButton* backButton;
-    WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
     Guess_button* guessDefBtn;

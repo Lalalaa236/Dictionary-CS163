@@ -298,14 +298,11 @@ SearchWord::SearchWord(App* app)
 
     resetButton = new reset_button(this->app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
     
-
-
     constexpr Vector2 mode_origin = {origin.x+size.x + 95, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(this->app->asset, mode_origin, mode_size, WHITE,BLACK,25);
     //cout << "jesus christ!\n";
 }
-
 
 SearchWord::~SearchWord()
 {
@@ -550,9 +547,9 @@ void App::render(Screen* screen)
 
 void FavoriteScreen::Render(App* app)
 {
+    ClearBackground({255,235,250,100});
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
-        ClearBackground(GREY);
 
         if(viewScreen)
         {
@@ -603,7 +600,6 @@ void FavoriteScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   FAVORITE", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
@@ -680,10 +676,10 @@ FavoriteScreen::~FavoriteScreen()
 
 void HistoryScreen::Render(App* app)
 {
+    ClearBackground({255,235,250,100});
+
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
-        ClearBackground(GREY);
-
         if(viewScreen)
         {
             delete viewScreen;
@@ -733,7 +729,6 @@ void HistoryScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   HISTORY", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
@@ -880,10 +875,10 @@ ResetWarning::~ResetWarning()
 
 void GameScreen::Render(App* app)
 {
+    ClearBackground({255,235,250,100});
+
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
-        ClearBackground(GREY);
-
         if(viewScreen)
         {
             delete viewScreen;
@@ -945,26 +940,19 @@ void GameScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
-        DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 10, _origin.y + (_size.y - 55)/2 + 250}, 55,3, WHITE);
+        DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 170, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
 
         modesButtons->Draw();
-    }
-    if (mode == Mode::VIEW)
-    {
-        if(!viewScreen)
-            viewScreen = new ViewWord(word, this, app);
-        viewScreen->Render(app, this);
     }
     
 }
 
 GameScreen::GameScreen(App* app)
-: word(nullptr), list(nullptr), viewScreen(nullptr)
+: word(nullptr), viewScreen(nullptr)
 {
     this->app = app;
     this->mode = Mode::NOTSEARCH;
@@ -1005,17 +993,16 @@ GameScreen::~GameScreen()
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
-    delete list;
     delete viewScreen;
 }
 
 
 void GuessDefScreen::Render(App* app)
 {
+    ClearBackground({255,235,250,100});
+
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
-        ClearBackground(GREY);
-
         if(viewScreen)
         {
             delete viewScreen;
@@ -1037,9 +1024,9 @@ void GuessDefScreen::Render(App* app)
 
         resetButton->Draw();
 
-        guessDefBtn->Draw();
+        // guessDefBtn->Draw();
 
-        guessWordBtn->Draw();
+        // guessWordBtn->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -1073,29 +1060,126 @@ void GuessDefScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
-        // DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
-        // DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 10, _origin.y + (_size.y - 55)/2 + 250}, 55,3, WHITE);
+        if (!gameWord)
+        {
+            delete gameWord;
+            multi_choices.clear();
+            this->app->dict->guessDef(gameWord, def_ans, pos_ans, multi_choices);
+            modeGame = ModeGame::START;
 
+            if (modeGame == ModeGame::START && gameWord)
+            {
+                DrawRectangle(_origin.x, _origin.y + 130, _size.x + 150, _size.y, {255,98,137,255});
+                string t = "    What is the definition of " + gameWord->data + "?";
+                DrawTextEx(this->app->asset->font50,t.c_str(), {_origin.x + 10, _origin.y + (_size.y - 35)/2 + 130}, 55,3, WHITE);
+                // cout << "1." << multi_choices[0] << '\n';
+                firstChoice->Draw(multi_choices[0]);
+                // cout << "2."<< multi_choices[1] << '\n';
+                secondChoice->Draw(multi_choices[1]);
+                // cout << "3."<< multi_choices[2] << '\n';
+                thirdChoice->Draw(multi_choices[2]);
+                // cout << "4."<< multi_choices[3] << '\n';
+                fourthChoice->Draw(multi_choices[3]);
+            }
+        }
+
+        if (modeGame == ModeGame::START && gameWord)
+        {
+            DrawRectangle(_origin.x, _origin.y + 130, _size.x + 150, _size.y, {255,98,137,255});
+            string t = "What is the definition of " + gameWord->data + "?";
+            DrawTextEx(this->app->asset->font50,t.c_str(), {_origin.x + 10, _origin.y + (_size.y - 35)/2 + 130}, 30,3, WHITE);
+            firstChoice->Draw(multi_choices[0]);
+            secondChoice->Draw(multi_choices[1]);
+            thirdChoice->Draw(multi_choices[2]);
+            fourthChoice->Draw(multi_choices[3]);
+
+            if (firstChoice->isPressed(false))
+            {
+                if (pos_ans == 0)
+                    modeGame = ModeGame::RIGHT;
+                else    
+                    modeGame = ModeGame::WRONG;
+            }
+            if (secondChoice->isPressed(false))
+            {
+                if (pos_ans == 1)
+                    modeGame = ModeGame::RIGHT;
+                else    
+                    modeGame = ModeGame::WRONG;
+            }
+            if (thirdChoice->isPressed(false))
+            {
+                if (pos_ans == 2)
+                    modeGame = ModeGame::RIGHT;
+                else    
+                    modeGame = ModeGame::WRONG;
+            }
+            if (fourthChoice->isPressed(false))
+            {
+                if (pos_ans == 3)
+                    modeGame = ModeGame::RIGHT;
+                else    
+                    modeGame = ModeGame::WRONG;
+            }
+        }
+
+        if (modeGame == ModeGame::RIGHT)
+        {
+            DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
+            DrawTextEx(this->app->asset->font50,"CONGRATULATION! YOU ARE RIGHT", {_origin.x + 220, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
+            
+            counter++;
+
+            if (counter > 50)
+            {
+                counter = 101;
+                yesBtn->Draw();
+                noBtn->Draw();
+                if (yesBtn->isPressed(false))
+                {
+                    this->app->setNextScreen(new GuessDefScreen(this->app));
+                }
+                if (noBtn->isPressed(false))
+                {
+                    this->app->setNextScreen(new GameScreen(this->app));
+                }
+            }
+        }
+        if (modeGame == ModeGame::WRONG)
+        {
+            DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
+            DrawTextEx(this->app->asset->font50,"YOU CHOSE A WRONG ANSWER", {_origin.x + 225, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
+            
+            counter++;
+
+            if (counter > 50)
+            {
+                counter = 101;
+                yesBtn->Draw();
+                noBtn->Draw();
+                if (yesBtn->isPressed(false))
+                {
+                    this->app->setNextScreen(new GuessDefScreen(this->app));
+                }
+                if (noBtn->isPressed(false))
+                {
+                    this->app->setNextScreen(new GameScreen(this->app));
+                }
+            }
+        }
         modesButtons->Draw();
     }
-    if (mode == Mode::VIEW)
-    {
-        if(!viewScreen)
-            viewScreen = new ViewWord(word, this, app);
-        viewScreen->Render(app, this);
-    }
-    
 }
 
 GuessDefScreen::GuessDefScreen(App* app)
-: word(nullptr), list(nullptr), viewScreen(nullptr)
+: word(nullptr), viewScreen(nullptr), gameWord(nullptr), counter(0)
 {
     this->app = app;
     this->mode = Mode::NOTSEARCH;
+    this->modeGame = ModeGame::PREPARE;
     // backButton = new ReturnButton({1050, 112}, {45, 45}, RAYWHITE);
 
     constexpr Vector2 origin = {300, 50};
@@ -1115,15 +1199,17 @@ GuessDefScreen::GuessDefScreen(App* app)
 
     resetButton = new reset_button(app->asset, {30, gamesButton->origin.y + gamesButton->size.y + 10}, {250, 100}, btnColor,WHITE,24);
 
-    guessDefBtn = new Guess_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "   Guess Definition", 30);
-    guessWordBtn = new Guess_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "       Guess Word", 30);
+    yesBtn = new YesNo_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "          Continue", 30);
+    noBtn = new YesNo_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "             Leave", 30);
+
+    firstChoice = new Choices_button(app->asset, {origin.x, origin.y + 240}, {850, 100}, btnColor, WHITE, 20);
+    secondChoice = new Choices_button(app->asset, {origin.x, firstChoice->origin.y + firstChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
+    thirdChoice = new Choices_button(app->asset, {origin.x, secondChoice->origin.y + secondChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
+    fourthChoice = new Choices_button(app->asset, {origin.x, thirdChoice->origin.y + thirdChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
-    // cout << "ah\n";
-    // his = app->dict->getHis();
-
 }
 
 GuessDefScreen::~GuessDefScreen()
@@ -1134,16 +1220,15 @@ GuessDefScreen::~GuessDefScreen()
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
-    delete list;
     delete viewScreen;
 }
 
 void GuessWordScreen::Render(App* app)
 {
+    ClearBackground({255,235,250,100});
+
     if(mode == Mode::SEARCH || mode == Mode::NOTSEARCH)
     {
-        ClearBackground(GREY);
-
         if(viewScreen)
         {
             delete viewScreen;
@@ -1201,7 +1286,6 @@ void GuessWordScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
@@ -1220,7 +1304,7 @@ void GuessWordScreen::Render(App* app)
 }
 
 GuessWordScreen::GuessWordScreen(App* app)
-: word(nullptr), list(nullptr), viewScreen(nullptr)
+: word(nullptr), viewScreen(nullptr)
 {
     this->app = app;
     this->mode = Mode::NOTSEARCH;
@@ -1262,6 +1346,5 @@ GuessWordScreen::~GuessWordScreen()
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
-    delete list;
     delete viewScreen;
 }

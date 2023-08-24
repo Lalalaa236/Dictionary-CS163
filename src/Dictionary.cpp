@@ -199,7 +199,7 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
     } else return;
 }
 
-void Dictionary::guessDef(Word* word, string def_ans, int pos_ans, vector<string> multi_choices) 
+void Dictionary::guessDef(Word*& gameWord, string& defAns, int& posAns, vector<string>& multiChoices) 
 {
     if(words.size() == 0) {
         return;
@@ -207,31 +207,40 @@ void Dictionary::guessDef(Word* word, string def_ans, int pos_ans, vector<string
     // random word
     int wordIndex = rand() % words.size();
     Word* word_random = words[wordIndex];
+    Word* word;
+    vector<string> multi_choices;
     if (trie.findWhole(word_random->data,word))
     {
+        gameWord = word;
         cout << "Guess the definition of: " << word->data << "\n";
-        def_ans = word->defs[rand() % word->defs.size()]->data;
-        pos_ans =  rand() % 4; //position of the answer
+        string def_ans = word->defs[rand() % word->defs.size()]->data;
+        int pos_ans =  rand() % 4; //position of the answer
         for (int i=0;i<4;i++)
         {
             if (i==pos_ans)
-                cout <<def_ans<<std::endl;
+            {
+                multiChoices.push_back(def_ans);
+                cout <<def_ans << def_ans.length() <<std::endl;
+            }
             else
             {
                 string def_rand = allDef[rand() % allDef.size()]->data;
-                multi_choices.push_back(def_rand);
-                cout << def_rand << std::endl;
+                multiChoices.push_back(def_rand);
+                cout << def_rand << def_rand.length() << std::endl;
             }
           
         }
-        string guess;
-        cin >> guess;
-        if(guess == def_ans) {
-            cout << "Correct!\n";
-        } 
-        else {
-            cout << "Incorrect, the word was: " << def_ans<< "\n";
-        }
+        defAns = def_ans;
+        posAns = pos_ans;
+        // multiChoices = multi_choices;
+        // string guess;
+        // cin >> guess;
+        // if(guess == def_ans) {
+        //     cout << "Correct!\n";
+        // } 
+        // else {
+        //     cout << "Incorrect, the word was: " << def_ans<< "\n";
+        // }
     }
 }
 

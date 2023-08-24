@@ -87,7 +87,7 @@ public:
     
     void resetDictionary();
 
-    void guessDef(Word* word, string def_ans, int pos_ans, vector<string> multi_choices);
+    void guessDef(Word*& word, string& def_ans, int& pos_ans, vector<string>& multi_choices);
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def

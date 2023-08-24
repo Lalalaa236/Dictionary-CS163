@@ -559,3 +559,33 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
 }
 WordButton::~WordButton()
 {}
+
+void Button_function::DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
+    Color colorBtn = color;
+    Color colorText = color_text;
+    Color hoverColorBtn = color;
+    Color hoverColorText = color_text;
+    Color pressColor = color;
+    Color pressColorText = color_text;
+    Color layerHover = {200,200,200, 100};
+    Color layerPress = {255,255,255,70};
+
+    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,2, colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,2, pressColorText);
+        }
+        else
+        {   
+            DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,2, hoverColorText);
+        }
+    }
+}

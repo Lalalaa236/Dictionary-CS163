@@ -29,11 +29,13 @@ public:
     char title[256];
     char content[256];
     int text_size;
-    char text[256];
+    char text[1024];
     bool state = false;
 
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
     void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
+    void DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
+
     bool isPressed(bool outline);
 
     Button_function() = default;
@@ -364,6 +366,53 @@ public:
     void Draw()
     {
         DrawRec(origin, size, color, text,color_text,text_size);
+    }
+};
+
+class Choices_button : public Button_function
+{
+public:
+    Choices_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    : Button_function()
+    {
+        this->asset = asset;
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;        
+        button = {origin.x, origin.y, size.x, size.y};
+        // strcpy(text, t.c_str());
+    }
+    
+    void Draw(string t)
+    {
+        int i = 85;
+        if (t.length() > 90)
+        {
+            while(t[i] != ' ')
+                i++;
+            if (i < t.length())
+                t.insert(i, "\n");
+            i = 175;
+            if (t.length() > 180)
+            {
+                while(t[i] != ' ')
+                    i++;
+                if (i < t.length())
+                    t.insert(i, "\n");
+                i = 265;
+                if (t.length() > 270)
+                {
+                    while(t[i] != ' ')
+                        i++;
+                    if (i < t.length())
+                    t.insert(i, "\n");
+                }
+            }
+        }
+        strcpy(text, t.c_str());
+        DrawChoiceRec(origin, size, color, text,color_text,text_size);
     }
 };
 
