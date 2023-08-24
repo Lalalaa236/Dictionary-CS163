@@ -370,4 +370,13 @@ public:
     void createShowable();
     void Draw(Vector2 pos);
 };
+
+class EditButton : public Button_function
+{
+    Texture2D image;
+public:
+    EditButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
+};
 #endif

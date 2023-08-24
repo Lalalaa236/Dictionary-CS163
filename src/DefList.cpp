@@ -7,7 +7,7 @@ DefList::DefList(Asset* asset, const vector<Definition*>& list, Word* word, Vect
     {
         if(!def)
             continue;
-        EditDefButton* cur = new EditDefButton(asset, def, origin, PINK);
+        EditDefButton* cur = new EditDefButton(asset, def, origin, {255,235,250,100});
         defs.push_back(cur);
         allSize += cur->displayDef.height + 20;
     }
@@ -19,7 +19,7 @@ EditDefButton* DefList::getDef()
 {
     int size = defs.size();
     // cout << size << "\n";
-    BeginScissorMode(30, 50, 1120, 665);
+    BeginScissorMode(100, 170, 1020, 480);
     for(int i = 0; i < size; ++i)
     {
         if(defs[i] && defs[i]->isPressed(false) && inRange())
@@ -34,7 +34,7 @@ EditDefButton* DefList::getDef()
 
 void DefList::Draw()
 {
-    BeginScissorMode(30, 50, 1120, 665);
+    BeginScissorMode(100, 170, 1020, 480);
     int size = defs.size();
     float curSize = 0;
     for(int i = 0; i < size; ++i)

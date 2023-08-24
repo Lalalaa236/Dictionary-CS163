@@ -212,6 +212,7 @@ WordButton::WordButton()
 
 void WordButton::createShowable()
 {
+    showable.clear();
     int maxShow = std::min(2, int(data->defs.size()));// show max 2 defs
     for (int j = 0; j < maxShow; j++)
     {
@@ -543,18 +544,19 @@ EditDefButton::EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color c
     this->asset = asset;
     createShowable();
     Vector2 size = MeasureTextEx(asset->font30, showable.c_str(), 30, 0);
-    displayDef = {pos.x, pos.y, 1000, size.y + 30};
+    displayDef = {pos.x, pos.y, 850, size.y + 30};
     button = {pos.x + displayDef.width + 20, pos.y, 100, 50};
 }
 
 void EditDefButton::createShowable()
 {
+    showable.clear();
     int length = this->def->data.length();
     showable = this->def->data;
     int count = 0;
     for(int i = 0; i < length; ++i)
     {
-        if(count == 70)
+        if(count == 65)
         {
             int k = i;
             while(k >= 0)
@@ -581,8 +583,8 @@ void EditDefButton::createShowable()
 void EditDefButton::Draw(Vector2 pos)
 {
     DrawRectangle(pos.x, pos.y, displayDef.width, displayDef.height, rectangleColor);
-    DrawTextEx(asset->font30, showable.c_str(), {pos.x + 10, pos.y + 10}, 30, 0 , BLACK);
-    Color colorBtn = DARKBLUE;
+    DrawTextEx(asset->font30, showable.c_str(), {pos.x + 50, pos.y + 10}, 30, 0 , BLACK);
+    Color colorBtn = {255,98,137,255};
     Color colorText = {255,8,74,255};
     Color hoverColorBtn = {255,98,137,30};
     Color hoverColorText = {255,98,137,255};
@@ -605,4 +607,27 @@ void EditDefButton::Draw(Vector2 pos)
             DrawTextEx(asset->font30, "edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, hoverColorText);
         }
     }
+}
+
+EditButton::EditButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->image1;
+}
+
+void EditButton::Draw()
+{
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, RAYWHITE);
+}
+
+bool EditButton::Update()
+{
+    this->Draw();
+    if(this->isPressed(false))
+        return true;
+    return false;
 }

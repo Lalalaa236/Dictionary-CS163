@@ -18,6 +18,7 @@ const string SLANG = "data\\Slang\\";
 const string EMOJI = "data\\Emoji\\";
 
 class App;
+class ViewDef;
 
 class State
 {
@@ -39,7 +40,9 @@ public:
 
 class ViewWord
 {
-private:
+public:
+    enum Mode {VIEW = 0, EDIT = 1};
+    int mode;
     WordButton* word;
     Screen* screen;
     App* app;
@@ -49,7 +52,8 @@ private:
     ReturnButton* backButton;
     FavButton* favButton;
     remove_button* removeButton;
-public:
+    EditButton* editbutton;
+    ViewDef* viewdef;
     ~ViewWord();
     ViewWord(WordButton* word, Screen* screen, App* app);
     void Render(App* app, Screen* screen);
@@ -59,6 +63,20 @@ public:
     //Word* getWord();
 };
 
+class ViewDef
+{
+public:
+    ReturnButton* backButton;
+    ViewWord* originalScreen;
+    Vector2 origin;
+    Word* word;
+    DefList* deflist;
+
+    ViewDef(ViewWord* originalScreen);
+    ~ViewDef();
+
+    void Render();
+};
 
 class SearchWord : public Screen
 {
@@ -77,7 +95,7 @@ private:
     WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
-    DefList* deflist;
+    //DefList* deflist;
 public:
     SearchWord(App* app);
     ~SearchWord();

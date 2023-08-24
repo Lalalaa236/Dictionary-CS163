@@ -5,12 +5,14 @@ State::State()
 {}
 
 ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
-: word(word), screen(screen), app(app), showable(), origin({150, 180})
+: word(word), screen(screen), app(app), showable(), origin({150, 180}), mode(0)
 {
     SetShowable();
     backButton = new ReturnButton(app->asset, {1050, 112}, {45, 45}, RAYWHITE);
     favButton = new FavButton(app->asset, {1050, 652}, {45, 45}, word->data);
     removeButton = new remove_button(app->asset, {105, 654},{130,40}, {255,194,205,255}, BLACK, "REMOVE", 24);
+    editbutton = new EditButton(app->asset, {1000, 652}, {45, 45}, RAYWHITE);
+    viewdef = nullptr;
 }
 
 ViewWord::~ViewWord()
@@ -19,6 +21,7 @@ ViewWord::~ViewWord()
     delete favButton;
     delete removeButton;
 }
+
 AddWord::AddWord(App* app)
 {
     this->app = app;
@@ -26,6 +29,7 @@ AddWord::AddWord(App* app)
 
 
 }
+
 AddWord::~AddWord()
 {
     delete addwordScreen;
@@ -33,18 +37,30 @@ AddWord::~AddWord()
 
 void ViewWord::Render(App* app, Screen* screen)
 {
-    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
-    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+    if(mode == Mode::VIEW)
+    {
+        if(viewdef)
+        {
+            delete viewdef;
+            viewdef = nullptr;
+        }
+        DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+        DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
 
-    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
-    
-    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
-    
-    DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+        DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+        
+        DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+        
+        DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
 
-    removeButton->Draw();
-    //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
-    Update();
+        removeButton->Draw();
+        //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
+        Update();
+    }
+    else if(mode == Mode::EDIT)
+    {
+        viewdef->Render();
+    }   
 }
 
 void ViewWord::Update()
@@ -92,13 +108,54 @@ void ViewWord::Update()
         app->dict->loadData(this->app->state.dataset);
         this->app->setNextScreen(new SearchWord(this->app));
     }
+
+    if(editbutton->Update())
+    {
+        this->mode = Mode::EDIT;
+        viewdef = new ViewDef(this);
+    }
 }
+
+ViewDef::ViewDef(ViewWord* originalScreen)
+: originalScreen(originalScreen)
+{
+    word = originalScreen->word->data;
+    backButton = new ReturnButton(originalScreen->app->asset, {1050, 112}, {45, 45}, RAYWHITE);
+    origin = {120, 170};
+    deflist = new DefList(originalScreen->app->asset, word->defs, word, origin);
+}
+
+void ViewDef::Render()
+{
+    deflist->Draw();
+    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+
+    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    
+    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+    
+    DrawTextEx(originalScreen->app->asset->font50, word->data.c_str(), {120, 120}, 45, 0, BLACK);
+    backButton->Draw();
+    
+    if(backButton->isPressed(false))
+        originalScreen->mode = originalScreen->Mode::VIEW;
+}
+
+ViewDef::~ViewDef()
+{
+    delete backButton;
+    delete deflist;
+}
+
 void AddWord::Render(App* app)
 {
     addwordScreen->Draw(addwordScreen->buffer, addwordScreen->bufflen,addwordScreen->buffer_def, addwordScreen->bufflen_def,addwordScreen->buffer_type, addwordScreen->bufflen_type);
 }
+
 void ViewWord::SetShowable()
 {
+    showable.clear();
     int size = word->data->defs.size();
     for(int i = 0; i < size; ++i)
     {
@@ -184,8 +241,6 @@ void SearchWord::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
-
-        deflist->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -285,7 +340,7 @@ SearchWord::SearchWord(App* app)
     //cout << "jesus christ!\n";
     Word* word;
     this->app->dict->trie.findWhole("set", word);
-    deflist = new DefList(this->app->asset, word->defs, word, {30, 50});
+    //deflist = new DefList(this->app->asset, word->defs, word, {30, 50});
 }
 
 
@@ -300,7 +355,7 @@ SearchWord::~SearchWord()
     delete resetButton;
     delete list;
     delete viewScreen;
-    delete deflist;
+    //delete deflist;
 }
 
 void SearchDef::Render(App* app)
