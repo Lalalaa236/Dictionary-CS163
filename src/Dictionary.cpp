@@ -199,27 +199,27 @@ void Dictionary::editDef(const string& word_edit_def, const string& old_def,cons
     } else return;
 }
 
-void playGame(Dictionary& dictionary) 
+void Dictionary::guessDef(Word* word, string def_ans, int pos_ans, vector<string> multi_choices) 
 {
-    if(dictionary.words.size() == 0) {
+    if(words.size() == 0) {
         return;
     }
     // random word
-    int wordIndex = rand() % dictionary.words.size();
-    Word* word_random = dictionary.words[wordIndex];
-    Word* word;
-    if (dictionary.trie.findWhole(word_random->data,word))
+    int wordIndex = rand() % words.size();
+    Word* word_random = words[wordIndex];
+    if (trie.findWhole(word_random->data,word))
     {
         cout << "Guess the definition of: " << word->data << "\n";
-        string def_ans = word->defs[rand() % word->defs.size()]->data;
-        int pos_ans =  rand() % 4; //position of the answer
+        def_ans = word->defs[rand() % word->defs.size()]->data;
+        pos_ans =  rand() % 4; //position of the answer
         for (int i=0;i<4;i++)
         {
             if (i==pos_ans)
                 cout <<def_ans<<std::endl;
             else
             {
-                string def_rand = dictionary.allDef[rand() % dictionary.allDef.size()]->data;
+                string def_rand = allDef[rand() % allDef.size()]->data;
+                multi_choices.push_back(def_rand);
                 cout << def_rand << std::endl;
             }
           
@@ -233,7 +233,6 @@ void playGame(Dictionary& dictionary)
             cout << "Incorrect, the word was: " << def_ans<< "\n";
         }
     }
-  
 }
 
 Dictionary::gameRes Dictionary::chooseWord() 
