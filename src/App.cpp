@@ -117,35 +117,57 @@ void ViewWord::Update()
 }
 
 ViewDef::ViewDef(ViewWord* originalScreen)
-: originalScreen(originalScreen)
+: originalScreen(originalScreen), mode(0)
 {
+    asset = originalScreen->app->asset;
     word = originalScreen->word->data;
     backButton = new ReturnButton(originalScreen->app->asset, {1050, 112}, {45, 45}, RAYWHITE);
     origin = {120, 170};
     deflist = new DefList(originalScreen->app->asset, word->defs, word, origin);
+    editscreen = nullptr;
 }
 
 void ViewDef::Render()
 {
-    deflist->Draw();
-    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
-    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+    if(mode == Mode::VIEW)
+    {
+        if(editscreen)
+        {
+            delete editscreen;
+            editscreen = nullptr;
+        }
+        deflist->Draw();
+        DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+        DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
 
-    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+        DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+        
+        DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+        
+        DrawTextEx(asset->font50, word->data.c_str(), {120, 120}, 45, 0, BLACK);
+        backButton->Draw();
+        
+        if(backButton->isPressed(false))
+            originalScreen->mode = originalScreen->Mode::VIEW;
+        EditDefButton* chosen = deflist->getDef();
+        if(chosen)
+        {
+            mode = Mode::EDIT;
+            editscreen = new EditDefScreen(asset, chosen, this);
+        }
+    }
+    else if(mode == Mode::EDIT)
+    {
+        editscreen->Draw();//editscreen->buffer_def, editscreen->bufflen_def);
+    }
     
-    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
-    
-    DrawTextEx(originalScreen->app->asset->font50, word->data.c_str(), {120, 120}, 45, 0, BLACK);
-    backButton->Draw();
-    
-    if(backButton->isPressed(false))
-        originalScreen->mode = originalScreen->Mode::VIEW;
 }
 
 ViewDef::~ViewDef()
 {
     delete backButton;
     delete deflist;
+    delete editscreen;
 }
 
 void AddWord::Render(App* app)
@@ -881,4 +903,140 @@ ResetWarning::~ResetWarning()
 {
     delete YesBtn;
     delete NoBtn;
+}
+
+void EditDefScreen::CursorBlink(float time) //blinking cursor 
+{
+    cursorBlinkTime += time;
+    if (cursorBlinkTime >= 1.0f)
+        cursorBlinkTime = 0.0f;
+}
+
+void EditDefScreen::Draw()
+{
+    Vector2 origin = {50,150};
+    //Rectangle def_rec = {30 ,origin.y+70, 1100, 400};
+    DrawRectangle(30,50,1100,650,WHITE);
+    DrawLine(origin.x,origin.y,500,origin.y,BLACK);
+    // if(!asset)
+    //     cout << "NO!";
+    // DrawTextEx(asset->font50, "lmao",{origin.x,origin.y-60}, 45, 0,BLACK);
+    
+    DrawTextEx(asset->font50, word->data.c_str(),{origin.x,origin.y-60}, 45, 0,BLACK);
+    //cout << "loli1\n";
+    DrawTextEx(asset->font30, showable.c_str(), {origin.x,origin.y+70}, 30, 0,BLACK);
+    //cout << "loli2\n";
+    //strcpy(text, "  Save");
+    //DrawRec({30,720}, {120,40}, PURPLE,"  Save" , WHITE, 35);
+    //cout << "loli3\n";
+    if(bufflen_def == 0 && is_enter_def == false)
+        DrawTextEx(asset->font50, "Add the definition here",{origin.x,origin.y+70}, 38, 0,  {155,155,155,255});
+    if(is_enter_def)
+    {
+        if (cursorBlinkTime < 0.5f)
+            DrawTextEx(asset->font50, "|", {origin.x + MeasureTextEx(asset->font50, showable.c_str(), 30, 0).x, origin.y+70}, 30, 0,BLACK);
+    }
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {   
+        if(CheckCollisionPointRec(GetMousePosition(), def_rec))
+            is_enter_def = true;  
+        else if(is_enter_def)
+            is_enter_def = false; 
+    }
+    if (is_enter_def)
+    {
+        SetMouseCursor(MOUSE_CURSOR_IBEAM);
+        int key = GetCharPressed();
+        if((key >= 32) && (key <= 125) && input_def.length() < 700)
+        {
+            input_def.push_back(key);
+            SetShowable();
+            //input_def[length_def + 1] = '\0'; // Add null terminator at the end of the string.
+            //bufflen_def++;
+        }
+
+        key = GetCharPressed();  // Check next character in the queue
+
+        if(IsKeyPressed(KEY_BACKSPACE))
+        {
+            
+            if(input_def.length() > 0)
+            {
+                input_def.pop_back();
+                SetShowable();
+            }
+                
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_ENTER))
+        {
+            this->startAdd = true;
+            this->input_def = buffer_def;
+            is_enter_def = false;
+        }
+        CursorBlink(GetFrameTime());
+        // std::cout << "input: " << input_def << "!\n";
+        // std::cout << "buffer: " << buffer_def << "!\n";
+    }
+    else
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+}
+
+void EditDefScreen::SetShowable()
+{
+    showable.clear();
+    showable = input_def;
+    int count = 0;
+    int length = showable.length();
+    for(int i = 0; i < length; ++i)
+    {
+        if(showable[i] == '\n')
+            count = 0;
+        if(count == 75)
+        {
+            int k = i;
+            while(k >= i - 50)
+            {
+                if(showable[k] == ' ' || showable[k] == '\n')
+                    break;
+                --k;
+            }
+            if(k < i - 50)
+            {
+                showable.insert(i, "-");
+                showable.insert(i + 1, "\n");
+                // ++i;
+                length += 2;
+            }
+            else if(showable[k] == ' ')
+            {
+                showable[k] = '\n';
+                count = 0;
+                i = k;
+            }
+                    
+        }
+        ++count;
+        //cout << count << "!\n";
+    }
+    // if (MeasureTextEx(asset->font30, showable.c_str(), 30, 0).x > 1000 - 20)
+    // {
+    //     float propotion = float(MeasureTextEx(asset->font30, showable.c_str(), 30, 0).x / 980);
+    //     int pre = 0;
+    //     int position = showable.length() / (float)propotion;
+    //     while (position < showable.length())
+    //     {
+    //         while (position < showable.length() && MeasureTextEx(asset->font30, showable.substr(pre, position - pre).c_str(), 30, 0).x < 980)
+    //             position++;
+    //         if (position < showable.length() - 1)
+    //             while(showable[position] != ' ' || MeasureTextEx(asset->font30, showable.substr(pre, position - pre).c_str(), 30, 0).x > 980)
+    //                 position--;
+    //         if (position < showable.length() - 1)
+    //             showable[position] = '\n';
+    //         pre = position + 2;
+    //         position += showable.length() / (float)propotion;
+    //     }
+    // }
 }

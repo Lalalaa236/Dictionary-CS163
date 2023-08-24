@@ -276,6 +276,7 @@ public:
     void SetTexture(bool isFav);
     bool Update(Word* word);
 };
+
 class AddWordScreen : public Button_function
 {
     int text_size;

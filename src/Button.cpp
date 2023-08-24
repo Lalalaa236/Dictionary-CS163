@@ -348,12 +348,14 @@ bool FavButton::Update(Word* word)
     }
     return word->favourite;
 }
+
 void AddWordScreen::CursorBlink(float time) //blinking cursor 
 {
     cursorBlinkTime += time;
     if (cursorBlinkTime >= 1.0f)
         cursorBlinkTime = 0.0f;
 }
+
 void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type)
 {
     Rectangle word_rec = {50,90,500,70};
@@ -534,6 +536,7 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
 
 
 }
+
 WordButton::~WordButton()
 {}
 
