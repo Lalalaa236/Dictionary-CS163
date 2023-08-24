@@ -535,3 +535,74 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
 }
 WordButton::~WordButton()
 {}
+
+EditDefButton::EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color color)
+: Button_function(), def(def), rectangleColor(color)
+{
+    this->origin = pos;
+    this->asset = asset;
+    createShowable();
+    Vector2 size = MeasureTextEx(asset->font30, showable.c_str(), 30, 0);
+    displayDef = {pos.x, pos.y, 1000, size.y + 30};
+    button = {pos.x + displayDef.width + 20, pos.y, 100, 50};
+}
+
+void EditDefButton::createShowable()
+{
+    int length = this->def->data.length();
+    showable = this->def->data;
+    int count = 0;
+    for(int i = 0; i < length; ++i)
+    {
+        if(count == 70)
+        {
+            int k = i;
+            while(k >= 0)
+            {
+                if(showable[k] == ' ')
+                    break;
+                --k;
+            }
+            if(k == -1)
+            {
+                showable.insert(50, "-");
+                showable.insert(51, "\n");
+            }
+            else
+            {
+                showable[k] = '\n';
+            }
+            count = 0;        
+        }
+        ++count;
+    }
+}
+
+void EditDefButton::Draw(Vector2 pos)
+{
+    DrawRectangle(pos.x, pos.y, displayDef.width, displayDef.height, rectangleColor);
+    DrawTextEx(asset->font30, showable.c_str(), {pos.x + 10, pos.y + 10}, 30, 0 , BLACK);
+    Color colorBtn = DARKBLUE;
+    Color colorText = {255,8,74,255};
+    Color hoverColorBtn = {255,98,137,30};
+    Color hoverColorText = {255,98,137,255};
+    Color pressColor = {255,98,137,50};
+    Color pressColorText = {255,98,137,255};
+
+    DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, colorBtn);
+    DrawTextEx(asset->font30, "edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {pos.x + displayDef.width + 20, pos.y, 100, 50}))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, pressColor);
+            DrawTextEx(asset->font30, "edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, pressColorText);
+        }
+        else
+        {
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, hoverColorBtn);
+            DrawTextEx(asset->font30, "edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, hoverColorText);
+        }
+    }
+}

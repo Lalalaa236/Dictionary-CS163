@@ -358,4 +358,16 @@ public:
         DrawRec(origin, size, color, text,color_text,text_size);
     }
 };
+
+class EditDefButton : public Button_function
+{
+public: 
+    Rectangle displayDef;
+    string showable;
+    Definition* def;
+    Color rectangleColor;
+    EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color color);
+    void createShowable();
+    void Draw(Vector2 pos);
+};
 #endif

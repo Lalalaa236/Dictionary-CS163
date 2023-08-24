@@ -113,7 +113,10 @@ void ViewWord::SetShowable()
                 if(cpy[k] == ' ')
                     cpy[k] = '\n';
                 else
+                {
                     cpy.insert(70, "-");
+                    cpy.insert(71, "\n");
+                }
                 count = 0;
             }
             ++count;
@@ -181,6 +184,8 @@ void SearchWord::Render(App* app)
         gamesButton->Draw();
 
         resetButton->Draw();
+
+        deflist->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -278,6 +283,9 @@ SearchWord::SearchWord(App* app)
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(this->app->asset, mode_origin, mode_size, WHITE,BLACK,25);
     //cout << "jesus christ!\n";
+    Word* word;
+    this->app->dict->trie.findWhole("set", word);
+    deflist = new DefList(this->app->asset, word->defs, word, {30, 50});
 }
 
 
@@ -292,6 +300,7 @@ SearchWord::~SearchWord()
     delete resetButton;
     delete list;
     delete viewScreen;
+    delete deflist;
 }
 
 void SearchDef::Render(App* app)

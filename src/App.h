@@ -9,6 +9,7 @@
 #include <assert.h>
 #include "Button.h"
 #include "WordList.h"
+#include "DefList.h"
 
 const string ENGENG = "data\\Eng-Eng\\";
 const string ENGVIE = "data\\Eng-Vie\\";
@@ -76,6 +77,7 @@ private:
     WordList* list;
     WordButton* word;
     ViewWord* viewScreen;
+    DefList* deflist;
 public:
     SearchWord(App* app);
     ~SearchWord();
