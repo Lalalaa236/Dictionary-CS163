@@ -554,7 +554,7 @@ void FavoriteScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {700, 70};
+        Vector2 _size = {870, 70};
         ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, ORANGE);
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
@@ -677,7 +677,7 @@ void HistoryScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {700, 70};
+        Vector2 _size = {870, 70};
         ClearBackground(RAYWHITE);
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, PINK);
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
