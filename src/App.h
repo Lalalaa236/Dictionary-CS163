@@ -112,7 +112,6 @@ public:
     int mode;
     Dictionary* dict;
     Asset* asset;
-    
     App();
     ~App();
 

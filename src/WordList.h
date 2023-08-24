@@ -20,8 +20,8 @@ public:
     WordList() = default;
     WordList(Asset* asset, const vector<Word*>& list);
     ~WordList();
-    WordButton* getWord();
-    void Draw();
+    WordButton* getWord(bool is_dataset);
+    void Draw(bool isHL);
     bool inRange();
 };
 

@@ -154,7 +154,6 @@ void SearchWord::Render(App* app)
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
         
-        modesButtons->Draw();
         //cout << "fuck\n";
 
         defButton->Draw();
@@ -188,6 +187,11 @@ void SearchWord::Render(App* app)
 
         if(!searchbox->state)
         {
+            if (modesButtons->change_data)
+            {
+                searchbox->startSearch = true;
+                modesButtons->change_data = false;
+            }
             if(searchbox->startSearch)
             {
                 delete list;
@@ -199,8 +203,8 @@ void SearchWord::Render(App* app)
             }
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
             {
-                list->Draw();
-                word = list->getWord();
+                list->Draw(modesButtons->isDropdown);
+                word = list->getWord(modesButtons->after_change);
                 if(word)
                 {
                     this->mode = Mode::VIEW;
@@ -212,8 +216,8 @@ void SearchWord::Render(App* app)
         {
             if(mode == Mode::SEARCH && list)
             {
-                list->Draw();
-                word = list->getWord();
+                list->Draw(modesButtons->isDropdown);
+                word = list->getWord(modesButtons->after_change);
                 if(word)
                 {
                     this->mode = Mode::VIEW;
@@ -224,6 +228,7 @@ void SearchWord::Render(App* app)
 
         if(defButton->isPressed(true))
             app->setNextScreen(new SearchDef(this->app));
+      modesButtons->Draw(this->app->state.dataset,this->app->dict);
     }
     else if(mode == Mode::VIEW)
     {
@@ -291,7 +296,6 @@ void SearchDef::Render(App* app)
         searchbox->DrawBox();
         searchbox->HandleInput(searchbox->buffer, searchbox->bufflen);
         searchbox->DrawInput();
-        modesButtons->Draw();
 
         defButton->Draw();
         wordButton->Draw();
@@ -324,6 +328,11 @@ void SearchDef::Render(App* app)
 
         if(!searchbox->state)
         {
+            if (modesButtons->change_data)
+            {
+                searchbox->startSearch = true;
+                modesButtons->change_data = false;
+            }
             if(searchbox->startSearch)
             {
                 delete list;
@@ -335,8 +344,8 @@ void SearchDef::Render(App* app)
             }
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
             {
-                list->Draw();
-                word = list->getWord();
+                list->Draw(modesButtons->isDropdown);
+                word = list->getWord(modesButtons->isDropdown);
                 if(word)
                 {
                     this->mode = Mode::VIEW;
@@ -348,8 +357,8 @@ void SearchDef::Render(App* app)
         {
             if(mode == Mode::SEARCH && list)
             {
-                list->Draw();
-                word = list->getWord();
+                list->Draw(modesButtons->isDropdown);
+                word = list->getWord(modesButtons->isDropdown);
                 if(word)
                 {
                     this->mode = Mode::VIEW;
@@ -360,7 +369,9 @@ void SearchDef::Render(App* app)
 
         if(wordButton->isPressed(true))
             app->setNextScreen(new SearchWord(this->app));
-        }
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+
+    }
     else if(mode == Mode::VIEW)
     {
         if(!viewScreen)
@@ -413,7 +424,7 @@ App::App()
 {
     if(GetWindowHandle())
         return;
-    dict->loadData(ENGENG);
+    dict->loadData(state.dataset);
     SetTargetFPS(60);
     InitWindow(1200, 800, "DICTIONARY");
     asset = new Asset();
@@ -555,15 +566,13 @@ void FavoriteScreen::Render(App* app)
         if (!list)
             list = new WordList(app->asset, app->dict->viewFavList(this->app->state.dataset));
     
-        list->Draw();
+        list->Draw(modesButtons->isDropdown);
 
-        word = list->getWord();
+        word = list->getWord(modesButtons->isDropdown);
         if(word)
         {
             this->mode = Mode::VIEW;
         }
-
-        modesButtons->Draw();
 
         // if(backButton->Update())
         //     app->setNextScreen(new SearchDef);
@@ -681,15 +690,13 @@ void HistoryScreen::Render(App* app)
             list = new WordList(app->asset, his);
             // std::cout << "fuck";
     
-        list->Draw();
+        list->Draw(modesButtons->isDropdown);
 
-        word = list->getWord();
+        word = list->getWord(modesButtons->isDropdown);
         if(word)
         {
             this->mode = Mode::VIEW;
         }
-
-        modesButtons->Draw();
 
         // if(backButton->Update())
         //     app->setNextScreen(new SearchDef);

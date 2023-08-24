@@ -254,6 +254,8 @@ void Dictionary::deleteDict()
     trie.deallocate(root);
     trie.setRoot();
     history.clear();
+    words.clear();
+    allDef.clear();
 }
 
 void Dictionary::removeWord(const string& str, const string filePath)

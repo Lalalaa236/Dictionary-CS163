@@ -12,7 +12,6 @@
 #include <cstring>
 #include <cmath>
 #include "Asset.h"
-
 using std::string;
 using std::vector;
 
@@ -31,7 +30,7 @@ public:
     int text_size;
     char text[256];
     bool state = false;
-
+    bool dataset_clik = false;
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
     void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
     virtual void specific_function() {};
@@ -208,18 +207,26 @@ public:
 
 class modes_buttons
 {
+    const string ENGENG = "data\\Eng-Eng\\";
+    const string ENGVIE = "data\\Eng-Vie\\";
+    const string VIEENG = "data\\Vie-Eng\\";
+    const string SLANG = "data\\Slang\\";
+    const string EMOJI = "data\\Emoji\\";
 public:
     vector<string> modes = {"Eng-Eng", "Eng-Vie", "Vie-Eng", "Slang", "Emoji"};
+    vector <string> link_data = {ENGENG,ENGVIE,VIEENG,SLANG,EMOJI};
     vector<Rectangle> mode_buttons;
-
+    bool isDropdown = false;
+    bool after_change = false;
+    bool change_data = false;
     Vector2 origin;
     Vector2 size;
     Color color;
     Color color_text;
     char text[101];
     int text_size;
-    bool isDropdownVisible = false;
     Asset* asset;
+    SearchBox* searchbox;
     modes_buttons(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
     {
         this->asset = asset;
@@ -229,8 +236,7 @@ public:
         color_text = _color_text;
         text_size = _text_size;
     }
-
-    void Draw();
+    void Draw(string& fileDir,Dictionary*& dict);
 };
 
 class WordButton : public Button_function
@@ -249,7 +255,7 @@ public:
 
     void createShowable();
 
-    void Draw(Vector2 origin);
+    void Draw(Vector2 origin,bool isHL);
     //bool Update();
 };
 

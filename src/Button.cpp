@@ -1,5 +1,5 @@
 #include "Button.h"
-
+#include "App.h"
 void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
     Color colorBtn = color;
     Color colorText = color_text;
@@ -64,7 +64,7 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     }
 }
 
-void modes_buttons::Draw() 
+void modes_buttons::Draw(string& fileDir,Dictionary*& dict)
 {
     Color colorBtn = color;
     Color colorText = color_text;
@@ -84,15 +84,13 @@ void modes_buttons::Draw()
         mode_buttons.push_back(mode);
     }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdownVisible) 
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdown) 
         {
-                isDropdownVisible = true; 
-        }
-        else {
-                isDropdownVisible = false; 
+                isDropdown = true; 
+                after_change = false;
         }
     }
-    if (isDropdownVisible) 
+    if (isDropdown) 
     {
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
@@ -101,7 +99,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[0];
                 DrawRectangleRec(mode_buttons[0], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -111,7 +114,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[1];
                 DrawRectangleRec(mode_buttons[1], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -121,7 +129,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[2];
                 DrawRectangleRec(mode_buttons[2], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -131,7 +144,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[3];
                 DrawRectangleRec(mode_buttons[3], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -141,12 +159,28 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[4];
                 DrawRectangleRec(mode_buttons[4], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
             }
             else
             {
                 DrawRectangleRec(mode_buttons[4], hoverColorBtn);
             }
+        }
+    }
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdown) 
+        {
+                isDropdown = true; 
+                after_change = false;
+        }
+        else if (!CheckCollisionPointRec(GetMousePosition(), dataset)) {
+                if (after_change) after_change = false;
+                else if (isDropdown) after_change = true;
+                isDropdown=false; 
         }
     }
 }
@@ -244,7 +278,7 @@ void WordButton::createShowable()
 
 }
 
-void WordButton::Draw(Vector2 origin)
+void WordButton::Draw(Vector2 origin,bool isHL)
 {
     Color colorBtn = {51,187,197,255};
     Color colorText = {50,50,50,255};
@@ -258,7 +292,7 @@ void WordButton::Draw(Vector2 origin)
     DrawTextEx(asset->font30, data->data.c_str(), {origin.x + 20, origin.y + 20}, 35, 0, colorText);
     DrawTextEx(asset->font30, text, {origin.x + 40, origin.y + 60}, 25, 0, colorText);
 
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725 && !isHL)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
