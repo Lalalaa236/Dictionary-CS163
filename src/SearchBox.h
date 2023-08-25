@@ -23,7 +23,7 @@ public:
     Vector2 size;
     string input;
 
-    char buffer[32];
+    char buffer[21];
     int bufflen;
     bool state;
     bool startSearch;

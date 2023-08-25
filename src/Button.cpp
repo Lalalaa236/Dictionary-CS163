@@ -7,7 +7,7 @@ void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* t
     Color hoverColorText = color_text;
     Color pressColor = color;
     Color pressColorText = color_text;
-    Color layerHover = {100,100,100,70};
+    Color layerHover = {200,200,200, 100};
     Color layerPress = {255,255,255,70};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
@@ -66,14 +66,14 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
 
 void modes_buttons::Draw(string& fileDir,Dictionary*& dict)
 {
-    Color colorBtn = color;
+    Color colorBtn = {255,98,137,105};
     Color colorText = color_text;
-    Color hoverColorBtn = {97,75,195,170};
-    Color hoverColorText = {10,10,10,255};
-    Color pressColor = {151,187,197,175};
-    Color pressColorText = {100,100,100,255};
+    Color hoverColorBtn = {255,98,137,155};
+    Color hoverColorText = {200,200,200,255};
+    Color pressColor = {255,98,137,175};
+    Color pressColorText = {200,200,200,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
-    DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,PURPLE);
+    DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,{255,98,137,255});
     DrawTextEx(asset->font30,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
@@ -280,12 +280,12 @@ void WordButton::createShowable()
 
 void WordButton::Draw(Vector2 origin,bool isHL)
 {
-    Color colorBtn = {51,187,197,255};
-    Color colorText = {50,50,50,255};
-    Color hoverColorBtn = {133,230,197,255};
-    Color hoverColorText = {50,50,50,255};
-    Color pressColor = {200,255,224,175};
-    Color pressColorText = {150,150,150,255};
+    Color colorBtn = WHITE;
+    Color colorText = {255,8,74,255};
+    Color hoverColorBtn = {255,98,137,30};
+    Color hoverColorText = {255,98,137,255};
+    Color pressColor = {255,98,137,50};
+    Color pressColorText = {255,98,137,255};
 
     DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
     DrawTexturePro(cur, {0, 0, (float)cur.width, (float)cur.height}, {origin.x + size.x - 50, origin.y + 10, 45, 45}, {0, 0}, 0, RAYWHITE);
@@ -327,6 +327,30 @@ void ReturnButton::Draw()
 }
 
 bool ReturnButton::Update()
+{
+    this->Draw();
+    if(this->isPressed(false))
+        return true;
+    return false;
+}
+
+ShuffleButton::ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->shuffle;
+}
+
+void ShuffleButton::Draw()
+{
+    DrawRec({origin.x + 7, origin.y}, size, color, "", color, 0);
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x + 10, origin.y + 10, size.x - 20, size.y - 20}, {-6, 0}, 0, RAYWHITE);
+}
+
+bool ShuffleButton::Update()
 {
     this->Draw();
     if(this->isPressed(false))
@@ -626,3 +650,33 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
 
 WordButton::~WordButton()
 {}
+
+void Button_function::DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
+    Color colorBtn = color;
+    Color colorText = color_text;
+    Color hoverColorBtn = color;
+    Color hoverColorText = color_text;
+    Color pressColor = color;
+    Color pressColorText = color_text;
+    Color layerHover = {200,200,200, 100};
+    Color layerPress = {255,255,255,70};
+
+    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, pressColorText);
+        }
+        else
+        {   
+            DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, hoverColorText);
+        }
+    }
+}
