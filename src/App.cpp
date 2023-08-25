@@ -124,7 +124,7 @@ ViewDef::ViewDef(ViewWord* originalScreen)
     asset = originalScreen->app->asset;
     word = originalScreen->word->data;
     backButton = new ReturnButton(originalScreen->app->asset, {1050, 112}, {45, 45}, RAYWHITE);
-    origin = {120, 170};
+    origin = {120, 180};
     deflist = new DefList(originalScreen->app->asset, word->defs, word, origin);
     editscreen = nullptr;
 }
