@@ -1264,13 +1264,19 @@ GameScreen::GameScreen(App* app)
 
 GameScreen::~GameScreen()
 {
-    delete defButton;
+    delete defButton; 
     delete wordButton;
+    delete addWordButton;
     delete historyButton;
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
+    delete modesButtons;
+    delete backButton;
+    delete word;
     delete viewScreen;
+    delete guessDefBtn;
+    delete guessWordBtn;
 }
 
 
@@ -1490,13 +1496,26 @@ GuessDefScreen::GuessDefScreen(App* app)
 
 GuessDefScreen::~GuessDefScreen()
 {
-    delete defButton;
+    delete defButton; 
     delete wordButton;
+    delete addWordButton;
     delete historyButton;
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
+    delete modesButtons;
+    delete backButton;
+    delete word;
     delete viewScreen;
+    delete guessDefBtn;
+    delete guessWordBtn;
+    delete yesBtn;
+    delete noBtn;
+    delete gameWord;
+    delete firstChoice;
+    delete secondChoice;
+    delete thirdChoice;
+    delete fourthChoice;
 }
 
 void GuessWordScreen::Render(App* app)
@@ -1760,11 +1779,24 @@ GuessWordScreen::GuessWordScreen(App* app)
 
 GuessWordScreen::~GuessWordScreen()
 {
-    delete defButton;
+    delete defButton; 
     delete wordButton;
+    delete addWordButton;
     delete historyButton;
     delete favoriteButton;
     delete gamesButton;
     delete resetButton;
+    delete modesButtons;
+    delete backButton;
+    delete word;
     delete viewScreen;
+    delete guessDefBtn;
+    delete guessWordBtn;
+    delete yesBtn;
+    delete noBtn;
+    delete gameDef;
+    delete firstChoice;
+    delete secondChoice;
+    delete thirdChoice;
+    delete fourthChoice;
 }
