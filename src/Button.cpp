@@ -554,32 +554,40 @@ EditDefButton::EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color c
 void EditDefButton::createShowable()
 {
     showable.clear();
-    int length = this->def->data.length();
     showable = this->def->data;
-    int count = 0;
+    int start = 0;
+    int length = showable.length();
+    string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(count == 65)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 780)
         {
+            tmp.clear();
             int k = i;
-            while(k >= 0)
+            while(k >= i - 50)
             {
-                if(showable[k] == ' ')
+                if(showable[k] == ' ' || showable[k] == '\n')
                     break;
                 --k;
             }
-            if(k == -1)
+
+            if(k < i - 50)
             {
-                showable.insert(50, "-");
-                showable.insert(51, "\n");
+                showable.insert(i, "-");
+                showable.insert(i + 1, "\n");
+                length += 2;
+                i += 2;
             }
-            else
+            else if(showable[k] == ' ')
             {
                 showable[k] = '\n';
-            }
-            count = 0;        
+                i = k;
+                start = i;
+            }      
         }
-        ++count;
+
+        else
+            tmp.push_back(showable[i]);
     }
 }
 
@@ -633,4 +641,19 @@ bool EditButton::Update()
     if(this->isPressed(false))
         return true;
     return false;
+}
+
+SaveButton::SaveButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->saveimage;
+}
+
+void SaveButton::Draw()
+{
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, color);
 }

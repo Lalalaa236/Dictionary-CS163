@@ -43,6 +43,8 @@ void ViewWord::Render(App* app, Screen* screen)
         {
             delete viewdef;
             viewdef = nullptr;
+            SetShowable();
+            word->createShowable();
         }
         DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
         DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
@@ -159,6 +161,7 @@ void ViewDef::Render()
     else if(mode == Mode::EDIT)
     {
         editscreen->Draw();//editscreen->buffer_def, editscreen->bufflen_def);
+        editscreen->Update();
     }
     
 }
@@ -182,28 +185,42 @@ void ViewWord::SetShowable()
     for(int i = 0; i < size; ++i)
     {
         string cpy = word->data->defs[i]->data;
-        int count = 0;
         int length = cpy.length();
+        int start = 0;
+        string tmp;
         for(int j = 0; j < length; ++j)
         {
-            if(count == 80)
+            if(MeasureTextEx(app->asset->font30, tmp.c_str(), 30, 0).x > 830)
             {
-                int k = findNearestSpace(cpy, length, j);
-                if(cpy[k] == ' ')
-                    cpy[k] = '\n';
-                else
+                tmp.clear();
+                int k = j;
+                while(k >= j - 50)
                 {
-                    cpy.insert(70, "-");
-                    cpy.insert(71, "\n");
+                    if(cpy[k] == ' ' || cpy[k] == '\n')
+                        break;
+                    --k;
                 }
-                count = 0;
+                if(k < j - 50)
+                {
+                    cpy.insert(j, "-");
+                    cpy.insert(j + 1, "\n");
+                    length += 2;
+                    j += 2;
+                }
+                else if(cpy[k] == ' ')
+                {
+                    cpy[k] = '\n';
+                    j = k;
+                    start = j;
+                }      
             }
-            ++count;
+            else
+                tmp.push_back(cpy[j]);
+            //cout << count << "!\n";
         }
         showable.append(cpy);
         showable.append("\n\n");
     }
-    int length = showable.length();
     // cout << showable;
 }
 
@@ -915,27 +932,14 @@ void EditDefScreen::CursorBlink(float time) //blinking cursor
 void EditDefScreen::Draw()
 {
     Vector2 origin = {50,150};
-    //Rectangle def_rec = {30 ,origin.y+70, 1100, 400};
     DrawRectangle(30,50,1100,650,WHITE);
     DrawLine(origin.x,origin.y,500,origin.y,BLACK);
-    // if(!asset)
-    //     cout << "NO!";
-    // DrawTextEx(asset->font50, "lmao",{origin.x,origin.y-60}, 45, 0,BLACK);
     
     DrawTextEx(asset->font50, word->data.c_str(),{origin.x,origin.y-60}, 45, 0,BLACK);
-    //cout << "loli1\n";
     DrawTextEx(asset->font30, showable.c_str(), {origin.x,origin.y+70}, 30, 0,BLACK);
-    //cout << "loli2\n";
-    //strcpy(text, "  Save");
-    //DrawRec({30,720}, {120,40}, PURPLE,"  Save" , WHITE, 35);
-    //cout << "loli3\n";
+    savebutton->Draw();
     if(bufflen_def == 0 && is_enter_def == false)
         DrawTextEx(asset->font50, "Add the definition here",{origin.x,origin.y+70}, 38, 0,  {155,155,155,255});
-    if(is_enter_def)
-    {
-        if (cursorBlinkTime < 0.5f)
-            DrawTextEx(asset->font50, "|", {origin.x + MeasureTextEx(asset->font50, showable.c_str(), 30, 0).x, origin.y+70}, 30, 0,BLACK);
-    }
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
     {   
         if(CheckCollisionPointRec(GetMousePosition(), def_rec))
@@ -951,11 +955,9 @@ void EditDefScreen::Draw()
         {
             input_def.push_back(key);
             SetShowable();
-            //input_def[length_def + 1] = '\0'; // Add null terminator at the end of the string.
-            //bufflen_def++;
         }
 
-        key = GetCharPressed();  // Check next character in the queue
+        key = GetCharPressed();
 
         if(IsKeyPressed(KEY_BACKSPACE))
         {
@@ -971,14 +973,8 @@ void EditDefScreen::Draw()
         key = GetCharPressed();
 
         if(IsKeyPressed(KEY_ENTER))
-        {
-            this->startAdd = true;
-            this->input_def = buffer_def;
             is_enter_def = false;
-        }
         CursorBlink(GetFrameTime());
-        // std::cout << "input: " << input_def << "!\n";
-        // std::cout << "buffer: " << buffer_def << "!\n";
     }
     else
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -1021,24 +1017,42 @@ void EditDefScreen::SetShowable()
 
         else
             tmp.push_back(showable[i]);
-        //cout << count << "!\n";
     }
-    // if (MeasureTextEx(asset->font30, showable.c_str(), 30, 0).x > 1000 - 20)
-    // {
-    //     float propotion = float(MeasureTextEx(asset->font30, showable.c_str(), 30, 0).x / 980);
-    //     int pre = 0;
-    //     int position = showable.length() / (float)propotion;
-    //     while (position < showable.length())
-    //     {
-    //         while (position < showable.length() && MeasureTextEx(asset->font30, showable.substr(pre, position - pre).c_str(), 30, 0).x < 980)
-    //             position++;
-    //         if (position < showable.length() - 1)
-    //             while(showable[position] != ' ' || MeasureTextEx(asset->font30, showable.substr(pre, position - pre).c_str(), 30, 0).x > 980)
-    //                 position--;
-    //         if (position < showable.length() - 1)
-    //             showable[position] = '\n';
-    //         pre = position + 2;
-    //         position += showable.length() / (float)propotion;
-    //     }
-    // }
+}
+
+void EditDefScreen::Update()
+{
+    if(savebutton->isPressed(false))
+    {
+        int count = 0;
+        while(input_def[count] == ' ')
+        {
+            ++count;
+        }
+        input_def = input_def.substr(count, input_def.length() - count);
+        if(input_def.empty() || input_def[0] != '(')
+            input_def.insert(0, "()");
+        string oldstring = word->data + " " + def->data;
+        def->data = input_def;
+        string newstring = word->data + " " + def->data;
+        viewdef->originalScreen->app->dict->editDef(viewdef->originalScreen->app->state.dataset, newstring, oldstring);
+        for(int i = 0; i < viewdef->deflist->defs.size(); ++i)
+        {
+            if(viewdef->deflist->defs[i] == chosen)
+            {
+                Vector2 pos = chosen->origin;
+                Color color = chosen->rectangleColor;
+                delete chosen;
+                chosen = new EditDefButton(asset, def, pos, color);
+                viewdef->deflist->defs[i] = chosen;
+                break;
+            }
+        }
+        viewdef->mode = viewdef->Mode::VIEW;
+    }
+}
+
+EditDefScreen::~EditDefScreen()
+{
+    delete savebutton;
 }

@@ -62,8 +62,7 @@ public:
     void insertWord(const string& str); //function for user to insert word
     void insertDef(const string& str, Word*& word); //function for user to insert a definition to an already existing word
     //functions type should be changed in order to implement the front end (void -> ???)
-    void editDef(const string& word_edit_def,const string& old_def,const string& new_def);
-
+    void editDef(const string& fileDir, const string& newstring, const string& oldstring);
 
     vector<Word*> searchWord(const string& str);
     vector<Word*> searchDef(const string& str);

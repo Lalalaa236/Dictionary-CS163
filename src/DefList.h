@@ -10,14 +10,13 @@ using std::vector;
 
 class DefList
 {
-private:
+public:
     Word* word;
     vector<EditDefButton*> defs;
     Vector2 origin;
     Color color;
     Asset* asset;
     float allSize;
-public:
     DefList(Asset* asset, const vector<Definition*>& list, Word* word, Vector2 origin);
     ~DefList(); 
     EditDefButton* getDef();

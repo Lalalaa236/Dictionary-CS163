@@ -220,12 +220,11 @@ class AddWord:public Screen
     //Word* getWord();
 }; 
 
-class EditDefScreen : public Button_function
+class EditDefScreen
 {
-    int text_size;
-    bool isDropdownVisible = false;
 public:
-    bool start_add;
+    SaveButton* savebutton;
+    Vector2 origin;
     ViewDef* viewdef;
     Word* word;
     Definition* def;
@@ -235,31 +234,28 @@ public:
     string input_def;
     string showable;
 
-    bool startAdd = false;
-    char buffer_def[1000];
-
     int bufflen_def;
     Rectangle def_rec;
-
     Asset* asset;
     EditDefScreen(Asset* asset, EditDefButton* chosen, ViewDef* viewdef)
-    : asset(asset), chosen(chosen), viewdef(viewdef), is_enter_def(false), start_add(false)
+    : asset(asset), chosen(chosen), viewdef(viewdef), is_enter_def(false)
     {
+        origin = {30, 70};
         def = chosen->def;
         word = chosen->def->word;
         input_def = def->data;
         SetShowable();
-        //this->asset = asset;
         //strcpy(buffer_def, def->data.c_str());
-        buffer_def[0] = '\0';
         bufflen_def = def->data.length();
         //cout << "bufflen: " << bufflen_def << "!\n";
-        def_rec = {30, origin.y+70, 1100, 400};
+        def_rec = {30, origin.y+70, 1100, 600};
+        savebutton = new SaveButton(asset, {1000, 90}, {40, 40}, BLACK);
     }
-    
+    ~EditDefScreen();
     float cursorBlinkTime = 0.0f;
     void CursorBlink(float time);
     void SetShowable();
     void Draw();//char* input_def, int& length_def);
+    void Update();
 };
 #endif

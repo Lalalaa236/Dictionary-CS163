@@ -380,4 +380,12 @@ public:
     void Draw();
     bool Update();
 };
+
+class SaveButton : public Button_function
+{
+    Texture2D image;
+public:
+    SaveButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+};
 #endif
