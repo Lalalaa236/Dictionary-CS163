@@ -1077,7 +1077,7 @@ void EditDefScreen::SetShowable()
     string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 980)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 960)
         {
             tmp.clear();
             int k = i;
@@ -1173,9 +1173,12 @@ void GameScreen::Render(App* app)
 
         resetButton->Draw();
 
-        guessDefBtn->Draw();
+        if (!modesButtons->isDropdown)
+        {
+            guessDefBtn->Draw();
+            guessWordBtn->Draw();
+        }
 
-        guessWordBtn->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -1203,15 +1206,12 @@ void GameScreen::Render(App* app)
             app->setNextScreen(new ResetWarning(this->app));
         }
 
-        if (!modesButtons->change_data)
-        {
-            if(guessDefBtn->isPressed(false)) {
-                app->setNextScreen(new GuessDefScreen(this->app));
-            }
+        if(guessDefBtn->isPressed(false)) {
+            app->setNextScreen(new GuessDefScreen(this->app));
+        }
 
-            if(guessWordBtn->isPressed(false)) {
-                app->setNextScreen(new GuessWordScreen(this->app));
-            }
+        if(guessWordBtn->isPressed(false)) {
+            app->setNextScreen(new GuessWordScreen(this->app));
         }
 
         Vector2 _origin = {300, 50};
