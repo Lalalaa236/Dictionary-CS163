@@ -308,7 +308,7 @@ class AddWordScreen : public Button_function
         string input_type;
 
         bool startAdd = false;
-        char buffer[32];
+        char buffer[20];
         char buffer_def[257];
         char buffer_type[32];
 

@@ -513,7 +513,7 @@ void SearchDef::Render(App* app)
             if(mode == Mode::SEARCH && !searchbox->startSearch && list)
             {
                 list->Draw(modesButtons->isDropdown);
-                word = list->getWord(modesButtons->isDropdown);
+                word = list->getWord(modesButtons->after_change);
                 if(word)
                 {
                     this->mode = Mode::VIEW;
