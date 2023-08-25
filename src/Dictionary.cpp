@@ -431,7 +431,7 @@ vector<Word*> Dictionary::searchDef(const string& str)
         def->value = 0;
 
     vector<Word*> res;
-    vector<Definition*> candidates;
+    vector<pair<Definition*, int>> candidates;
 
     for(string tmp : SplitDef(str))
     {
@@ -446,7 +446,7 @@ vector<Word*> Dictionary::searchDef(const string& str)
             {
                 def->value += 1;
                 if(def->value == 1)
-                    candidates.push_back(def);
+                    candidates.push_back({def, 1});
             }
         }
     }
@@ -466,21 +466,39 @@ vector<Word*> Dictionary::searchDef(const string& str)
 
     for(auto def : candidates)
     {
-        def->value = numPattern(mergeDef(SplitDef((def->data))), mergeDef(SplitDef(str)));
+        def.second = numPattern(mergeDef(SplitDef((def.first->data))), mergeDef(SplitDef(str)));
         // cout << def->data << "\n";
     }
 
     std::sort(candidates.begin(), candidates.end(), [](auto def1, auto def2)
     {
-        return def1->value > def2->value;
+        return def1.second > def2.second;
     });
     
 
     int size = candidates.size();
+    if(size == 0)
+        return res;
+    vector<pair<Definition*, int>>::iterator ptr = candidates.begin();
+    int count = 0;
+    for(int i = 0; i < size - 1; ++i)
+    {
+        if(candidates[i].second != candidates[i + 1].second)
+        {
+            std::sort(ptr, ptr + count, [](auto def1, auto def2)
+            {
+                return def1.first->value > def2.first->value;
+            });
+            count = 0;
+        }
+        else
+            ++count;
+        
+    }
 
     for(int i = 0; i < 50 && i < size; ++i)
     {
-        res.push_back(candidates[i]->word);
+        res.push_back(candidates[i].first->word);
     }
 
     for(int i = 0; i < 50 && i < size; ++i)
