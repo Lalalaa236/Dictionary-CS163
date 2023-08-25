@@ -84,6 +84,7 @@ void ViewWord::Update()
 void AddWord::Render(App* app)
 {
     addwordScreen->Draw(addwordScreen->buffer, addwordScreen->bufflen,addwordScreen->buffer_def, addwordScreen->bufflen_def,addwordScreen->buffer_type, addwordScreen->bufflen_type);
+    addwordScreen->Save();
 }
 void ViewWord::SetShowable()
 {
@@ -683,7 +684,7 @@ void HistoryScreen::Render(App* app)
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   HISTORY", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
-        // backButton->Draw();
+        // backButton->Draw();  
         // delete word;
 
         if (!list)

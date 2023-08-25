@@ -398,8 +398,6 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
     DrawTextEx(asset->font50, buffer,{origin.x,origin.y-60}, 45, 0,BLACK);
     DrawTextEx(asset->font50, buffer_def,{origin.x,origin.y+70}, 38, 0,BLACK);
     DrawTextEx(asset->font50,buffer_type,{origin.x+500+20,origin.y-50}, 45, 0,BLACK);
-    strcpy(text, "  Save");
-    DrawRec({30,720},{120,40},PURPLE,text,WHITE,35);
     if(bufflen == 0 && is_enter_word == false)
       {
             DrawTextEx(asset->font50, "Enter a word",{origin.x,origin.y-60}, 45, 0,  BLACK);
@@ -520,10 +518,6 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
             is_enter_def = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input_def << "!\n";
-        std::cout << "buffer: " << buffer_def << "!\n";
-
-    
     }
     else if (!is_enter_word && !is_enter_type)
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -565,6 +559,27 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
     else if (!is_enter_word && !is_enter_def)
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
+
+}
+void AddWordScreen::Save(){
+    Rectangle save_btn = {30,720,120,40};
+    DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height,PURPLE);
+    DrawTextEx(asset->font30,"Save",{save_btn.x+20,720+5}, 30,2, WHITE);
+    DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height,WHITE);
+    DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+    if(CheckCollisionPointRec(GetMousePosition(),save_btn))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+            DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+        }
+        else
+        {
+           DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+           DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+        }
+    }
 
 }
 WordButton::~WordButton()
