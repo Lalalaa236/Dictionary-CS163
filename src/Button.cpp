@@ -1,5 +1,5 @@
 #include "Button.h"
-
+#include "App.h"
 void Button_function::DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
     Color colorBtn = color;
     Color colorText = color_text;
@@ -64,7 +64,7 @@ void Button_function::DrawTab(Vector2 origin, Vector2 size, Color color, char* t
     }
 }
 
-void modes_buttons::Draw() 
+void modes_buttons::Draw(string& fileDir,Dictionary*& dict)
 {
     Color colorBtn = {255,98,137,105};
     Color colorText = color_text;
@@ -84,15 +84,13 @@ void modes_buttons::Draw()
         mode_buttons.push_back(mode);
     }
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdownVisible) 
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdown) 
         {
-                isDropdownVisible = true; 
-        }
-        else {
-                isDropdownVisible = false; 
+                isDropdown = true; 
+                after_change = false;
         }
     }
-    if (isDropdownVisible) 
+    if (isDropdown) 
     {
             for (int i = 0; i < 5; ++i) {
                 DrawRectangle(mode_buttons[i].x, mode_buttons[i].y, mode_buttons[i].width, mode_buttons[i].height, colorBtn);
@@ -101,7 +99,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[0])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[0];
                 DrawRectangleRec(mode_buttons[0], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -111,7 +114,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[1])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[1];
                 DrawRectangleRec(mode_buttons[1], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -121,7 +129,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[2])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[2];
                 DrawRectangleRec(mode_buttons[2], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -131,7 +144,12 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[3])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[3];
                 DrawRectangleRec(mode_buttons[3], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
+
             }
             else
             {
@@ -141,12 +159,28 @@ void modes_buttons::Draw()
         if(CheckCollisionPointRec(GetMousePosition(), mode_buttons[4])) {
             if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
+                fileDir = link_data[4];
                 DrawRectangleRec(mode_buttons[4], pressColor);
+                dict->deleteDict();
+                dict->loadData(fileDir);
+                change_data = true;
             }
             else
             {
                 DrawRectangleRec(mode_buttons[4], hoverColorBtn);
             }
+        }
+    }
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if(CheckCollisionPointRec(GetMousePosition(), dataset)&&!isDropdown) 
+        {
+                isDropdown = true; 
+                after_change = false;
+        }
+        else if (!CheckCollisionPointRec(GetMousePosition(), dataset)) {
+                if (after_change) after_change = false;
+                else if (isDropdown) after_change = true;
+                isDropdown=false; 
         }
     }
 }
@@ -245,7 +279,7 @@ void WordButton::createShowable()
 
 }
 
-void WordButton::Draw(Vector2 origin)
+void WordButton::Draw(Vector2 origin,bool isHL)
 {
     Color colorBtn = WHITE;
     Color colorText = {255,8,74,255};
@@ -259,7 +293,7 @@ void WordButton::Draw(Vector2 origin)
     DrawTextEx(asset->font30, data->data.c_str(), {origin.x + 20, origin.y + 20}, 35, 0, colorText);
     DrawTextEx(asset->font30, text, {origin.x + 40, origin.y + 60}, 25, 0, colorText);
 
-    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725)
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}) && GetMousePosition().y >= 180 && GetMousePosition().y <= 725 && !isHL)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
@@ -294,6 +328,30 @@ void ReturnButton::Draw()
 }
 
 bool ReturnButton::Update()
+{
+    this->Draw();
+    if(this->isPressed(false))
+        return true;
+    return false;
+}
+
+ShuffleButton::ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->shuffle;
+}
+
+void ShuffleButton::Draw()
+{
+    DrawRec({origin.x + 7, origin.y}, size, color, "", color, 0);
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x + 10, origin.y + 10, size.x - 20, size.y - 20}, {-6, 0}, 0, RAYWHITE);
+}
+
+bool ShuffleButton::Update()
 {
     this->Draw();
     if(this->isPressed(false))
@@ -367,8 +425,6 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
     DrawTextEx(asset->font50, buffer,{origin.x,origin.y-60}, 45, 0,BLACK);
     DrawTextEx(asset->font50, buffer_def,{origin.x,origin.y+70}, 38, 0,BLACK);
     DrawTextEx(asset->font50,buffer_type,{origin.x+500+20,origin.y-50}, 45, 0,BLACK);
-    strcpy(text, "  Save");
-    DrawRec({30,720},{120,40},PURPLE,text,WHITE,35);
     if(bufflen == 0 && is_enter_word == false)
       {
             DrawTextEx(asset->font50, "Enter a word",{origin.x,origin.y-60}, 45, 0,  BLACK);
@@ -444,18 +500,12 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input = buffer;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input = buffer;
             is_enter_word = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input << "!\n";
-        std::cout << "buffer: " << buffer << "!\n";
-
-    
     }
     else if (!is_enter_def&&!is_enter_type)
                 SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -481,18 +531,12 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input_def = buffer_def;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input_def = buffer_def;
             is_enter_def = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input_def << "!\n";
-        std::cout << "buffer: " << buffer_def << "!\n";
-
-    
     }
     else if (!is_enter_word && !is_enter_type)
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -518,22 +562,93 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input_type = buffer_type;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input_type = buffer_type;
             is_enter_type = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input_type << "!\n";
-        std::cout << "buffer: " << buffer_type << "!\n";
+
 
     
     }
     else if (!is_enter_word && !is_enter_def)
         SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
+
+}
+
+void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
+{
+    startAdd = false;
+    Rectangle save_btn = {30,720,120,40};
+    Rectangle cancel_btn = {save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height};
+    DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height,PURPLE);
+    DrawTextEx(asset->font30,"Save",{save_btn.x+20,720+5}, 30,2, WHITE);
+    DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height,WHITE);
+    DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+    if(CheckCollisionPointRec(GetMousePosition(),save_btn))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+            DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+            if (buffer[0]!='\0'&&buffer_def[0]!='\0'&&buffer_type[0]!='\0')
+            {
+                vector<string> current;
+                current.push_back(input);
+                current.push_back("("+input_type+") "+input_def);
+                cout<<current[0]<<"\n"<<current[1]<<"\n";
+                bool insert = false;
+                Word* word;
+                insert = true;
+                if(!dict->trie.findWhole(current[0], word))
+                {
+                    word = new Word(current[0]);
+                    insert = true;
+                    if(!dict->trie.insert(current[0], word))
+                    {
+                            cout << "Cannot insert: " << current[0] << "\n";
+                            delete word;
+                            word = nullptr;
+                    }
+                }
+                Definition* def = new Definition(current[1]);
+                def->word = word;
+                word->defs.push_back(def);
+                        cout << "Inserted successfully!\n";
+                int index = dict->words.size();
+                if(insert)
+                    dict->words.push_back(word);
+                word->index = index;
+                dict->allDef.push_back(def);
+                dict->addDefWord(def, current[1]);
+                std::ofstream file (fileDir+"data.txt",std::ios::app);
+                file<<current[0]<<" "<<current[1];
+                file.close();
+                startAdd = true;
+            }
+        }
+    else
+        {
+           DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+           DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+        }        
+    }
+    if(CheckCollisionPointRec(GetMousePosition(),cancel_btn))
+    {
+         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(save_btn.x+120+15,cancel_btn.y,cancel_btn.width,cancel_btn.height, {136, 143, 153,255});
+            DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+            startAdd = true;
+        }
+    else
+        {
+           DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height, {136, 143, 153,255});
+           DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+        }        
+    }
 
 }
 
@@ -660,4 +775,34 @@ SaveButton::SaveButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
 void SaveButton::Draw()
 {
     DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, color);
+}
+
+void Button_function::DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
+    Color colorBtn = color;
+    Color colorText = color_text;
+    Color hoverColorBtn = color;
+    Color hoverColorText = color_text;
+    Color pressColor = color;
+    Color pressColorText = color_text;
+    Color layerHover = {200,200,200, 100};
+    Color layerPress = {255,255,255,70};
+
+    DrawRectangle(origin.x,origin.y,size.x,size.y,colorBtn);
+    DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {origin.x, origin.y, size.x, size.y}))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(origin.x,origin.y,size.x,size.y, pressColor);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerPress);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, pressColorText);
+        }
+        else
+        {   
+            DrawRectangle(origin.x,origin.y,size.x,size.y,hoverColorBtn);
+            DrawRectangle(origin.x,origin.y,size.x,size.y, layerHover);
+            DrawTextEx(asset->font30,text, {origin.x + 25, origin.y + (size.y - 80)/2}, text_size,1, hoverColorText);
+        }
+    }
 }

@@ -12,7 +12,6 @@
 #include <cstring>
 #include <cmath>
 #include "Asset.h"
-
 using std::string;
 using std::vector;
 
@@ -29,12 +28,13 @@ public:
     char title[256];
     char content[256];
     int text_size;
-    char text[256];
+    char text[1024];
     bool state = false;
-
+    bool dataset_clik = false;
     void DrawRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
     void DrawTab(Vector2 origin, Vector2 size, Color color, char* title, char* content,Color color_text, int text_size);
-    virtual void specific_function() {};
+    void DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text,int text_size);
+
     bool isPressed(bool outline);
 
     Button_function() = default;
@@ -208,18 +208,26 @@ public:
 
 class modes_buttons
 {
+    const string ENGENG = "data\\Eng-Eng\\";
+    const string ENGVIE = "data\\Eng-Vie\\";
+    const string VIEENG = "data\\Vie-Eng\\";
+    const string SLANG = "data\\Slang\\";
+    const string EMOJI = "data\\Emoji\\";
 public:
     vector<string> modes = {"Eng-Eng", "Eng-Vie", "Vie-Eng", "Slang", "Emoji"};
+    vector <string> link_data = {ENGENG,ENGVIE,VIEENG,SLANG,EMOJI};
     vector<Rectangle> mode_buttons;
-
+    bool isDropdown = false;
+    bool after_change = false;
+    bool change_data = false;
     Vector2 origin;
     Vector2 size;
     Color color;
     Color color_text;
     char text[101];
     int text_size;
-    bool isDropdownVisible = false;
     Asset* asset;
+    SearchBox* searchbox;
     modes_buttons(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
     {
         this->asset = asset;
@@ -229,8 +237,7 @@ public:
         color_text = _color_text;
         text_size = _text_size;
     }
-
-    void Draw();
+    void Draw(string& fileDir,Dictionary*& dict);
 };
 
 class WordButton : public Button_function
@@ -249,7 +256,7 @@ public:
 
     void createShowable();
 
-    void Draw(Vector2 origin);
+    void Draw(Vector2 origin,bool isHL);
     //bool Update();
 };
 
@@ -259,6 +266,15 @@ class ReturnButton : public Button_function
     Texture2D image;
 public:
     ReturnButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
+};
+
+class ShuffleButton : public Button_function
+{
+    Texture2D image;
+public:
+    ShuffleButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
     void Draw();
     bool Update();
 };
@@ -282,38 +298,39 @@ class AddWordScreen : public Button_function
     int text_size;
     bool isDropdownVisible = false;
     Texture2D cur;
-public:
-    bool is_enter_word = false;
-    bool is_enter_def = false;
-    bool is_enter_type = false;
+    public:
+        bool is_enter_word = false;
+        bool is_enter_def = false;
+        bool is_enter_type = false;
 
-    string input;
-    string input_def;
-    string input_type;
+        string input;
+        string input_def;
+        string input_type;
 
-    bool startAdd = false;
-    char buffer[32];
-    char buffer_def[257];
-    char buffer_type[32];
+        bool startAdd = false;
+        char buffer[32];
+        char buffer_def[257];
+        char buffer_type[32];
 
-    int bufflen;
-    int bufflen_def;
-    int bufflen_type;
+        int bufflen;
+        int bufflen_def;
+        int bufflen_type;
 
-    Asset* asset;
-    AddWordScreen(Asset*asset):
-    bufflen(0),is_enter_word(false),bufflen_def(0),bufflen_type(0)
-    {
-        this->asset = asset;
-        buffer[0] = '\0';
-        buffer_def[0] = '\0';
-        buffer_type[0]= '\0';
+        Asset* asset;
+        AddWordScreen(Asset*asset):
+        bufflen(0),is_enter_word(false),bufflen_def(0),bufflen_type(0)
+        {
+            this->asset = asset;
+            buffer[0] = '\0';
+            buffer_def[0] = '\0';
+            buffer_type[0]= '\0';
 
 
-    }
-    float cursorBlinkTime = 0.0f;
-    void CursorBlink(float time);
-    void Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type);
+        }
+        float cursorBlinkTime = 0.0f;
+        void CursorBlink(float time);
+        void Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type);
+        void Save(Dictionary*&dict, string& fileDir);
 };
 
 class YesNo_button : public Button_function
@@ -334,6 +351,105 @@ public:
     
     void Draw()
     {
+        DrawRec(origin, size, color, text,color_text,text_size);
+    }
+};
+
+class Guess_button : public Button_function
+{
+public:
+    Guess_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text,string t, int _text_size) 
+    : Button_function()
+    {
+        this->asset = asset;
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;        
+        button = {origin.x, origin.y, size.x, size.y};
+        strcpy(text, t.c_str());
+    }
+    
+    void Draw()
+    {
+        DrawRec(origin, size, color, text,color_text,text_size);
+    }
+};
+
+class Choices_button : public Button_function
+{
+public:
+    Choices_button(Asset* asset, Vector2 _origin, Vector2 _size, Color _color, Color _color_text, int _text_size) 
+    : Button_function()
+    {
+        this->asset = asset;
+        origin = _origin; 
+        size = _size;    
+        color = _color;   
+        color_text = _color_text;
+        text_size = _text_size;        
+        button = {origin.x, origin.y, size.x, size.y};
+        // strcpy(text, t.c_str());
+    }
+    
+    void DrawChoice(string t)
+    {
+        int i = 85;
+        if (t.length() > 90)
+        {
+            while(t[i] != ' ')
+                i--;
+            if (i < t.length())
+                t.insert(i, "\n");
+            i = 175;
+            if (t.length() > 180)
+            {
+                while(t[i] != ' ')
+                    i--;
+                if (i < t.length())
+                    t.insert(i, "\n");
+                i = 265;
+                if (t.length() > 270)
+                {
+                    while(t[i] != ' ')
+                        i--;
+                    if (i < t.length())
+                    t.insert(i, "\n");
+                }
+            }
+        }
+        strcpy(text, t.c_str());
+        DrawChoiceRec(origin, size, color, text,color_text,text_size);
+    }
+
+    void Draw(string t)
+    {
+        int i = 85;
+        if (t.length() > 90)
+        {
+            while(t[i] != ' ')
+                i++;
+            if (i < t.length())
+                t.insert(i, "\n");
+            i = 175;
+            if (t.length() > 180)
+            {
+                while(t[i] != ' ')
+                    i++;
+                if (i < t.length())
+                    t.insert(i, "\n");
+                i = 265;
+                if (t.length() > 270)
+                {
+                    while(t[i] != ' ')
+                        i++;
+                    if (i < t.length())
+                    t.insert(i, "\n");
+                }
+            }
+        }
+        strcpy(text, t.c_str());
         DrawRec(origin, size, color, text,color_text,text_size);
     }
 };

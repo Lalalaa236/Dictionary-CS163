@@ -62,7 +62,9 @@ public:
     void insertWord(const string& str); //function for user to insert word
     void insertDef(const string& str, Word*& word); //function for user to insert a definition to an already existing word
     //functions type should be changed in order to implement the front end (void -> ???)
-    void editDef(const string& fileDir, const string& newstring, const string& oldstring);
+    void editDef(const string& word_edit_def,const string& old_def,const string& new_def);
+
+    gameRes chooseWord(Definition*& gameDef, string& wordAns, int& posAns, vector<string>& multiChoices);
 
     vector<Word*> searchWord(const string& str);
     vector<Word*> searchDef(const string& str);
@@ -80,14 +82,15 @@ public:
     void addToHis(Word* word, const string& fileDir);
     vector<Word*> getHis(const string& fileDir);
 
-    Word* randomWord();
+    vector<Word*> randomWord();
     
     void resetDictionary();
+
+    void guessDef(Word*& word, string& def_ans, int& pos_ans, vector<string>& multi_choices);
 };
 
 vector<string> Split(const string& s); // function to split a string into word and def
 vector<string> SplitDef(const string& s); // function to split the definition
- //function to add def word
 
 string NormalizeDef(const string& s);
 string mergeDef(const vector<string>& vec);

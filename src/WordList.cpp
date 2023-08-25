@@ -22,14 +22,14 @@ WordList::WordList(Asset* asset, const vector<Word*>& list)
     }
 }
 
-WordButton* WordList::getWord()
+WordButton* WordList::getWord(bool is_dataset)
 {
     int size = word.size();
     // cout << size << "\n";
     BeginScissorMode(300, 180, 850, 525);
     for(int i = 0; i < size; ++i)
     {
-        if(word[i] && word[i]->isPressed(false) && inRange())
+        if(word[i] && word[i]->isPressed(true) && inRange() && !is_dataset)
         {
             EndScissorMode();
             return word[i]; //cout << word[i]->data->data << "\n";
@@ -39,14 +39,14 @@ WordButton* WordList::getWord()
     return nullptr;
 }
 
-void WordList::Draw()
+void WordList::Draw(bool isHL)
 {
     BeginScissorMode(300, 180, 850, 535);
     int size = word.size();
     for(int i = 0; i < size; ++i)
     {
         word[i]->button.y = this->origin.y + (this->sizeEach.y + 20) * i;
-        word[i]->Draw({this->origin.x, this->origin.y + (this->sizeEach.y + 20) * i});
+        word[i]->Draw({this->origin.x, this->origin.y + (this->sizeEach.y + 20) * i},isHL);
     }
     float offset = GetMouseWheelMove() * 30;
     // cout << offset << "\n";

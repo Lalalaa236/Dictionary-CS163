@@ -217,41 +217,88 @@ void Dictionary::editDef(const string& fileDir, const string& newstring, const s
 
 }
 
-void playGame(Dictionary& dictionary) 
+void Dictionary::guessDef(Word*& gameWord, string& defAns, int& posAns, vector<string>& multiChoices) 
 {
-    if(dictionary.words.size() == 0) {
+    if(words.size() == 0) {
         return;
     }
     // random word
-    int wordIndex = rand() % dictionary.words.size();
-    Word* word_random = dictionary.words[wordIndex];
+    int wordIndex = rand() % words.size();
+    Word* word_random = words[wordIndex];
     Word* word;
-    if (dictionary.trie.findWhole(word_random->data,word))
+    vector<string> multi_choices;
+    if (trie.findWhole(word_random->data,word))
     {
+        gameWord = word;
         cout << "Guess the definition of: " << word->data << "\n";
         string def_ans = word->defs[rand() % word->defs.size()]->data;
         int pos_ans =  rand() % 4; //position of the answer
         for (int i=0;i<4;i++)
         {
             if (i==pos_ans)
-                cout <<def_ans<<std::endl;
+            {
+                multiChoices.push_back(def_ans);
+                cout <<def_ans << def_ans.length() <<std::endl;
+            }
             else
             {
-                string def_rand = dictionary.allDef[rand() % dictionary.allDef.size()]->data;
-                cout << def_rand << std::endl;
+                string def_rand = allDef[rand() % allDef.size()]->data;
+                multiChoices.push_back(def_rand);
+                cout << def_rand << def_rand.length() << std::endl;
             }
           
         }
-        string guess;
-        cin >> guess;
-        if(guess == def_ans) {
-            cout << "Correct!\n";
-        } 
-        else {
-            cout << "Incorrect, the word was: " << def_ans<< "\n";
-        }
+        defAns = def_ans;
+        posAns = pos_ans;
     }
-  
+}
+
+Dictionary::gameRes Dictionary::chooseWord(Definition*& gameDef, string& wordAns, int& posAns, vector<string>& multiChoices) 
+{
+	Definition* ques = allDef[rand() % allDef.size()];
+    gameDef = ques;
+
+	Word* ans = ques->word;
+    wordAns = ans->data;
+
+	vector<pair<Word*, bool>> res(4);
+	int ans_index = rand() % 4;
+    posAns = ans_index;
+
+	res[ans_index] = {ans, true};
+
+	for(int i = 0; i < 4;)
+	{
+		if(i != ans_index)
+		{
+			bool exist = false;
+			res[i] = {words[rand() % words.size()], false};
+			for(int j = 0; j < i; ++j)
+			{
+				if(res[j].first == res[i].first)
+				{
+					exist = true;
+					break;
+				}
+			}
+			if(exist)
+				continue;
+			else
+            {
+                multiChoices.push_back(res[i].first->data);
+                // cout << res[i].first->data << '\n';
+				++i;
+            }
+		}
+		else
+        {
+            multiChoices.push_back(res[i].first->data);
+            // cout << res[i].first->data << '\n';
+			++i;
+        }
+	}
+	pair result = {res, ques};
+    return result;
 }
 
 void Dictionary::deleteDict()
@@ -262,6 +309,8 @@ void Dictionary::deleteDict()
     words.clear();
     allDef.clear();
     history.clear();
+    words.clear();
+    allDef.clear();
 }
 
 void Dictionary::removeWord(const string& str, const string filePath) {
@@ -709,7 +758,10 @@ void Dictionary::resetDictionary() {
     loadData("data\\Eng-Eng\\");
 }
 
-Word* Dictionary::randomWord() 
+vector<Word*> Dictionary::randomWord() 
 {
-    return words[rand() % words.size()];
+    vector<Word*> res;
+    Word* ran = words[rand() % words.size()];
+    res.push_back(ran);
+    return res;
 }
