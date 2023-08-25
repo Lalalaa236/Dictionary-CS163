@@ -605,7 +605,7 @@ void EditDefButton::Draw(Vector2 pos)
     Color layerPress = {255,255,255,70};
 
     DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, colorBtn);
-    DrawTextEx(asset->font30, "  edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, colorText);
+    DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, colorText);
 
     if(CheckCollisionPointRec(GetMousePosition(), {pos.x + displayDef.width + 20, pos.y, 100, 50}))
     {
@@ -613,13 +613,13 @@ void EditDefButton::Draw(Vector2 pos)
         {
             DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, pressColor);
             DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, layerPress);
-            DrawTextEx(asset->font30, "  edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, pressColorText);
+            DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, pressColorText);
         }
         else
         {
             DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, hoverColorBtn);
             DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, layerHover);
-            DrawTextEx(asset->font30, "  edit", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, hoverColorText);
+            DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, hoverColorText);
         }
     }
 }
