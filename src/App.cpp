@@ -954,7 +954,7 @@ void ResetWarning::Render(App* app)
     Vector2 _size = {600, 200};
     ClearBackground({255,235,250,100});
     DrawRectangle(_origin.x, _origin.y, _size.x, _size.y, WHITE);
-    DrawText("Are you sure you want to reset?", _origin.x + 40, _origin.y + 30, 30, {255,8,74,255});
+    DrawTextEx(app->asset->font50, "Are you sure you want to reset?", {_origin.x + 60, _origin.y + 30}, 45, 0,{255,8,74,255});
     // DrawRectangle(_origin.x + 140, _origin.y + 140, 120, 40, WHITE);
     // DrawRectangleLinesEx({_origin.x + 140, _origin.y + 140, 120, 40}, 3, BLACK);
     // DrawText("YES", _origin.x + 178, _origin.y + 153, 20, BLACK);
