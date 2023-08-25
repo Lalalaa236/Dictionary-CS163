@@ -74,7 +74,9 @@ void modes_buttons::Draw(string& fileDir,Dictionary*& dict)
     Color pressColorText = {200,200,200,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,{255,98,137,255});
-    DrawTextEx(asset->font30,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
+    std::string name_data = fileDir.substr(5, fileDir.length()-6);
+
+    DrawTextEx(asset->font30,name_data.c_str(),{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
@@ -583,7 +585,7 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
     startAdd = false;
     Rectangle save_btn = {30,720,120,40};
     Rectangle cancel_btn = {save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height};
-    DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height,PURPLE);
+    DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height,{255,98,137,255});
     DrawTextEx(asset->font30,"Save",{save_btn.x+20,720+5}, 30,2, WHITE);
     DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height,WHITE);
     DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
@@ -591,7 +593,7 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
     {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
         {
-            DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+            DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {255,147,172,150});
             DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
             if (buffer[0]!='\0'&&buffer_def[0]!='\0'&&buffer_type[0]!='\0')
             {
@@ -631,7 +633,7 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
         }
     else
         {
-           DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
+           DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {255,194,205,200});
            DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
         }        
     }
