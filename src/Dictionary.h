@@ -66,7 +66,6 @@ public:
 
     gameRes chooseWord(Definition*& gameDef, string& wordAns, int& posAns, vector<string>& multiChoices);
 
-
     vector<Word*> searchWord(const string& str);
     vector<Word*> searchDef(const string& str);
 
@@ -92,7 +91,6 @@ public:
 
 vector<string> Split(const string& s); // function to split a string into word and def
 vector<string> SplitDef(const string& s); // function to split the definition
- //function to add def word
 
 string NormalizeDef(const string& s);
 string mergeDef(const vector<string>& vec);

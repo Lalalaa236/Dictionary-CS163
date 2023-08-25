@@ -182,21 +182,52 @@ vector<string> SplitDef(const string& s)
     return res;
 }
 
-void Dictionary::editDef(const string& word_edit_def, const string& old_def,const string& new_def)
+void Dictionary::editDef(const string& fileDir, const string& newstring, const string& oldstring)
 {
-    Word* word;
-    if(trie.findWhole(word_edit_def, word)) {
-        int defIndex = -1;
-        for(int i = 0; i < word->defs.size(); ++i) {
-            if(word->defs[i]->data.find(old_def) != string::npos) {
-                defIndex = i;
-                break;
-            }
+    // Word* word;
+    // if(trie.findWhole(word_edit_def, word)) {
+    //     int defIndex = -1;
+    //     for(int i = 0; i < word->defs.size(); ++i) {
+    //         if(word->defs[i]->data.find(old_def) != string::npos) {
+    //             defIndex = i;
+    //             break;
+    //         }
+    //     }
+    //     if(defIndex == -1) return;
+    //     Definition* def = word->defs[defIndex];
+    //     def->data.replace(def->data.find(')') + 2, def->data.size() - (def->data.find(')') + 2), new_def);   
+    // } else return;
+    int count = 0;
+    const string oldfilename = fileDir + "data.txt";
+    const string newfilename = fileDir + "newData.txt";
+    ifstream fin(oldfilename);
+    ofstream fout;
+    fout.open(newfilename);
+    string tmp;
+    while(getline(fin, tmp))
+    {
+        if(count != 0)
+        {
+            if(tmp != oldstring)
+                fout << "\n" << tmp;
+            else
+                fout << "\n" << newstring;
         }
-        if(defIndex == -1) return;
-        Definition* def = word->defs[defIndex];
-        def->data.replace(def->data.find(')') + 2, def->data.size() - (def->data.find(')') + 2), new_def);   
-    } else return;
+        else
+        {
+            if(tmp != oldstring)
+                fout << tmp;
+            else
+                fout << newstring;
+        }
+        ++count;
+        
+    }
+    fin.close();
+    fout.close();
+    remove(oldfilename.c_str());
+    rename(newfilename.c_str(), oldfilename.c_str());
+
 }
 
 void Dictionary::guessDef(Word*& gameWord, string& defAns, int& posAns, vector<string>& multiChoices) 

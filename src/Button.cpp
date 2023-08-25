@@ -246,6 +246,7 @@ WordButton::WordButton()
 
 void WordButton::createShowable()
 {
+    showable.clear();
     int maxShow = std::min(2, int(data->defs.size()));// show max 2 defs
     for (int j = 0; j < maxShow; j++)
     {
@@ -405,12 +406,14 @@ bool FavButton::Update(Word* word)
     }
     return word->favourite;
 }
+
 void AddWordScreen::CursorBlink(float time) //blinking cursor 
 {
     cursorBlinkTime += time;
     if (cursorBlinkTime >= 1.0f)
         cursorBlinkTime = 0.0f;
 }
+
 void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type)
 {
     Rectangle word_rec = {50,90,500,70};
@@ -574,6 +577,7 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
 
 
 }
+
 void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
 {
     startAdd = false;
@@ -650,6 +654,128 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
 
 WordButton::~WordButton()
 {}
+
+EditDefButton::EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color color)
+: Button_function(), def(def), rectangleColor(color)
+{
+    this->origin = pos;
+    this->asset = asset;
+    createShowable();
+    Vector2 size = MeasureTextEx(asset->font30, showable.c_str(), 30, 0);
+    displayDef = {pos.x, pos.y, 850, size.y + 30};
+    button = {pos.x + displayDef.width + 20, pos.y, 100, 50};
+}
+
+void EditDefButton::createShowable()
+{
+    showable.clear();
+    showable = this->def->data;
+    int start = 0;
+    int length = showable.length();
+    string tmp;
+    for(int i = 0; i < length; ++i)
+    {
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 780)
+        {
+            tmp.clear();
+            int k = i;
+            while(k >= i - 50)
+            {
+                if(showable[k] == ' ' || showable[k] == '\n')
+                    break;
+                --k;
+            }
+
+            if(k < i - 50)
+            {
+                showable.insert(i, "-");
+                showable.insert(i + 1, "\n");
+                length += 2;
+                i += 2;
+            }
+            else if(showable[k] == ' ')
+            {
+                showable[k] = '\n';
+                i = k;
+                start = i;
+            }      
+        }
+
+        else
+            tmp.push_back(showable[i]);
+    }
+}
+
+void EditDefButton::Draw(Vector2 pos)
+{
+    DrawRectangle(pos.x, pos.y, displayDef.width, displayDef.height, rectangleColor);
+    DrawTextEx(asset->font30, showable.c_str(), {pos.x + 50, pos.y + 10}, 30, 0 , BLACK);
+    Color colorBtn = {255,98,137,255};
+    Color colorText = WHITE;
+    Color hoverColorBtn = {255,98,137,30};
+    Color hoverColorText = WHITE;
+    Color pressColor = {255,98,137,50};
+    Color pressColorText = WHITE;
+    Color layerHover = {255,255,255,100};
+    Color layerPress = {255,255,255,70};
+
+    DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, colorBtn);
+    DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, colorText);
+
+    if(CheckCollisionPointRec(GetMousePosition(), {pos.x + displayDef.width + 20, pos.y, 100, 50}))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, pressColor);
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, layerPress);
+            DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, pressColorText);
+        }
+        else
+        {
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, hoverColorBtn);
+            DrawRectangle(pos.x + displayDef.width + 20, pos.y, 100 , 50, layerHover);
+            DrawTextEx(asset->font30, "  EDIT", {pos.x + displayDef.width + 40, pos.y + 10}, 30, 0, hoverColorText);
+        }
+    }
+}
+
+EditButton::EditButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->image1;
+}
+
+void EditButton::Draw()
+{
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, RAYWHITE);
+}
+
+bool EditButton::Update()
+{
+    this->Draw();
+    if(this->isPressed(false))
+        return true;
+    return false;
+}
+
+SaveButton::SaveButton(Asset* asset, Vector2 origin, Vector2 size, Color color)
+{
+    this->asset = asset;
+    this->origin = origin; 
+    this->size = size;
+    this->color = color;
+    button = {origin.x, origin.y, size.x, size.y};
+    image = asset->saveimage;
+}
+
+void SaveButton::Draw()
+{
+    DrawTexturePro(image, {0, 0, (float)image.width, (float)image.height}, {origin.x, origin.y, size.x, size.y}, {0, 0}, 0, color);
+}
 
 void Button_function::DrawChoiceRec(Vector2 origin, Vector2 size, Color color, char* text,Color color_text, int text_size) {
     Color colorBtn = color;

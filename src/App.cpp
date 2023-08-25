@@ -5,12 +5,14 @@ State::State()
 {}
 
 ViewWord::ViewWord(WordButton* word, Screen* screen, App* app)
-: word(word), screen(screen), app(app), showable(), origin({150, 180})
+: word(word), screen(screen), app(app), showable(), origin({150, 180}), mode(0)
 {
     SetShowable();
     backButton = new ReturnButton(app->asset, {1050, 112}, {45, 45}, RAYWHITE);
     favButton = new FavButton(app->asset, {1050, 652}, {45, 45}, word->data);
     removeButton = new remove_button(app->asset, {105, 654},{130,40}, {255,194,205,255}, BLACK, "REMOVE", 24);
+    editbutton = new EditButton(app->asset, {1000, 652}, {45, 45}, RAYWHITE);
+    viewdef = nullptr;
 }
 
 ViewWord::~ViewWord()
@@ -19,6 +21,7 @@ ViewWord::~ViewWord()
     delete favButton;
     delete removeButton;
 }
+
 AddWord::AddWord(App* app)
 {
     this->app = app;
@@ -26,6 +29,7 @@ AddWord::AddWord(App* app)
 
 
 }
+
 AddWord::~AddWord()
 {
     delete addwordScreen;
@@ -33,18 +37,32 @@ AddWord::~AddWord()
 
 void ViewWord::Render(App* app, Screen* screen)
 {
-    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
-    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+    if(mode == Mode::VIEW)
+    {
+        if(viewdef)
+        {
+            delete viewdef;
+            viewdef = nullptr;
+            SetShowable();
+            word->createShowable();
+        }
+        DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+        DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
 
-    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
-    
-    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
-    
-    DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+        DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+        
+        DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+        
+        DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
 
-    removeButton->Draw();
-    //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
-    Update();
+        removeButton->Draw();
+        //DrawText(word->data->data.c_str(), 120, 120, 45, BLACK);
+        Update();
+    }
+    else if(mode == Mode::EDIT)
+    {
+        viewdef->Render();
+    }   
 }
 
 void ViewWord::Update()
@@ -92,7 +110,69 @@ void ViewWord::Update()
         app->dict->loadData(this->app->state.dataset);
         this->app->setNextScreen(new SearchWord(this->app));
     }
+
+    if(editbutton->Update())
+    {
+        this->mode = Mode::EDIT;
+        viewdef = new ViewDef(this);
+    }
 }
+
+ViewDef::ViewDef(ViewWord* originalScreen)
+: originalScreen(originalScreen), mode(0)
+{
+    asset = originalScreen->app->asset;
+    word = originalScreen->word->data;
+    backButton = new ReturnButton(originalScreen->app->asset, {1050, 112}, {45, 45}, RAYWHITE);
+    origin = {120, 180};
+    deflist = new DefList(originalScreen->app->asset, word->defs, word, origin);
+    editscreen = nullptr;
+}
+
+void ViewDef::Render()
+{
+    if(mode == Mode::VIEW)
+    {
+        if(editscreen)
+        {
+            delete editscreen;
+            editscreen = nullptr;
+        }
+        deflist->Draw();
+        DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+        DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+
+        DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+        
+        DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+        
+        DrawTextEx(asset->font50, word->data.c_str(), {120, 120}, 45, 0, BLACK);
+        backButton->Draw();
+        
+        if(backButton->isPressed(false))
+            originalScreen->mode = originalScreen->Mode::VIEW;
+        EditDefButton* chosen = deflist->getDef();
+        if(chosen)
+        {
+            mode = Mode::EDIT;
+            editscreen = new EditDefScreen(asset, chosen, this);
+        }
+    }
+    else if(mode == Mode::EDIT)
+    {
+        editscreen->Draw();//editscreen->buffer_def, editscreen->bufflen_def);
+        editscreen->Update();
+    }
+    
+}
+
+ViewDef::~ViewDef()
+{
+    delete backButton;
+    delete deflist;
+    delete editscreen;
+}
+
 void AddWord::Render(App* app)
 {
     addwordScreen->Draw(addwordScreen->buffer, addwordScreen->bufflen,addwordScreen->buffer_def, addwordScreen->bufflen_def,addwordScreen->buffer_type, addwordScreen->bufflen_type);
@@ -100,31 +180,50 @@ void AddWord::Render(App* app)
     if(addwordScreen->startAdd)
         app->setNextScreen(new SearchWord(this->app));
 }
+
 void ViewWord::SetShowable()
 {
+    showable.clear();
     int size = word->data->defs.size();
     for(int i = 0; i < size; ++i)
     {
         string cpy = word->data->defs[i]->data;
-        int count = 0;
         int length = cpy.length();
+        int start = 0;
+        string tmp;
         for(int j = 0; j < length; ++j)
         {
-            if(count == 80)
+            if(MeasureTextEx(app->asset->font30, tmp.c_str(), 30, 0).x > 830)
             {
-                int k = findNearestSpace(cpy, length, j);
-                if(cpy[k] == ' ')
+                tmp.clear();
+                int k = j;
+                while(k >= j - 50)
+                {
+                    if(cpy[k] == ' ' || cpy[k] == '\n')
+                        break;
+                    --k;
+                }
+                if(k < j - 50)
+                {
+                    cpy.insert(j, "-");
+                    cpy.insert(j + 1, "\n");
+                    length += 2;
+                    j += 2;
+                }
+                else if(cpy[k] == ' ')
+                {
                     cpy[k] = '\n';
-                else
-                    cpy.insert(70, "-");
-                count = 0;
+                    j = k;
+                    start = j;
+                }      
             }
-            ++count;
+            else
+                tmp.push_back(cpy[j]);
+            //cout << count << "!\n";
         }
         showable.append(cpy);
         showable.append("\n\n");
     }
-    int length = showable.length();
     // cout << showable;
 }
 
@@ -268,7 +367,8 @@ void SearchWord::Render(App* app)
 
         if(defButton->isPressed(false))
             app->setNextScreen(new SearchDef(this->app));
-      modesButtons->Draw(this->app->state.dataset,this->app->dict);
+            
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
     }
     else if(mode == Mode::VIEW)
     {
@@ -310,6 +410,9 @@ SearchWord::SearchWord(App* app)
     constexpr Vector2 mode_size = {150,size.y};
     modesButtons = new modes_buttons(this->app->asset, mode_origin, mode_size, WHITE,BLACK,25);
     //cout << "jesus christ!\n";
+    Word* word;
+    this->app->dict->trie.findWhole("set", word);
+    //deflist = new DefList(this->app->asset, word->defs, word, {30, 50});
 }
 
 SearchWord::~SearchWord()
@@ -323,6 +426,7 @@ SearchWord::~SearchWord()
     delete resetButton;
     delete list;
     delete viewScreen;
+    //delete deflist;
 }
 
 void SearchDef::Render(App* app)
@@ -613,7 +717,7 @@ void FavoriteScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
+        Vector2 _size = {700, 70};
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   FAVORITE", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
@@ -625,15 +729,18 @@ void FavoriteScreen::Render(App* app)
             list = new WordList(app->asset, app->dict->viewFavList(this->app->state.dataset));
     
         list->Draw(modesButtons->isDropdown);
-
-        word = list->getWord(modesButtons->isDropdown);
+        if (!modesButtons->isDropdown)
+            word = list->getWord(modesButtons->isDropdown);
+    
         if(word)
         {
             this->mode = Mode::VIEW;
         }
-
-        // if(backButton->Update())
-        //     app->setNextScreen(new SearchDef);
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new FavoriteScreen(this->app));
+        }
     }
     if (mode == Mode::VIEW)
     {
@@ -670,7 +777,7 @@ FavoriteScreen::FavoriteScreen(App* app)
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
-    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,WHITE,25);
 }
 
 FavoriteScreen::~FavoriteScreen()
@@ -740,9 +847,9 @@ void HistoryScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
-        ClearBackground(RAYWHITE);
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, PINK);
+        Vector2 _size = {700, 70};
+
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   HISTORY", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
@@ -755,14 +862,19 @@ void HistoryScreen::Render(App* app)
     
         list->Draw(modesButtons->isDropdown);
 
-        word = list->getWord(modesButtons->isDropdown);
+        if (!modesButtons->isDropdown)
+            word = list->getWord(modesButtons->isDropdown);
+    
         if(word)
         {
             this->mode = Mode::VIEW;
         }
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new HistoryScreen(this->app));
+        }
 
-        // if(backButton->Update())
-        //     app->setNextScreen(new SearchDef);
     }
     if (mode == Mode::VIEW)
     {
@@ -799,7 +911,7 @@ HistoryScreen::HistoryScreen(App* app)
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
-    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,WHITE,25);
     // cout << "ah\n";
     // his = app->dict->getHis();
 
@@ -883,6 +995,156 @@ ResetWarning::~ResetWarning()
     delete NoBtn;
 }
 
+void EditDefScreen::CursorBlink(float time) //blinking cursor 
+{
+    cursorBlinkTime += time;
+    if (cursorBlinkTime >= 1.0f)
+        cursorBlinkTime = 0.0f;
+}
+
+void EditDefScreen::Draw()
+{
+    Vector2 origin = {120,180};
+    // DrawRectangle(30,50,1100,650,WHITE);
+    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+
+    // DrawLine(origin.x,origin.y,500,origin.y,BLACK);
+    
+    DrawTextEx(asset->font50, word->data.c_str(),{origin.x,origin.y-60}, 45, 0,BLACK);
+    DrawTextEx(asset->font30, showable.c_str(), {origin.x,origin.y+20}, 30, 0,BLACK);
+
+    // DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    // DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+
+    // DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    
+    // DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+    
+    // DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+
+    savebutton->Draw();
+    if(bufflen_def == 0 && is_enter_def == false)
+        DrawTextEx(asset->font50, "Add the definition here",{origin.x,origin.y+70}, 38, 0,  {155,155,155,255});
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {   
+        if(CheckCollisionPointRec(GetMousePosition(), def_rec))
+            is_enter_def = true;  
+        else if(is_enter_def)
+            is_enter_def = false; 
+    }
+    if (is_enter_def)
+    {
+        SetMouseCursor(MOUSE_CURSOR_IBEAM);
+        int key = GetCharPressed();
+        if((key >= 32) && (key <= 125) && input_def.length() < 700)
+        {
+            input_def.push_back(key);
+            SetShowable();
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_BACKSPACE))
+        {
+            
+            if(input_def.length() > 0)
+            {
+                input_def.pop_back();
+                SetShowable();
+            }
+                
+        }
+
+        key = GetCharPressed();
+
+        if(IsKeyPressed(KEY_ENTER))
+            is_enter_def = false;
+        CursorBlink(GetFrameTime());
+    }
+    else
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+}
+
+void EditDefScreen::SetShowable()
+{
+    showable.clear();
+    showable = input_def;
+    int start = 0;
+    int length = showable.length();
+    string tmp;
+    for(int i = 0; i < length; ++i)
+    {
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 980)
+        {
+            tmp.clear();
+            int k = i;
+            while(k >= i - 50)
+            {
+                if(showable[k] == ' ' || showable[k] == '\n')
+                    break;
+                --k;
+            }
+
+            if(k < i - 50)
+            {
+                showable.insert(i, "-");
+                showable.insert(i + 1, "\n");
+                length += 2;
+                i += 2;
+            }
+            else if(showable[k] == ' ')
+            {
+                showable[k] = '\n';
+                i = k;
+                start = i;
+            }      
+        }
+
+        else
+            tmp.push_back(showable[i]);
+    }
+}
+
+void EditDefScreen::Update()
+{
+    if(savebutton->isPressed(false))
+    {
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+        int count = 0;
+        while(input_def[count] == ' ')
+        {
+            ++count;
+        }
+        input_def = input_def.substr(count, input_def.length() - count);
+        if(input_def.empty() || input_def[0] != '(')
+            input_def.insert(0, "()");
+        string oldstring = word->data + " " + def->data;
+        def->data = input_def;
+        string newstring = word->data + " " + def->data;
+        viewdef->originalScreen->app->dict->editDef(viewdef->originalScreen->app->state.dataset, newstring, oldstring);
+        for(int i = 0; i < viewdef->deflist->defs.size(); ++i)
+        {
+            if(viewdef->deflist->defs[i] == chosen)
+            {
+                Vector2 pos = chosen->origin;
+                Color color = chosen->rectangleColor;
+                delete chosen;
+                chosen = new EditDefButton(asset, def, pos, color);
+                viewdef->deflist->defs[i] = chosen;
+                break;
+            }
+        }
+        viewdef->mode = viewdef->Mode::VIEW;
+    }
+}
+
+EditDefScreen::~EditDefScreen()
+{
+    delete savebutton;
+}
 
 void GameScreen::Render(App* app)
 {
@@ -941,21 +1203,32 @@ void GameScreen::Render(App* app)
             app->setNextScreen(new ResetWarning(this->app));
         }
 
-        if(guessDefBtn->isPressed(false)) {
-            app->setNextScreen(new GuessDefScreen(this->app));
-        }
+        if (!modesButtons->change_data)
+        {
+            if(guessDefBtn->isPressed(false)) {
+                app->setNextScreen(new GuessDefScreen(this->app));
+            }
 
-        if(guessWordBtn->isPressed(false)) {
-            app->setNextScreen(new GuessWordScreen(this->app));
+            if(guessWordBtn->isPressed(false)) {
+                app->setNextScreen(new GuessWordScreen(this->app));
+            }
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
+        Vector2 _size = {700, 70};
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 170, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
+
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new GameScreen(this->app));
+        }
+
     }
     
 }
@@ -1069,7 +1342,7 @@ void GuessDefScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawRectangle(_origin.x, _origin.y, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GUESS DEFINITION", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         if (!gameWord)
@@ -1290,7 +1563,7 @@ void GuessWordScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawRectangle(_origin.x, _origin.y, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GUESS WORD", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         if (!gameDef)

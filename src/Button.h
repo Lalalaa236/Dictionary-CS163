@@ -292,6 +292,7 @@ public:
     void SetTexture(bool isFav);
     bool Update(Word* word);
 };
+
 class AddWordScreen : public Button_function
 {
     int text_size;
@@ -473,5 +474,34 @@ public:
     {
         DrawRec(origin, size, color, text,color_text,text_size);
     }
+};
+
+class EditDefButton : public Button_function
+{
+public: 
+    Rectangle displayDef;
+    string showable;
+    Definition* def;
+    Color rectangleColor;
+    EditDefButton(Asset* asset, Definition* def, Vector2 pos, Color color);
+    void createShowable();
+    void Draw(Vector2 pos);
+};
+
+class EditButton : public Button_function
+{
+    Texture2D image;
+public:
+    EditButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
+    bool Update();
+};
+
+class SaveButton : public Button_function
+{
+    Texture2D image;
+public:
+    SaveButton(Asset* asset, Vector2 origin, Vector2 size, Color color);
+    void Draw();
 };
 #endif

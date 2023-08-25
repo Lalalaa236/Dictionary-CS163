@@ -9,6 +9,7 @@
 #include <assert.h>
 #include "Button.h"
 #include "WordList.h"
+#include "DefList.h"
 
 const string ENGENG = "data\\Eng-Eng\\";
 const string ENGVIE = "data\\Eng-Vie\\";
@@ -17,6 +18,8 @@ const string SLANG = "data\\Slang\\";
 const string EMOJI = "data\\Emoji\\";
 
 class App;
+class ViewDef;
+class EditDefScreen;
 
 class State
 {
@@ -38,7 +41,9 @@ public:
 
 class ViewWord
 {
-private:
+public:
+    enum Mode {VIEW = 0, EDIT = 1};
+    int mode;
     WordButton* word;
     Screen* screen;
     App* app;
@@ -48,7 +53,8 @@ private:
     ReturnButton* backButton;
     FavButton* favButton;
     remove_button* removeButton;
-public:
+    EditButton* editbutton;
+    ViewDef* viewdef;
     ~ViewWord();
     ViewWord(WordButton* word, Screen* screen, App* app);
     void Render(App* app, Screen* screen);
@@ -58,6 +64,24 @@ public:
     //Word* getWord();
 };
 
+class ViewDef
+{
+public:
+    enum Mode {VIEW = 0, EDIT = 1};
+    int mode;
+    ReturnButton* backButton;
+    ViewWord* originalScreen;
+    Vector2 origin;
+    Word* word;
+    DefList* deflist;
+    EditDefScreen* editscreen;
+    Asset* asset;
+
+    ViewDef(ViewWord* originalScreen);
+    ~ViewDef();
+
+    void Render();
+};
 
 class SearchWord : public Screen
 {
@@ -196,6 +220,45 @@ class AddWord:public Screen
     //Word* getWord();
 }; 
 
+class EditDefScreen
+{
+public:
+    SaveButton* savebutton;
+    Vector2 origin;
+    ViewDef* viewdef;
+    Word* word;
+    Definition* def;
+    EditDefButton* chosen;
+    bool is_enter_def;
+
+    string input_def;
+    string showable;
+
+    int bufflen_def;
+    Rectangle def_rec;
+    Asset* asset;
+    EditDefScreen(Asset* asset, EditDefButton* chosen, ViewDef* viewdef)
+    : asset(asset), chosen(chosen), viewdef(viewdef), is_enter_def(false)
+    {
+        origin = {30, 70};
+        def = chosen->def;
+        word = chosen->def->word;
+        input_def = def->data;
+        SetShowable();
+        //strcpy(buffer_def, def->data.c_str());
+        bufflen_def = def->data.length();
+        //cout << "bufflen: " << bufflen_def << "!\n";
+        def_rec = {30, origin.y+70, 1100, 600};
+        savebutton = new SaveButton(asset, {1030, 120}, {40, 40}, BLACK);
+    }
+    ~EditDefScreen();
+    float cursorBlinkTime = 0.0f;
+    void CursorBlink(float time);
+    void SetShowable();
+    void Draw();//char* input_def, int& length_def);
+    void Update();
+};
+
 class GameScreen : public Screen
 {
 private:
@@ -288,6 +351,5 @@ public:
     ~GuessWordScreen();
     void Render(App* app);
 };
-
 
 #endif
