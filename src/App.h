@@ -249,7 +249,7 @@ public:
         bufflen_def = def->data.length();
         //cout << "bufflen: " << bufflen_def << "!\n";
         def_rec = {30, origin.y+70, 1100, 600};
-        savebutton = new SaveButton(asset, {1000, 90}, {40, 40}, BLACK);
+        savebutton = new SaveButton(asset, {1030, 120}, {40, 40}, BLACK);
     }
     ~EditDefScreen();
     float cursorBlinkTime = 0.0f;

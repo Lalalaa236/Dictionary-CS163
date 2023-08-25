@@ -931,12 +931,27 @@ void EditDefScreen::CursorBlink(float time) //blinking cursor
 
 void EditDefScreen::Draw()
 {
-    Vector2 origin = {50,150};
-    DrawRectangle(30,50,1100,650,WHITE);
-    DrawLine(origin.x,origin.y,500,origin.y,BLACK);
+    Vector2 origin = {120,180};
+    // DrawRectangle(30,50,1100,650,WHITE);
+    DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+    DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+
+    // DrawLine(origin.x,origin.y,500,origin.y,BLACK);
     
     DrawTextEx(asset->font50, word->data.c_str(),{origin.x,origin.y-60}, 45, 0,BLACK);
-    DrawTextEx(asset->font30, showable.c_str(), {origin.x,origin.y+70}, 30, 0,BLACK);
+    DrawTextEx(asset->font30, showable.c_str(), {origin.x,origin.y+20}, 30, 0,BLACK);
+
+    // DrawRectangleRec({100, 650, 1000, 50}, {255,194,205,255});
+    // DrawRectangle(100, 100, 1000, 70, {252,52,104,255});
+
+    // DrawRectangleLinesEx({100, 100, 1000, 600}, 5, BLACK);
+    
+    // DrawLineEx({100, 650}, {1100, 650}, 5, BLACK);
+    
+    // DrawTextEx(app->asset->font50, word->data->data.c_str(), {120, 120}, 45, 0, BLACK);
+
     savebutton->Draw();
     if(bufflen_def == 0 && is_enter_def == false)
         DrawTextEx(asset->font50, "Add the definition here",{origin.x,origin.y+70}, 38, 0,  {155,155,155,255});
@@ -989,7 +1004,7 @@ void EditDefScreen::SetShowable()
     string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 1030)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 980)
         {
             tmp.clear();
             int k = i;
