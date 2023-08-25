@@ -367,7 +367,8 @@ void SearchWord::Render(App* app)
 
         if(defButton->isPressed(false))
             app->setNextScreen(new SearchDef(this->app));
-      modesButtons->Draw(this->app->state.dataset,this->app->dict);
+            
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
     }
     else if(mode == Mode::VIEW)
     {
@@ -716,7 +717,7 @@ void FavoriteScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
+        Vector2 _size = {700, 70};
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   FAVORITE", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
@@ -728,15 +729,18 @@ void FavoriteScreen::Render(App* app)
             list = new WordList(app->asset, app->dict->viewFavList(this->app->state.dataset));
     
         list->Draw(modesButtons->isDropdown);
-
-        word = list->getWord(modesButtons->isDropdown);
+        if (!modesButtons->isDropdown)
+            word = list->getWord(modesButtons->isDropdown);
+    
         if(word)
         {
             this->mode = Mode::VIEW;
         }
-
-        // if(backButton->Update())
-        //     app->setNextScreen(new SearchDef);
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new FavoriteScreen(this->app));
+        }
     }
     if (mode == Mode::VIEW)
     {
@@ -773,7 +777,7 @@ FavoriteScreen::FavoriteScreen(App* app)
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
-    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,WHITE,25);
 }
 
 FavoriteScreen::~FavoriteScreen()
@@ -843,9 +847,9 @@ void HistoryScreen::Render(App* app)
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
-        ClearBackground(RAYWHITE);
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, PINK);
+        Vector2 _size = {700, 70};
+
+        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         // DrawText("  Favorite", _origin.x + 10, _origin.y + (_size.y - 36)/2, 48, WHITE);
         DrawTextEx(this->app->asset->font50,"   HISTORY", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
@@ -858,14 +862,19 @@ void HistoryScreen::Render(App* app)
     
         list->Draw(modesButtons->isDropdown);
 
-        word = list->getWord(modesButtons->isDropdown);
+        if (!modesButtons->isDropdown)
+            word = list->getWord(modesButtons->isDropdown);
+    
         if(word)
         {
             this->mode = Mode::VIEW;
         }
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new HistoryScreen(this->app));
+        }
 
-        // if(backButton->Update())
-        //     app->setNextScreen(new SearchDef);
     }
     if (mode == Mode::VIEW)
     {
@@ -902,7 +911,7 @@ HistoryScreen::HistoryScreen(App* app)
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
-    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, WHITE,BLACK,25);
+    modesButtons = new modes_buttons(app->asset, mode_origin, mode_size, btnColor,WHITE,25);
     // cout << "ah\n";
     // his = app->dict->getHis();
 
@@ -1134,6 +1143,7 @@ void EditDefScreen::Update()
 EditDefScreen::~EditDefScreen()
 {
     delete savebutton;
+}
 
 void GameScreen::Render(App* app)
 {
@@ -1192,21 +1202,32 @@ void GameScreen::Render(App* app)
             app->setNextScreen(new ResetWarning(this->app));
         }
 
-        if(guessDefBtn->isPressed(false)) {
-            app->setNextScreen(new GuessDefScreen(this->app));
-        }
+        if (!modesButtons->change_data)
+        {
+            if(guessDefBtn->isPressed(false)) {
+                app->setNextScreen(new GuessDefScreen(this->app));
+            }
 
-        if(guessWordBtn->isPressed(false)) {
-            app->setNextScreen(new GuessWordScreen(this->app));
+            if(guessWordBtn->isPressed(false)) {
+                app->setNextScreen(new GuessWordScreen(this->app));
+            }
         }
 
         Vector2 _origin = {300, 50};
-        Vector2 _size = {870, 70};
+        Vector2 _size = {700, 70};
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GAME", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 170, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
+
+        modesButtons->Draw(this->app->state.dataset,this->app->dict);
+
+        if (modesButtons->change_data == true)
+        {
+            this->app->setNextScreen(new GameScreen(this->app));
+        }
+
     }
     
 }
@@ -1320,7 +1341,7 @@ void GuessDefScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawRectangle(_origin.x, _origin.y, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GUESS DEFINITION", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         if (!gameWord)
@@ -1541,7 +1562,7 @@ void GuessWordScreen::Render(App* app)
 
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
-        DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
+        DrawRectangle(_origin.x, _origin.y, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"   GUESS WORD", {_origin.x + 10, _origin.y + (_size.y - 55)/2}, 55,3, WHITE);
 
         if (!gameDef)
