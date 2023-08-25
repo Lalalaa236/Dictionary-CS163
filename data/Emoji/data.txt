@@ -48,7 +48,9 @@ c:	(emo) smile
 D:	(emo) anguished
 :)  (emo) smile			
 :)  (emo) smiley			
-:)  (emo) blush			
+:)  (emo) blush		
+:))  (emo) laughing
+:(( (emo) very sad			
 :D  (emo) grinning		
 :D  (emo) satisified		
 ;p  (emo) stuck_out_tongue_winking_eye	
