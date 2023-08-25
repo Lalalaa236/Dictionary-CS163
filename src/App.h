@@ -276,6 +276,7 @@ private:
     Guess_button* guessDefBtn;
     Guess_button* guessWordBtn;
 public:
+    bool isDrop = false;
     GameScreen(App* app);
     ~GameScreen();
     void Render(App* app);
