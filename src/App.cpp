@@ -1202,10 +1202,10 @@ GuessDefScreen::GuessDefScreen(App* app)
     yesBtn = new YesNo_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "          Continue", 30);
     noBtn = new YesNo_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "             Leave", 30);
 
-    firstChoice = new Choices_button(app->asset, {origin.x, origin.y + 240}, {850, 100}, btnColor, WHITE, 20);
-    secondChoice = new Choices_button(app->asset, {origin.x, firstChoice->origin.y + firstChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
-    thirdChoice = new Choices_button(app->asset, {origin.x, secondChoice->origin.y + secondChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
-    fourthChoice = new Choices_button(app->asset, {origin.x, thirdChoice->origin.y + thirdChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 20);
+    firstChoice = new Choices_button(app->asset, {origin.x, origin.y + 240}, {850, 100}, btnColor, WHITE, 23);
+    secondChoice = new Choices_button(app->asset, {origin.x, firstChoice->origin.y + firstChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 23);
+    thirdChoice = new Choices_button(app->asset, {origin.x, secondChoice->origin.y + secondChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 23);
+    fourthChoice = new Choices_button(app->asset, {origin.x, thirdChoice->origin.y + thirdChoice->size.y + 10}, {850, 100}, btnColor, WHITE, 23);
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};
@@ -1315,41 +1315,41 @@ void GuessWordScreen::Render(App* app)
 
             int down = 0;
 
-            int i = 64;
-            if (t.length() > 65)
+            int i = 84;
+            if (t.length() > 85)
             {
                 while(t[i] != ' ')
-                    i++;
+                    i--;
                 if (i < t.length())
                 {
                     t.insert(i, "\n");
                     down++;
                 }
-                i = 129;
-                if (t.length() > 130)
+                i = 154;
+                if (t.length() > 155)
                 {
                     while(t[i] != ' ')
-                        i++;
+                        i--;
                     if (i < t.length())
                     {
                         t.insert(i, "\n");
                         down++;
                     }
-                    i = 194;
-                    if (t.length() > 195)
+                    i = 234;
+                    if (t.length() > 235)
                     {
                         while(t[i] != ' ')
-                            i++;
+                            i--;
                         if (i < t.length())
                         {
                             t.insert(i, "\n");
                             down++;
                         }
-                        i = 249;
-                        if (t.length() > 250)
+                        i = 314;
+                        if (t.length() > 315)
                         {
                             while(t[i] != ' ')
-                                i++;
+                                i--;
                             if (i < t.length())
                             {
                                 t.insert(i, "\n");
@@ -1360,8 +1360,8 @@ void GuessWordScreen::Render(App* app)
                 }
             }
 
-            DrawRectangle(_origin.x, _origin.y + 130, _size.x + 150, _size.y + 35 * down, {255,98,137,255});
-            DrawTextEx(this->app->asset->font50,t.c_str(), {_origin.x + 10, _origin.y + (_size.y - 10 - 10 * down)/2 + 130}, 25,3, WHITE);
+            DrawRectangle(_origin.x, _origin.y + 130, _size.x + 150, _size.y + 30 * down, {255,98,137,255});
+            DrawTextEx(this->app->asset->font50,t.c_str(), {_origin.x + 10, _origin.y + (_size.y - 14 - 10 * down)/2 + 130}, 25,1, WHITE);
             firstChoice->Draw(multi_choices[0]);
             secondChoice->Draw(multi_choices[1]);
             thirdChoice->Draw(multi_choices[2]);
@@ -1473,10 +1473,10 @@ GuessWordScreen::GuessWordScreen(App* app)
     yesBtn = new YesNo_button(app->asset, {origin.x + 50, origin.y + 350}, {300, 70}, btnColor, WHITE, "          Continue", 30);
     noBtn = new YesNo_button(app->asset, {origin.x + 500, origin.y + 350}, {300, 70}, btnColor, WHITE, "             Leave", 30);
 
-    firstChoice = new Choices_button(app->asset, {origin.x, origin.y + 440}, {850, 50}, btnColor, WHITE, 30);
-    secondChoice = new Choices_button(app->asset, {origin.x, firstChoice->origin.y + firstChoice->size.y + 10}, {850, 50}, btnColor, WHITE, 30);
-    thirdChoice = new Choices_button(app->asset, {origin.x, secondChoice->origin.y + secondChoice->size.y + 10}, {850, 50}, btnColor, WHITE, 30);
-    fourthChoice = new Choices_button(app->asset, {origin.x, thirdChoice->origin.y + thirdChoice->size.y + 10}, {850, 50}, btnColor, WHITE, 30);
+    firstChoice = new Choices_button(app->asset, {origin.x, origin.y + 340}, {850, 75}, btnColor, WHITE, 30);
+    secondChoice = new Choices_button(app->asset, {origin.x, firstChoice->origin.y + firstChoice->size.y + 10}, {850, 75}, btnColor, WHITE, 30);
+    thirdChoice = new Choices_button(app->asset, {origin.x, secondChoice->origin.y + secondChoice->size.y + 10}, {850, 75}, btnColor, WHITE, 30);
+    fourthChoice = new Choices_button(app->asset, {origin.x, thirdChoice->origin.y + thirdChoice->size.y + 10}, {850, 75}, btnColor, WHITE, 30);
 
     constexpr Vector2 mode_origin = {origin.x+size.x, origin.y};
     constexpr Vector2 mode_size = {150,size.y};

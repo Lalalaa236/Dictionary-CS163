@@ -391,21 +391,21 @@ public:
         if (t.length() > 90)
         {
             while(t[i] != ' ')
-                i++;
+                i--;
             if (i < t.length())
                 t.insert(i, "\n");
             i = 175;
             if (t.length() > 180)
             {
                 while(t[i] != ' ')
-                    i++;
+                    i--;
                 if (i < t.length())
                     t.insert(i, "\n");
                 i = 265;
                 if (t.length() > 270)
                 {
                     while(t[i] != ' ')
-                        i++;
+                        i--;
                     if (i < t.length())
                     t.insert(i, "\n");
                 }
