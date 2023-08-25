@@ -73,6 +73,8 @@ D:	(emo) anguished
 .-) (emo) User only has one eye.
 3:[ (emo) Mean Pet smiley.
 3:]	(emo) Pet smiley.
+:] (emo) Friendly Smiley
+:]] (emo) Friendly Smiley
 8:-)    (emo) User is a wizard.
 8:-I	(emo) Net.unix-wizards
 8-)	(emo) User is wearing sunglasses.
