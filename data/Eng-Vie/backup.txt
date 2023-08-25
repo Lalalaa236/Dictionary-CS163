@@ -28692,7 +28692,7 @@ imputation (danh tu) su do toi, su quy toi (cho nguoi nao)
 impute (ngoai dong tu) do (toi...) cho, quy (toi...) cho
 in (gioi tu) o, tai, trong (noi chon, khong gian...)
 in (pho tu) vao
-in (danh tu) (so nhieu) (chinh tri) (the ins) dang dang nam chinh quyen
+in (danh tu) (so nhieu chinh tri) (the ins) dang dang nam chinh quyen
 in (tinh tu) trong, noi
 in (ngoai dong tu,  (tu My,nghia My); (tieng dia phuong)) thu thap lai, thu ven lai, thu lai; gat
 in absentia (pho tu) trong khi vang mat
@@ -36310,13 +36310,12 @@ menage (ngoai dong tu) khac nao; in theo ban khac nao
 mesalliance(ngoai dong tu) 
 mi (danh tu) (am nhac) Mi
 miaow (noi dong tu) keu meo meo (meo)
-miasma (danh tu) (so nhieu) (miasmata, miasmas) khi doc, chuong khi, am khi
+miasma (danh tu) (so nhieu miasmata, miasmas) khi doc, chuong khi, am khi
 miasmal (tinh tu) co khi doc, day chuong khi, day am khi
 miasmatic (tinh tu) co khi doc, day chuong khi, day am khi
 miaul (noi dong tu) keu nhu meo
 mica (danh tu) (khoang chat) mi ca
 micaceous (tinh tu) (thuoc) mi ca; nhu mi ca
-mice (danh tu) (so nhieu) (mice) (dong vat hoc) chuot
 mice (noi dong tu) bat chuot, san chuot
 mice (ngoai dong tu) rinh bat den cung
 micella (danh tu) (sinh vat hoc) (hoa hoc) Mixen
@@ -36508,7 +36507,7 @@ millenarian (danh tu) ky niem lan thu mot nghin ((cung) millenary)
 millenary (tinh tu) gom mot nghin; nghin nam
 millenary (danh tu) nghin nam, muoi the ky
 millennial (danh tu) gom mot nghin; nghin nam
-millennium (danh tu) (so nhieu) (millennia) nghin nam, muoi the ky
+millennium (danh tu) (so nhieu millennia) nghin nam, muoi the ky
 millepede (danh tu) (dong vat hoc) dong vat nhieu chan
 miller (danh tu) chu coi xay
 millesimal (tinh tu) phan nghin, tung phan nghin
@@ -36589,13 +36588,12 @@ minification (danh tu) su lam nho di, su lam cho be di; su lam giam tinh chat qu
 minify (ngoai dong tu) lam nho di, lam cho be di; lam giam tinh chat quan trong
 minikin (danh tu) nguoi nho be, nguoi nho xiu; vat nho xiu
 minikin (tinh tu) nho xiu, be nho
-minima (danh tu) (so nhieu) (minima) so luong toi thieu, muc toi thieu, toi thieu
 minima (tinh tu) toi thieu
 minimal (tinh tu) rat nho li ti
 minimalist (danh tu) nguoi theo phe thieu so (trong dang xa hoi)
 minimise (ngoai dong tu) giam den muc toi thieu
 minimize (ngoai dong tu) giam den muc toi thieu
-minimum (danh tu) (so nhieu) (minima) so luong toi thieu, muc toi thieu, toi thieu
+minimum (danh tu) (so nhieu minima) so luong toi thieu, muc toi thieu, toi thieu
 minimum (tinh tu) toi thieu
 minimus (tinh tu) nho (tuoi) nhat (trong it nhat ba hoc sinh trung ten)
 mining (danh tu) su khai mo
@@ -37004,7 +37002,7 @@ modificative (tinh tu) sua doi, bien cai, thay doi
 modifier (danh tu) (ngon ngu hoc) tu bo nghia
 modify (ngoai dong tu) giam bot, lam nhe, lam diu
 modify (noi dong tu) lao luc
-moisis (danh tu) (so nhieu) (mioses) (sinh vat hoc) su phan bao giam nhiem 
+moisis (danh tu) (so nhieu mioses) (sinh vat hoc) su phan bao giam nhiem 
 moist (tinh tu) am; am uot, uot lap nhap
 moisten (ngoai dong tu) lam am, dap nuoc
 moisten (noi dong tu) thanh ra am uot; am uot
@@ -37049,7 +37047,7 @@ momentary (tinh tu) choc lat, nhat thoi, tam thoi, thoang qua, khong lau, ngan n
 momently (pho tu) luc lac, luon luon
 momentous (tinh tu) quan trong, trong yeu
 momentousness (danh tu) tinh chat quan trong, tinh chat trong yeu
-momentum (danh tu) (so nhieu) (momenta) (vat ly) dong luong, xung luong
+momentum (danh tu) (so nhieu momenta) (vat ly) dong luong, xung luong
 momism (danh tu) su qua nguong mo me; su qua le thuoc vao me
 momma (danh tu) uay khyem me
 momma (danh tu,  so nhieu mammae) (giai phau) v
@@ -37209,7 +37207,7 @@ monotypic (tinh tu) chi co mot dai dien
 monovalence (danh tu) (hoa hoc) hoa tri mot
 monovalency (danh tu) (hoa hoc) hoa tri mot
 monovalent (tinh tu) (hoa hoc) co hoa tri mot
-monsieur (danh tu) (so nhieu) (messieurs) ong
+monsieur (danh tu) (so nhieu messieurs) ong
 monsoon (danh tu) gio mua
 monster (danh tu) quai vat, yeu quai
 monster (tinh tu) to lon, khong lo
@@ -37303,7 +37301,7 @@ morality (danh tu) dao duc
 moralize (ngoai dong tu) ran day
 moralize (noi dong tu) luan ve dao duc, luan ve luan ly
 morass (danh tu) dam lay, bai lay
-moratorium (danh tu) (so nhieu) (moratoria) (phap ly) lenh dinh tra no, lenh hoan tra no
+moratorium (danh tu) (so nhieu moratoria) (phap ly) lenh dinh tra no, lenh hoan tra no
 moratory (tinh tu) (phap ly) dinh tra no, hoan n
 morbid (tinh tu) benh tat, om yeu; khong lanh manh (dau oc, y nghi...)
 morbidity (danh tu) (nhu) morbidness
@@ -37484,7 +37482,7 @@ motorway (danh tu) duong lon danh cho o to chay nhanh, xa lo
 motory (tinh tu) chuyen dong, gay chuyen dong
 mottle (danh tu) van, duong van
 mottled (tinh tu) lom dom, co van
-motto (danh tu) (so nhieu) (mottoes) khau hieu; phuong cham
+motto (danh tu) (so nhieu mottoes) khau hieu; phuong cham
 mouch (noi dong tu) (tu long) (+ about,  along) di lang thang, tho than
 mouch (ngoai dong tu) an cap, xoay
 moujik (danh tu) nong dan (Nga)
@@ -37530,7 +37528,7 @@ mourning (tinh tu) dau buon, buon rau
 mourning-band (danh tu) bang tang
 mourning-coach (danh tu) xe tang
 mourning-paper (danh tu) giay cao pho, giay bao tang
-mouse (danh tu) (so nhieu) (mice) (dong vat hoc) chuot
+mouse (danh tu) (so nhieu mice) (dong vat hoc) chuot
 mouse (noi dong tu) bat chuot, san chuot
 mouse (ngoai dong tu) rinh bat den cung
 mouse-colour (danh tu) mau xam xit, mau xin
@@ -37542,7 +37540,7 @@ mousetrap cheese (danh tu) pho mat hang toi (chi dang de bay chuot)
 mousse (danh tu) mon kem mut
 moustache (danh tu) rau mep, ria ((tu My,nghia My) (cung) mustache)
 mousy (tinh tu) lam chuot
-mouth (danh tu) (so nhieu) (mouths) mom, mieng, mom
+mouth (danh tu) mom, mieng, mom
 mouth (ngoai dong tu) noi to; doc ranh rot; noi cuong dieu
 mouth (noi dong tu) noi to; noi cuong dieu; keu la
 mouth-organ (danh tu) ken acmonica
@@ -37727,7 +37725,7 @@ murderer (danh tu) ke giet nguoi
 murderess (danh tu) nguoi dan ba giet nguoi
 murderous (tinh tu) giet nguoi, sat hai, tan sat
 mure (ngoai dong tu) (+ up) giam lai, nhot lai
-murex (danh tu) (so nhieu) (murices) (dong vat hoc) oc gai
+murex (danh tu) (so nhieu murices) (dong vat hoc) oc gai
 murk (danh tu) (tu co,nghia co) (tho ca) bong toi; canh toi tam, canh u am
 murkiness (danh tu) su toi tam, su am u
 murky (tinh tu) toi tam, u am, am u
@@ -37802,7 +37800,7 @@ muss (ngoai dong tu (tu My,nghia My),  (thong tuc) (+ up)) lam roi, luc tung, ba
 mussel (danh tu) (dong vat hoc) con trai
 mussiness (danh tu) (tu My,nghia My) su lon xon, su hon don, su roi loan
 mussitation (danh tu) su map may moi (noi nhung khong ra tieng)
-mussulman (danh tu) (so nhieu) (Mussulmans) tin do Hoi giao, nguoi theo dao Hoi
+mussulman (danh tu) (so nhieu Mussulmans) tin do Hoi giao, nguoi theo dao Hoi
 mussy (tinh tu) (tu My,nghia My) lon xon, hon don, bua bon, roi loan
 must (tro dong tu) phai, can phai, nen
 must (danh tu) su can thiet
@@ -39112,7 +39110,7 @@ number (ngoai dong tu) dem
 numberless (tinh tu) vo so, khong dem duoc, nhieu vo ke
 numbness (danh tu) tinh trang te, tinh trang te cong
 numbskull (danh tu) nguoi dan don, nguoi ngoc nghech
-numen (danh tu) (so nhieu) (numina) than, ma (than thoai La ma)
+numen (danh tu) (so nhieu numina) than, ma (than thoai La ma)
 numenrable (tinh tu) co the dem duoc
 numeral (tinh tu) (thuoc) so
 numeral (danh tu) so, chu so
@@ -40530,7 +40528,7 @@ ouster (danh tu) (phap ly) su truc xuat
 out (pho tu) ngoai, o ngoai, ra ngoai
 out (danh tu) tu o... ra, tu... ra
 out (tinh tu) o ngoai, o xa
-out (danh tu) (so nhieu) (chinh tri) (the outs) dang khong nam chinh quyen
+out (danh tu) (so nhieu) (chinh tri) dang khong nam chinh quyen
 out (ngoai dong tu (tu long)) (thong tuc) tong co no di
 out (noi dong tu) lo ra (dieu bi mat...)
 out of bounds (pho tu) ngoai gioi han da dinh
@@ -41456,7 +41454,7 @@ padishah (danh tu) Padisat, vua (o Ba-tu,  Tho nhi ky)
 padlock (danh tu) cai khoa moc
 padlock (ngoai dong tu) khoa moc
 padre (danh tu) (thong tuc) cha, thay ca (trong quan doi)
-padrone (danh tu) (so nhieu) (padroni) chu tau buon (o dia trung hai)
+padrone (danh tu) (so nhieu padroni) chu tau buon (o dia trung hai)
 padshah (danh tu) Padisat, vua (o Ba-tu,  Tho nhi ky)
 paduasoy (danh tu) lua soc ((the ky) 18)
 paean (danh tu) bai tan ca (tan tung than A-po-lo va Ac-te-mit)
@@ -41544,7 +41542,7 @@ palaeolithic (tinh tu) (thuoc) thoi do da cu
 palaeontologist (danh tu) nha co sinh vat hoc
 palaeontology (danh tu) mon co sinh vat
 palaeozoic (tinh tu) (dia ly,dia chat) (thuoc) dai co sinh
-palaestra (danh tu) (so nhieu) (palaestrae) truong day vo, noi tap vo
+palaestra (danh tu) (so nhieu palaestrae) truong day vo, noi tap vo
 palankeen (danh tu) kieu, cang
 palanquin (danh tu) kieu, cang
 palatability (danh tu) vi ngon
@@ -41570,7 +41568,7 @@ pale-face (danh tu) nguoi da trang (tieng dung cua nguoi da do Chau My)
 paled (tinh tu) co hang rao
 palestinian (tinh tu) (thuoc) Pa-le-xtin
 palestinian (danh tu) nguoi Pa-le-xtin
-palestra (danh tu) (so nhieu) (palaestrae) truong day vo, noi tap v
+palestra (danh tu) (so nhieu palaestrae) truong day vo, noi tap v
 paletot (danh tu) ao khoac ngoai, ao choang
 palette (danh tu) (hoi hoa) bang mau ((cung) pallet)
 palette-knife (danh tu) dao tron thuoc mau (cua hoa si)
@@ -41590,7 +41588,7 @@ pall (noi dong tu) tro thanh nhat nheo vo vi (vi qua nham)
 pall-bearer (danh tu) nguoi ho tang ben quan tai
 pall-man (danh tu) tro choi penmen (danh bong qua vong sat)
 palladia (danh tu) (hoa hoc) Paladi
-palladium (danh tu) (so nhieu) (palladia) (than thoai,than hoc) tuong than Pa-lat (vi than bao ho thanh To-roa)
+palladium (danh tu) (so nhieu palladia) (than thoai,than hoc) tuong than Pa-lat (vi than bao ho thanh To-roa)
 palladium (danh tu) (hoa hoc) Paladi
 pallet (danh tu) o rom, nem rom
 palliasse (danh tu) nem rom
@@ -41602,7 +41600,7 @@ palliator (tinh tu) tam thoi lam diu (dau)
 palliator (danh tu) thuoc tri do (dau)
 pallid (tinh tu) xanh xao, vang vot
 pallidness (danh tu) su xanh xao, su vang vot
-pallium (danh tu) (so nhieu) (pallia) ao bao (tong giam muc)
+pallium (danh tu) (so nhieu pallia) ao bao (tong giam muc)
 pallor (danh tu) ve xanh xao, ve tai nhot
 pally (tinh tu) (thong tuc) than thiet, noi kh
 palm (danh tu) (thuc vat hoc) cay co, cay ho cau dua
@@ -41621,7 +41619,7 @@ palmary (tinh tu) doat giai nhat, chien thang; troi nhat, uu tu; dang khen
 palmate (tinh tu) (thuc vat hoc) hinh chan vit (la)
 palmated (tinh tu) (thuc vat hoc) hinh chan vit (la)
 palmer (danh tu) nguoi di vieng dat thanh mang canh co ve; thay tu hanh khat
-palmetto (danh tu) (so nhieu) (palmettos) (thuc vat hoc) loai co lun
+palmetto (danh tu) (so nhieu palmettos) (thuc vat hoc) loai co lun
 palmful (danh tu) long ban tay (day), voc (day)
 palmiped (tinh tu) co mang o chan (chim)
 palmiped (danh tu) (dong vat hoc) loai chim chan mang
@@ -41638,7 +41636,7 @@ palpation (danh tu) su so nan (khi kham benh)
 palpebral (tinh tu) (thuoc) mi mat
 palpitate (noi dong tu) dap nhanh (tim mach); hoi hop
 palpitation (danh tu) su dap nhanh (tim mach); su hoi hop
-palpus (danh tu) (so nhieu) (palpi) (nhu) palp
+palpus (danh tu) (so nhieu palpi) (nhu) palp
 palsgrave (danh tu) (su hoc) lanh chua
 palstave (danh tu) (khao co hoc) dao dong, dao da
 palsy (danh tu) su te liet ((nghia den) & (nghia bong))
@@ -41650,7 +41648,7 @@ paludal (tinh tu) dam lay
 paludism (danh tu) (y hoc) benh sot ret
 paly (tinh tu) (tho ca) hoi tai tai, hoi xanh xao
 pam (danh tu) (danh bai) quan J nhep
-pampas (danh tu) (so nhieu) (pampa) dong hoang (o Nam my)
+pampas (danh tu) (so nhieu pampa) dong hoang (o Nam my)
 pampas-grass (danh tu) co bong bac
 pamper (ngoai dong tu) nuong chieu, lam hu
 pampero (danh tu) gio pampero (gio ret tay nam thoi tu day ang-do den dai tay duong)
@@ -41792,7 +41790,7 @@ paper-weight (danh tu) cai chan giay
 papery (tinh tu) nhu giay; mong nhu giay
 papier mache (danh tu) giay boi
 papilionaceous (tinh tu (thuc vat hoc)) (thuoc) ho canh buom, (thuoc) ho dau
-papilla (danh tu) (so nhieu) (papillae) (sinh vat hoc) nhu
+papilla (danh tu) (so nhieu papillae) (sinh vat hoc) nhu
 papillary (tinh tu) (sinh vat hoc) hinh nh
 papillate (tinh tu) (nhu) papillary
 papillose (tinh tu) (nhu) papillary
@@ -41808,11 +41806,11 @@ pappus (danh tu) (thuc vat hoc) mao long
 pappy (tinh tu) sen set
 paprika (danh tu) ot cua ga
 papuan (tinh tu) (thuoc) nguoi Pa-pu (tho dan chau dai duong)
-papula (danh tu) (so nhieu) (papulae) (sinh vat hoc) not nhu
+papula (danh tu) (so nhieu papulae) (sinh vat hoc) not nhu
 papular (tinh tu) (sinh vat hoc) co not san
 papulose (tinh tu) (sinh vat hoc) co not nhu
 papulous (tinh tu) (sinh vat hoc) co not nhu
-papyri (danh tu) (so nhieu) (papyrus) cay coi giay
+papyri (danh tu) (so nhieu papyrus) cay coi giay
 par (tinh tu) (tu My,nghia My) trung binh; binh thuong
 par (danh tu) su ngang hang
 par (danh tu) (thong tuc),  (nhu) paragraph
@@ -41881,7 +41879,7 @@ paralogism (danh tu) (triet hoc) ngo bien
 paralogize (noi dong tu) (triet hoc) ngo bien
 paralysation (danh tu) su liet, su te liet
 paralyse (ngoai dong tu) (y hoc) lam liet
-paralyses (danh tu) (so nhieu) (paralysis) (y hoc) chung liet
+paralyses (danh tu) (so nhieu paralysis) (y hoc) chung liet
 paralytic (tinh tu) (y hoc) bi liet
 paralytic (danh tu) nguoi bi liet ((nghia den) & (nghia bong))
 paralyze (ngoai dong tu) (y hoc) lam liet
@@ -41907,9 +41905,9 @@ paraphernalia (danh tu so nhieu) do te nhuyen cua rieng tay; do dung linh tinh c
 paraphrase (danh tu) ngu giai thich, chu giai dai dong
 paraphrase (ngoai dong tu) dien ta bang ngu giai thich, chu giai dai dong
 paraphrastic (tinh tu) dien ta bang ngu giai thich, co tinh chat chu giai dai dong
-paraphysis (danh tu) (so nhieu) (paraphyses) (thuc vat hoc) to ben
+paraphysis (danh tu) (so nhieu paraphyses) (thuc vat hoc) to ben
 paraplegia (danh tu) (y hoc) chung liet hai chi
-parapodium (danh tu) (so nhieu) (parapodia) (dong vat hoc) chi ben
+parapodium (danh tu) (so nhieu parapodia) (dong vat hoc) chi ben
 paraselenae (danh tu so nhieu) (thien van hoc) trang gia, trang ao
 parashoot (noi dong tu) nhay du
 parasite (danh tu) ke an bam
@@ -41954,21 +41952,20 @@ parenchymatous (tinh tu) (sinh vat hoc) tua nhu mo
 parent (danh tu) cha; me
 parentage (danh tu) hang cha me; tu cach lam cha me; quan he cha me
 parental (tinh tu) (thuoc) cha me
-parenthesis (danh tu) (so nhieu) (parentheses) ((thuong)) dau ngoac don
+parenthesis (danh tu) (so nhieu parentheses) ((thuong)) dau ngoac don
 parenthesize (ngoai dong tu) dat trong ngoac don
 parenthetic (tinh tu) dat trong ngoac don; chen vao giua
 parenthetical (tinh tu) dat trong ngoac don; chen vao giua
 parenthood (danh tu) tu cach lam cha me; hang cha me
-parergon (danh tu) (so nhieu) (parerga) viec lam phu, viec lam ngoai gio
+parergon (danh tu) (so nhieu parerga) viec lam phu, viec lam ngoai gio
 parersis (danh tu) (y hoc) benh liet nhe (khong cu dong duoc, nhung van con cam giac)
 paretic (tinh tu) (y hoc) liet nhe
 parget (ngoai dong tu) trat vua (tuong...)
-parhelia (danh tu) (so nhieu) (parhelia) (thien van hoc) mat troi gia, mat troi ao
-parhelion (danh tu) (so nhieu) (parhelia) (thien van hoc) mat troi gia, mat troi ao
+parhelion (danh tu) (so nhieu parhelia) (thien van hoc) mat troi gia, mat troi ao
 pariah (danh tu) nguoi ha dang (o an-do)
 pariah-dog (danh tu) cho hoang
 parian (danh tu) nguoi dao Pa-ro
-paries (danh tu) (so nhieu) (parietes) (sinh vat hoc) thanh vach (cua mot khoang trong co the)
+paries (danh tu) (so nhieu parietes) (sinh vat hoc) thanh vach (cua mot khoang trong co the)
 parietal (tinh tu) (giai phau) (thuoc) dinh
 paring (danh tu) viec got, viec cat, viec xen, viec deo bot
 paris doll (danh tu) nguoi gia (de mac quan ao mau),  manocanh
@@ -42145,7 +42142,7 @@ passe-partout (danh tu) khoa van nang
 passementerie (danh tu) do ren tua kim tuyen
 passenger (danh tu) hanh khach (di tau xe...)
 passer (danh tu) khach qua duong
-passer-by (danh tu) (so nhieu) (passers-by) khach qua duong
+passer-by (danh tu) (so nhieu passers-by) khach qua duong
 passerine (tinh tu) (dong vat hoc) (thuoc) bo chim se
 passerine (danh tu) (dong vat hoc) chim thuoc bo chim se
 passe (tinh tu,  danh tu giong cai passee) loi thoi, qua thoi
@@ -42231,7 +42228,7 @@ patchouli (danh tu) (thuc vat hoc) cay hoac huong
 patchwork (danh tu) mieng vai chap manh (gom nhieu manh vun va lai voi nhau)
 patchy (tinh tu) va viu; chap va ((nghia den) & (nghia bong))
 pate (danh tu) (thong tuc) dau; dau oc
-patella (danh tu) (so nhieu) (patellae) (giai phau) xuong banh che (o dau goi)
+patella (danh tu) (so nhieu patellae) (giai phau) xuong banh che (o dau goi)
 patellar (tinh tu) (thuoc) banh che
 paten (danh tu) dia
 patency (danh tu) tinh trang mo (cua...)
@@ -42614,12 +42611,12 @@ pelt (danh tu) tam da con long
 pelt (danh tu) su nem loan xa, su ban loan xa
 pelt (ngoai dong tu) nem loan xa vao, nem tui bui vao, nem nhu mua vao; ban loan xa vao, ban nhu mua vao
 pelt (noi dong tu) (+ at) ban loan xa vao
-pelta (danh tu) (so nhieu) (peltae) cai moc nho, cai khien nho
+pelta (danh tu) (so nhieu peltae) cai moc nho, cai khien nho
 peltate (tinh tu) (thuc vat hoc) hinh khien
 pelting (tinh tu) trut xuong, dap manh rao rao (mua)
 peltry (danh tu) cac loai da con long
 pelvic (tinh tu) (giai phau) (thuoc) chau, (thuoc) khung chau
-pelvis (danh tu) (so nhieu) (pelves) (giai phau) chau, khung chau
+pelvis (danh tu) (so nhieu pelves) (giai phau) chau, khung chau
 pembroke (danh tu) ban gap
 pembroke table (danh tu) ban gap
 pemmican (danh tu) ruoc
@@ -42679,7 +42676,7 @@ peninsula (danh tu) ban dao
 peninsular (tinh tu) (thuoc) ban dao; giong nhu mot ban dao; o ban dao
 peninsular (danh tu) nguoi o ban dao
 peninsulate (ngoai dong tu) bien (mot vung dat dai) thanh ban dao
-penis (danh tu) (so nhieu) (penes) (giai phau) duong vat
+penis (danh tu) (giai phau) duong vat
 penitence (danh tu) su an nan, su hoi loi; su sam hoi
 penitent (tinh tu) an nan, hoi loi; sam hoi
 penitent (danh tu) nguoi an nan, nguoi hoi loi; nguoi biet sam hoi
@@ -42875,12 +42872,12 @@ perianth (danh tu) (thuc vat hoc) bao hoa
 periapt (danh tu) bua
 pericardiac (tinh tu) (y hoc) (thuoc) benh viem mang ngoai tim; mac benh viem mang ngoai tim
 pericarditis (danh tu) (y hoc) benh viem mang ngoai tim
-pericardium (danh tu) (so nhieu) (pericardia) (giai phau) mang ngoai tim
+pericardium (danh tu) (so nhieu pericardia) (giai phau) mang ngoai tim
 pericarp (danh tu) (thuc vat hoc) vo qua
 perichondrium (danh tu) (giai phau) mang sun
 periclase (danh tu) (khoang chat) Pericla
 pericope (danh tu) doan ngan; doan kinh thanh (doc khi lam le)
-pericrania (danh tu) (so nhieu) (pericrania) (giai phau) mang quanh so
+pericrania (danh tu) (so nhieu pericrania) (giai phau) mang quanh so
 pericycle (danh tu) (thuc vat hoc) tru bi
 periderm (danh tu) (thuc vat hoc) chu bi
 peridot (danh tu) (khoang chat) Peridot
@@ -42934,10 +42931,9 @@ peristalsis (danh tu) (sinh vat hoc) su nhu dong
 peristaltic (tinh tu) (sinh vat hoc) nhu dong
 peristome (danh tu) (thuc vat hoc) long rang (o mieng tui bao tu cua reu)
 peristyle (danh tu) (kien truc) hang cot bao quanh (nha, den dai...)
-peritonaeum (danh tu) (so nhieu) (peritonea) (giai phau) mang bung
-peritonea (danh tu) (so nhieu) (peritonea) (giai phau) mang bung
+peritonaeum (danh tu) (so nhieu peritonea) (giai phau) mang bung
 peritoneal (tinh tu) (giai phau) (thuoc) mang bung
-peritoneum (danh tu) (so nhieu) (peritonea) (giai phau) mang bung
+peritoneum (danh tu) (so nhieu peritonea) (giai phau) mang bung
 peritonitis (danh tu) (y hoc) viem mang bung
 periwig (danh tu) bo toc gia
 periwigged (tinh tu) doi toc gia
@@ -43159,22 +43155,18 @@ phaeton (danh tu) xe ngua bon banh ((thuong) hai ngua)
 phagedaane (danh tu) (y hoc) sau quang
 phagedane (danh tu) (y hoc) sau quang
 phagocyte (danh tu) (sinh vat hoc) thuc bao
-phalange (danh tu) (so nhieu) (phalanxes) (tu co,nghia co) (Hy lap) doi hinh falang
-phalange (danh tu) (so nhieu) (phalanges phalange) (giai phau) dot ngon (tay, chan)
+phalange (danh tu) (so nhieu phalanxes) (tu co,nghia co) (Hy lap) doi hinh falang
+phalange (danh tu) (so nhieu phalanges phalange) (giai phau) dot ngon (tay, chan)
 phalangeal (tinh tu) (giai phau) (thuoc) dot ngon (tay, chan)
 phalanger (danh tu) (dong vat hoc) cao co tui
-phalanges (danh tu) (so nhieu) (phalanxes) (tu co,nghia co) (Hy lap) doi hinh falang
-phalanges (danh tu) (so nhieu) (phalanges phalange) (giai phau) dot ngon (tay, chan)
 phalansterian (tinh tu) (thuoc) falanxto
 phalansterian (danh tu) thanh vien cua falanxto
 phalanstery (danh tu) Falanxto (doan the cong dong xa hoi chung do 1800 nguoi do Phua-ri-e de nghi lap ra)
-phalanx (danh tu) (so nhieu phalanxes) (tu co,nghia co) (Hy lap) doi hinh falang
-phalanx (danh tu) (so nhieu) (phalanges phalange) (giai phau) dot ngon (tay, chan)
 phalarope (danh tu) (dong vat hoc) chim de nuoc
 phalli (danh tu) tuong duong vat (de ton tho, bieu tuong cho suc sinh san)
 phallic (tinh tu) (thuoc) tuong duong vat
 phallicism (danh tu) su ton tho duong vat
-phallus (danh tu) (so nhieu) (phalli) tuong duong vat (de ton tho, bieu tuong cho suc sinh san)
+phallus (danh tu) (so nhieu phalli) tuong duong vat (de ton tho, bieu tuong cho suc sinh san)
 phanerogam (danh tu) (thuc vat hoc) cay co hoa
 phanerogamic (tinh tu) (thuc vat hoc) co hoa
 phanerogamous (tinh tu) (thuc vat hoc) co hoa
@@ -43213,7 +43205,6 @@ phenacetin (danh tu) (duoc hoc) Fenaxetin
 phenol (danh tu) (hoa hoc) Fenola
 phenological (tinh tu) (thuoc) vat hau hoc
 phenology (danh tu) vat hau hoc
-phenomena (danh tu) (so nhieu) (phenomena) hien tuong
 phenomenal (tinh tu) (thuoc) hien tuong, co tinh chat hien tuong
 phenomenalism (danh tu) (triet hoc) thuyet hien tuong
 phenomenalist (danh tu) (triet hoc) nguoi theo thuyet hien tuong
@@ -43224,7 +43215,7 @@ phenomenist (danh tu) (triet hoc) nguoi theo thuyet hien tuong
 phenomenistic (tinh tu) (thuoc) thuyet hien tuong
 phenomenologist (danh tu) nha hien tuong hoc
 phenomenology (danh tu) hien tuong hoc
-phenomenon (danh tu) (so nhieu) (phenomena) hien tuong
+phenomenon (danh tu) (so nhieu phenomena) hien tuong
 phew (than tu) chao oi! (to y sot ruot)
 phi (danh tu) Fi (chu cai Hy lap)
 phial (danh tu) lo nho; ong dung thuoc
@@ -43479,7 +43470,7 @@ piacular (tinh tu) de chuoc toi
 piaffe (noi dong tu) chay nuoc kieu cham (ngua)
 piaffer (danh tu) nuoc kieu cham (ngua)
 pianette (danh tu) (am nhac) dan piano tu nh
-pianino (danh tu) (so nhieu) (pianinos) (am nhac) dan duong cam
+pianino (danh tu) (so nhieu pianinos) (am nhac) dan duong cam
 pianist (danh tu) nguoi choi piano, nguoi bieu dien piano
 piano (danh tu) (am nhac) piano
 piano (pho tu) (am nhac) nhe
@@ -43503,7 +43494,7 @@ picayune (tinh tu) tam thuong, hen ha, dang khinh
 piccalilli (danh tu) dua gop cay
 piccaninny (danh tu) dua be da den (o My,  Nam phi,  Uc)
 piccaninny (tinh tu) be bong, be ti xiu
-piccolo (danh tu) (so nhieu) (piccolos) (am nhac) ong sao nho
+piccolo (danh tu) (so nhieu piccolos) (am nhac) ong sao nho
 pice (danh tu) (am nhac) dong paixo (tien Pa-ki-xtan)
 pichiciago (danh tu) (dong vat hoc) con tatu Chi-le
 pick (danh tu) su chon loc, su chon lua
@@ -43781,7 +43772,7 @@ pink-eye (danh tu) (y hoc),  (thu y hoc) benh dau mat d
 pinkish (tinh tu) hoi hong, hong nhat
 pinkster flower (danh tu) (tu My,nghia My),  (thuc vat hoc) hoa do quyen
 pinky (tinh tu) hoi hong, hong nhat
-pinna (danh tu) (so nhieu) (pinnae) (giai phau) loa tai
+pinna (danh tu) (so nhieu pinnae) (giai phau) loa tai
 pinnace (danh tu) (hang hai) xuong cheo (thuong tam cheo); xuong may (cua mot tau chien)
 pinnacle (danh tu) thap nhon (de trang tri mai nha...)
 pinnacle (ngoai dong tu) dat len thap nhon, de tren cao chot vot
@@ -43798,7 +43789,7 @@ pinocle (danh tu) (tu My,nghia My) loi danh bai pinooc
 pinole (danh tu) mon bot ngo nau voi duong
 pinprick (danh tu) cu cham bang dinh ghim
 pint (danh tu) Panh (don vi do luong bang 0, 57 lit o My)
-pintado (danh tu) (so nhieu) (pintados) (dong vat hoc) ga Nhat
+pintado (danh tu) (so nhieu pintados) (dong vat hoc) ga Nhat
 pintail (danh tu) (dong vat hoc) vit nhon duoi
 pintle (danh tu) chot, truc
 pinto (tinh tu) (tu My,nghia My) va (ngua)
@@ -43867,7 +43858,7 @@ piscatory (tinh tu) (nhu) piscatorial
 piscicultural (tinh tu) (thuoc) nghe nuoi ca
 pisciculture (danh tu) nghe nuoi ca
 pisciculturist (danh tu) nguoi nuoi ca
-piscina (danh tu) (so nhieu) (piscinas, piscinae) ao ca, ho ca
+piscina (danh tu) (so nhieu piscinas, piscinae) ao ca, ho ca
 piscine (danh tu) be tam
 piscine (tinh tu) (thuoc) ca
 piscivorous (tinh tu) an ca
@@ -43937,7 +43928,7 @@ pitiful (tinh tu) thuong xot, thuong hai, day long trac an
 pitifulness (danh tu) long thuong hai, long thuong xot, long trac an
 pitiless (tinh tu) tan nhan, nhan tam, khong thuong xot
 pitilessness (danh tu) su tan nhan, su nhan tam, tinh tan nhan
-pitman (danh tu) (so nhieu) (pitmen, pitmans) (ky thuat) thanh truyen, thanh noi (trong may)
+pitman (danh tu) (so nhieu pitmen, pitmans) (ky thuat) thanh truyen, thanh noi (trong may)
 pitpan (danh tu) thuyen doc moc (o Trung my)
 pittance (danh tu) thu hoach it oi; tien thu lao re mat
 pittile (danh tu) nguoi ngoi ghe hang nhi (o rap hat)
@@ -43969,9 +43960,9 @@ place-brick (danh tu) gach nung con song (do bi xep o phia lo co gio tat)
 place-card (danh tu) thiep ghi cho ngoi (trong nhung buoi chieu dai long trong...)
 place-hunter (danh tu) ke muu cau danh vong, ke muu cau dia vi
 place-kick (danh tu) (the duc,the thao) cu dat bong sut (bong da)
-placebo (danh tu) (so nhieu) (placebos, placeboes) (y hoc) thuoc tran yen (de lam yen long nguoi benh hon la de chua benh)
+placebo (danh tu) (so nhieu placebos, placeboes) (y hoc) thuoc tran yen (de lam yen long nguoi benh hon la de chua benh)
 placeman (danh tu) nguoi trong vung
-placenta (danh tu) (so nhieu) (placentae, placentas) nhau (dan ba de)
+placenta (danh tu) (so nhieu placentae, placentas) nhau (dan ba de)
 placer (danh tu) lop soi cat co vang
 placet (danh tu) su bieu quyet "dong y" 
 placet (than tu) dong y! (trong khi bieu quyet)
@@ -44034,8 +44025,7 @@ planer (danh tu) tho bao
 planet (danh tu) (thien van hoc) hanh tinh
 planet-stricken (tinh tu) bang hoang, kinh hoang, hoang so, khiep so
 planet-struck (tinh tu) bang hoang, kinh hoang, hoang so, khiep so
-planetaria (danh tu) (so nhieu) (planetaria) cung thien van
-planetarium (danh tu) (so nhieu) (planetaria) cung thien van
+planetarium (danh tu) (so nhieu planetaria) cung thien van
 planetary (tinh tu) (thuoc) hanh tinh
 planetoid (danh tu) hanh tinh nh
 plangency (danh tu) tinh vang, tinh ngan vang (cua am thanh)
@@ -44217,7 +44207,7 @@ pledge (ngoai dong tu) cam co, do, the
 pledgee (danh tu) nguoi nhan do cam co
 pledger (danh tu) nguoi di cam co
 pledget (danh tu) (y hoc) gac, mieng gac
-pleiad (danh tu) (so nhieu) (Pleiades) (thien van hoc) nhom that tinh
+pleiad (danh tu) (so nhieu Pleiades) (thien van hoc) nhom that tinh
 pleistocene (danh tu) (dia ly,dia chat) the pleitoxen
 plenary (tinh tu) day du, nguyen ven, hoan toan (khong han che)
 plenipotentiary (tinh tu) toan quyen
@@ -44236,10 +44226,10 @@ pleomorphic (tinh tu) (hoa hoc) nhieu hinh (tinh the)
 pleomorphism (danh tu) (hoa hoc) tinh nhieu hinh (tinh the)
 pleonasm (danh tu) (van hoc) hien tuong thua tu, hien tuong thua loi
 pleonastic (tinh tu) (van hoc) thua tu, thua loi
-plesiosauri (danh tu) (so nhieu) (plesiosaurus, plesiosauruses) than lan dau ran, xa dau long
+plesiosauri (danh tu) (so nhieu plesiosaurus, plesiosauruses) than lan dau ran, xa dau long
 plethora (danh tu) (y hoc) trang thai qua thua (mau...)
 plethoric (tinh tu) (y hoc) qua thua (mau)
-pleura (danh tu) (so nhieu) (pleurae) (giai phau) mang phoi
+pleura (danh tu) (so nhieu pleurae) (giai phau) mang phoi
 pleural (tinh tu) (giai phau) (thuoc) mang phoi
 pleurisy (danh tu) (y hoc) viem mang phoi
 pleuritic (tinh tu) (y hoc) (thuoc) viem mang phoi
@@ -44254,7 +44244,7 @@ pliability (danh tu) tinh de uon deo, tinh deo, tinh mem (da)
 pliable (tinh tu) de uon, deo; mem (da)
 pliancy (danh tu) tinh de uon deo, tinh deo, tinh mem (da)
 pliant (tinh tu) de uon, deo; mem (da)
-plica (danh tu) (so nhieu) (plicae) nep (o da...)
+plica (danh tu) (so nhieu plicae) nep (o da...)
 plicate (tinh tu) (sinh vat hoc); (dia ly,dia chat) uon nep
 plicated (tinh tu) (sinh vat hoc); (dia ly,dia chat) uon nep
 plication (danh tu) su uon nep, trang thai uon nep
@@ -44479,8 +44469,7 @@ poddy-dodger (danh tu) nguoi quay thu rung va suc vat chua dong dau (cua nguoi k
 podge (danh tu) (thong tuc) nguoi beo lun
 podginess (danh tu) voc nguoi beo lun
 podgy (tinh tu) beo lun
-podia (danh tu) (so nhieu) (podia) bac dai vong (quanh mot truong dau)
-podium (danh tuso nhieu) (podia) bac dai vong (quanh mot truong dau)
+podium (danh tu so nhieu) bac dai vong (quanh mot truong dau)
 poem (danh tu) bai tho
 poesy (danh tu) (tu co,nghia co) tho ca
 poet (danh tu) nha tho, thi si
@@ -44682,11 +44671,10 @@ polygonum (tinh tu) (thuc vat hoc) giong rau nghe
 polygottal (tinh tu) nhieu thu tieng
 polygottic (tinh tu) nhieu thu tieng
 polygynous (tinh tu) nhieu vo
-polygyny (danh tu) tinh trang nhieu vo; su lay nhieu v
-polyhedra (danh tu) (so nhieu) (polyhedra, polyhedrons) khoi nhieu mat, khoi da dien
+polygyny (danh tu) tinh trang nhieu vo; su lay nhieu 
 polyhedral (tinh tu) (toan hoc) nhieu mat, da dien
 polyhedric (tinh tu) (toan hoc) nhieu mat, da dien
-polyhedron (danh tu) (so nhieu) (polyhedra, polyhedrons) khoi nhieu mat, khoi da dien
+polyhedron (danh tu) (so nhieu polyhedra, polyhedrons) khoi nhieu mat, khoi da dien
 polyhistor (danh tu) nha thong thai, hoc gia
 polymath (danh tu) nha thong thai, hoc gia
 polymathy (danh tu) su thong thai, su uyen bac
@@ -44719,7 +44707,7 @@ polyphonic (tinh tu) nhieu am
 polyphonous (tinh tu) nhieu am
 polyphony (danh tu) tinh nhieu am
 polyphyllous (tinh tu) (thuc vat hoc) loan la
-polypi (danh tu) (so nhieu) (polypi, polypuses) (y hoc) benh polip
+polypi (danh tu) (so nhieu polypi, polypuses) (y hoc) benh polip
 polypidom (danh tu) nen bam cua polip
 polypite (danh tu) Polip ca the,  polip song rieng re
 polyploid (tinh tu) (sinh vat hoc) da hoi
@@ -44972,8 +44960,7 @@ portland (danh tu) xi mang pooclang
 portland cement (danh tu) xi mang pooclang
 portliness (danh tu) ve beo tot day da
 portly (tinh tu) beo tot, day da
-portmanteau (danh tu) (so nhieu) (portmanteaus, portmanteaux) va li
-portmanteaux (danh tu) (so nhieu) (portmanteaus, portmanteaux) va li
+portmanteau (danh tu) (so nhieu portmanteaus, portmanteaux) va li
 portrait (danh tu) chan dung, anh
 portraitist (danh tu) hoa si ve chan dung
 portraiture (danh tu) cach ve chan dung
@@ -45164,7 +45151,7 @@ potter's lathe (danh tu) ban (quay tho) gom
 potter's wheel (danh tu) man quay (o) ban gom
 pottery (danh tu) do gom
 pottle (danh tu) (tu co,nghia co) nua galong (don vi do ruou...); binh nua galong
-potto (danh tu) (so nhieu) (pottos) (dong vat hoc) vuon cao Tay phi
+potto (danh tu) (dong vat hoc) vuon cao Tay phi
 potty (tinh tu) (tu long) tam thuong, nho mon, khong nghia ly gi
 pouch (danh tu) tui nho
 pouch (ngoai dong tu) cho vao tui, bo tui
@@ -45631,7 +45618,7 @@ presidentess (danh tu) ba chu tich
 presidential (tinh tu) (thuoc) chu tich; (tu My,nghia My) (thuoc) tong thong
 presidentship (danh tu) chuc chu tich; (tu My,nghia My) chuc tong thong
 presidiary (tinh tu) (thuoc) don luy, (thuoc) phao dai
-presidio (danh tu) (so nhieu) (presidios) don luy, phao dai (o Tay ban nha)
+presidio (danh tu) (so nhieu presidios) don luy, phao dai (o Tay ban nha)
 presidium (danh tu) doan chu tich
 press (danh tu) su ep, su nen, su bop, su an
 press (ngoai dong tu) ep, nep, bop, an
@@ -46614,8 +46601,7 @@ psychopath (danh tu) (y hoc) nguoi bi loan than kinh nhan cach
 psychopathic (tinh tu) (y hoc) (thuoc) benh thai nhan cach
 psychopathology (danh tu) (y hoc) benh hoc tam ly, benh hoc tinh than
 psychopathy (danh tu) (y hoc) benh thai nhan cach
-psychoses (danh tu) (so nhieu) (psychoses) (y hoc) chung loan tinh than
-psychosis (danh tu) (so nhieu) (psychoses) (y hoc) chung loan tinh than
+psychosis (danh tu) (so nhieu psychoses) (y hoc) chung loan tinh than
 psychosomatic (tinh tu) (thuoc) tinh than co the
 psychotherapy (danh tu) (y hoc) phep chua bang tam ly
 psychotic (tinh tu) loan tinh than
@@ -46691,7 +46677,7 @@ pudendum (danh tu) (so nhieu pudenda) am ho
 pudge (danh tu) (thong tuc) nguoi map lun; thu map lun
 pudgy (tinh tu) map lun
 pudsy (tinh tu) phung phinh, phop phap
-pueblo (danh tu) (so nhieu) (pueblos) lang (nguoi da do); nguoi da do
+pueblo (danh tu) (so nhieu pueblos) lang (nguoi da do); nguoi da do
 puerile (tinh tu) tre con, co tinh chat tre con
 puerility (danh tu) tinh tre con; trang thai tre em
 puerperal (tinh tu) (y hoc) de, san
@@ -46771,7 +46757,7 @@ pulpous (tinh tu) mem nhao
 pulpy (tinh tu) mem nhao
 pulque (danh tu) ruou thua (Me-hi-co)
 pulsate (noi dong tu) dap (tim...)
-pulsate (ngoai dong tu) sang (kim cuong) de lam sach dat)
+pulsate (ngoai dong tu) sang (kim cuong) de lam sach dat
 pulsatile (tinh tu) dap (tim...)
 pulsation (danh tu) su dap; tieng dap (tim...)
 pulsative (tinh tu) dap (tim...)
@@ -46814,7 +46800,7 @@ pun (ngoai dong tu) nen, dam (dat)
 puna (danh tu) (dia ly,dia chat) hoang mac puna
 punch (danh tu) cu dam, cu thoi, cu thui
 punch (ngoai dong tu) dam, thoi, thui
-punch (danh tu puncheon)) cai giui, may giui; kim bam (ve tau); cai nho dinh, cai dong dinh
+punch (danh tu puncheon) cai giui, may giui; kim bam (ve tau); cai nho dinh, cai dong dinh
 punch (ngoai dong tu) giui lo (mieng da, giay, ton... bang cai giui); bam (ve tau... bang kim bam)
 punch (danh tu) ruou pan (ruou manh pha nuoc nong, duong, sua, chanh)
 punch (danh tu) ngua tho map lun ((cung) Suffork punch)
@@ -46826,7 +46812,6 @@ puncheon (danh tu) thung (77 120 galong, dung ruou, bia...)
 puncher (danh tu) nguoi dam, nguoi thoi, nguoi thui
 punchinello (danh tu) (Punchinello) Pun-si-ne-lo (nhan vat chinh trong vo mua roi Y)
 punchy (tinh tu) (nhu) drunk
-puncta (danh tu) (so nhieu) (puncta) dom, diem, cham
 punctate (tinh tu) (dong vat hoc) co dom nho
 punctated(tinh tu) 
 punctilio (danh tu) (so nhieu) (punctilios) chi tiet ti mi, hinh thuc vun vat (nghi le...)
@@ -46840,7 +46825,7 @@ punctuate (noi dong tu) danh dau cham; cham cau
 punctuation (danh tu) su cham cau; phep cham cau; phep danh dau cham
 punctuation mark (danh tu) dau cham cau
 punctuative (tinh tu) de cham cau
-punctum (danh tu) (so nhieu) (puncta) dom, diem, cham
+punctum (danh tu) (so nhieu puncta) dom, diem, cham
 puncturable (tinh tu) co the dam thung, co the cham thung
 puncture (danh tu) su dam, su cham, su chich; lo dam, lo cham, lo chich, lo thung
 puncture (ngoai dong tu) dam thung, cham thung, chich thung
