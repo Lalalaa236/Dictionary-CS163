@@ -620,7 +620,7 @@ void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
                 dict->allDef.push_back(def);
                 dict->addDefWord(def, current[1]);
                 std::ofstream file (fileDir+"data.txt",std::ios::app);
-                file<<current[0]<<" "<<current[1];
+                file<<"\n"<<current[0]<<" "<<current[1];
                 file.close();
                 startAdd = true;
             }
