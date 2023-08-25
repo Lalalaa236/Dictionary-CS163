@@ -717,8 +717,8 @@ vector<Word*> Dictionary::getHis(const string& fileDir)
     for (int i = words.size() - 1; i >= 0; i--)
     {
         Word* newWord;
-        trie.findWhole(words[i], newWord);
-        his.push_back(newWord);
+        if(trie.findWhole(words[i], newWord))
+            his.push_back(newWord);
     }
     return his;
 }
