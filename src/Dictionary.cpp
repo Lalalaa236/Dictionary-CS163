@@ -8,8 +8,8 @@ Word::Word(const string& data)
 : data(data), favourite(false)
 {}
 
-Word::~Word() 
-{}
+// Word::~Word() 
+// {}
 
 DefWord::DefWord(const string& data)
 : data(data)
@@ -19,8 +19,8 @@ Definition::Definition(const string& data)
 : data(data), word(nullptr), value(0)
 {}
 
-Definition::~Definition()
-{}
+// Definition::~Definition()
+// {}
 
 Dictionary::Dictionary()
 {}
@@ -319,11 +319,16 @@ void Dictionary::deleteDict()
     trieNode<Word*>* root = trie.getRoot();
     trie.deallocate(root);
     trie.setRoot();
+    for(int i = 0; i < words.size(); ++i)
+        delete words[i];
     words.clear();
+    for(int i = 0; i < allDef.size(); ++i)
+        delete allDef[i];
     allDef.clear();
     history.clear();
-    words.clear();
-    allDef.clear();
+    trieNode<DefWord*>* defroot = defWords.getRoot();
+    defWords.deallocate(defroot);
+    defWords.setRoot();
 }
 
 void Dictionary::removeWord(const string& str, const string filePath) {

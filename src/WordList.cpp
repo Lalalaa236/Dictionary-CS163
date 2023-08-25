@@ -77,4 +77,5 @@ WordList::~WordList()
     {
         delete word[i];
     }
+    //word.clear();
 }

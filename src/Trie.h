@@ -22,7 +22,7 @@ class trieNode
 
         trieNode();
         trieNode(Data data);// constructor
-        ~trieNode();// destructor
+        //~trieNode();// destructor
 };
 
 template<class Data>
@@ -69,9 +69,11 @@ trieNode<Data>::trieNode(Data data)
     }
 }
 
-template<class Data>
-trieNode<Data>::~trieNode()
-{}
+// template<class Data>
+// trieNode<Data>::~trieNode()
+// {
+//     Data.~Data();
+// }
 
 template<class Data>
 Trie<Data>::Trie()

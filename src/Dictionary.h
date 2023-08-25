@@ -22,7 +22,7 @@ public:
 
     Word();
     Word(const string& data);
-    ~Word();
+    //~Word();
 };
 
 class DefWord
@@ -42,7 +42,7 @@ public:
     Word* word;
 
     Definition(const string& data);
-    ~Definition();
+    //~Definition();
 };
 
 class Dictionary
