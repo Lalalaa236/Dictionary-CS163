@@ -1077,7 +1077,7 @@ void EditDefScreen::SetShowable()
     string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 980)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 960)
         {
             tmp.clear();
             int k = i;
