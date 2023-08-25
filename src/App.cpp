@@ -1103,6 +1103,7 @@ void EditDefScreen::Update()
 {
     if(savebutton->isPressed(false))
     {
+        SetMouseCursor(MOUSE_CURSOR_DEFAULT);
         int count = 0;
         while(input_def[count] == ' ')
         {
@@ -1134,6 +1135,7 @@ void EditDefScreen::Update()
 EditDefScreen::~EditDefScreen()
 {
     delete savebutton;
+}
 
 void GameScreen::Render(App* app)
 {
