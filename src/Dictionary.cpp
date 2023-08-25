@@ -197,6 +197,7 @@ void Dictionary::editDef(const string& fileDir, const string& newstring, const s
     //     Definition* def = word->defs[defIndex];
     //     def->data.replace(def->data.find(')') + 2, def->data.size() - (def->data.find(')') + 2), new_def);   
     // } else return;
+    int count = 0;
     const string oldfilename = fileDir + "data.txt";
     const string newfilename = fileDir + "newData.txt";
     ifstream fin(oldfilename);
@@ -205,10 +206,22 @@ void Dictionary::editDef(const string& fileDir, const string& newstring, const s
     string tmp;
     while(getline(fin, tmp))
     {
-        if(tmp != oldstring)
-            fout << tmp << "\n";
+        if(count != 0)
+        {
+            if(tmp != oldstring)
+                fout << "\n" << tmp;
+            else
+                fout << "\n" << newstring;
+        }
         else
-            fout << newstring << "\n";
+        {
+            if(tmp != oldstring)
+                fout << tmp;
+            else
+                fout << newstring;
+        }
+        ++count;
+        
     }
     fin.close();
     fout.close();
