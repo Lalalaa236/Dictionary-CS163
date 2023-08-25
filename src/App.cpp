@@ -988,14 +988,14 @@ void EditDefScreen::SetShowable()
 {
     showable.clear();
     showable = input_def;
-    int count = 0;
+    int start = 0;
     int length = showable.length();
+    string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(showable[i] == '\n')
-            count = 0;
-        if(count == 75)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 1030)
         {
+            tmp.clear();
             int k = i;
             while(k >= i - 50)
             {
@@ -1003,22 +1003,24 @@ void EditDefScreen::SetShowable()
                     break;
                 --k;
             }
+
             if(k < i - 50)
             {
                 showable.insert(i, "-");
                 showable.insert(i + 1, "\n");
-                // ++i;
                 length += 2;
+                i += 2;
             }
             else if(showable[k] == ' ')
             {
                 showable[k] = '\n';
-                count = 0;
                 i = k;
-            }
-                    
+                start = i;
+            }      
         }
-        ++count;
+
+        else
+            tmp.push_back(showable[i]);
         //cout << count << "!\n";
     }
     // if (MeasureTextEx(asset->font30, showable.c_str(), 30, 0).x > 1000 - 20)
