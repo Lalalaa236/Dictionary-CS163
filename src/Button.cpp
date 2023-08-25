@@ -688,7 +688,7 @@ void EditDefButton::createShowable()
                 --k;
             }
 
-            if(k < i - 50)
+            if(showable[k] != ' ')
             {
                 showable.insert(i, "-");
                 showable.insert(i + 1, "\n");
@@ -700,7 +700,7 @@ void EditDefButton::createShowable()
                 showable[k] = '\n';
                 i = k;
                 start = i;
-            }      
+            }    
         }
 
         else

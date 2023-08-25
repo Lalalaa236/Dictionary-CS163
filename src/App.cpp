@@ -203,7 +203,7 @@ void ViewWord::SetShowable()
                         break;
                     --k;
                 }
-                if(k < j - 50)
+                if(cpy[k] != ' ')
                 {
                     cpy.insert(j, "-");
                     cpy.insert(j + 1, "\n");
@@ -1077,7 +1077,7 @@ void EditDefScreen::SetShowable()
     string tmp;
     for(int i = 0; i < length; ++i)
     {
-        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 960)
+        if(MeasureTextEx(asset->font30, tmp.c_str(), 30, 0).x > 930)
         {
             tmp.clear();
             int k = i;
@@ -1088,7 +1088,7 @@ void EditDefScreen::SetShowable()
                 --k;
             }
 
-            if(k < i - 50)
+            if(showable[k] != ' ')
             {
                 showable.insert(i, "-");
                 showable.insert(i + 1, "\n");
