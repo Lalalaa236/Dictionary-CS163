@@ -74,7 +74,9 @@ void modes_buttons::Draw(string& fileDir,Dictionary*& dict)
     Color pressColorText = {200,200,200,255};
     Rectangle dataset = {origin.x,origin.y,size.x,size.y};
     DrawRectangle(dataset.x,dataset.y,dataset.width,dataset.height,{255,98,137,255});
-    DrawTextEx(asset->font30,"Dataset",{origin.x + 20, origin.y + 25}, 25,2, WHITE);
+    std::string name_data = fileDir.substr(5, fileDir.length()-6);
+
+    DrawTextEx(asset->font30,name_data.c_str(),{origin.x + 20, origin.y + 25}, 25,2, WHITE);
     for(int i = 0; i < 5; ++i) {
         Rectangle mode;
         mode.x = origin.x;
