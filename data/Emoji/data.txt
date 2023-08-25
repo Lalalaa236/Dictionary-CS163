@@ -1,62 +1,377 @@
-<3	()heart
-</3	()broken_heart
-:)	()slightly_smiling_face
-(:	()slightly_smiling_face
-:-)	()slightly_smiling_face
-C:	()smile
-c:	()smile
-:D	()smile
-:-D	()smile
-;)	()wink
-;-)	()wink
-):	()disappointed
-:(	()disappointed
-:-(	()disappointed
-:'(	()cry
-=)	()smiley
-=-)	()smiley
-:*	()kissing_heart
-:-*	()kissing_heart
-:>	()laughing
-:->	()laughing
-8)	()sunglasses
-:\	()confused
-:-\	()confused
-:/	()confused
-:-/	()confused
-:|	()neutral_face
-:-|	()neutral_face
-:o	()open_mouth
-:-o	()open_mouth
-:O	()open_mouth
-:-O	()open_mouth
->:(	()angry
->:-(    ()angry
-:p	()stuck_out_tongue
-:-p	()stuck_out_tongue
-:P	()stuck_out_tongue
-:-P	()stuck_out_tongue
-:b	()stuck_out_tongue
-:-b	()stuck_out_tongue
-;p	()stuck_out_tongue_winking_eye
-;-p	()stuck_out_tongue_winking_eye
-;b	()stuck_out_tongue_winking_eye
-;-b	()stuck_out_tongue_winking_eye
-;P	()stuck_out_tongue_winking_eye
-;-P	()stuck_out_tongue_winking_eye
-:o)	()monkey_face
-D:	()anguished
-:)  ()smile			
-:)  ()smiley			
-:)  ()blush			
-:D  ()grinning		
-:D  ()satisified		
-;p  ()stuck_out_tongue_winking_eye	
-;)  ()wink			
-:p  ()stuck_out_tongue	
-:'( ()cry			
-:'( ()sob			
-:(  ()disappointed		
-:(  ()unamused		
--_-	()boring
-	
+<3	(emo) heart
+</3	(emo) broken_heart
+:)	(emo) slightly_smiling_face
+(:	(emo) slightly_smiling_face
+:-)	(emo) slightly_smiling_face
+C:	(emo) smile
+c:	(emo) smile
+:D	(emo) smile
+:-D	(emo) smile
+;)	(emo) wink
+;-)	(emo) wink
+):	(emo) disappointed
+:(	(emo) disappointed
+:-(	(emo) disappointed
+:'(	(emo) cry
+=)	(emo) smiley
+=-)	(emo) smiley
+:*	(emo) kissing_heart
+:-*	(emo) kissing_heart
+:>	(emo) laughing
+:->	(emo) laughing
+8)	(emo) sunglasses
+:\	(emo) confused
+:-\	(emo) confused
+:/	(emo) confused
+:-/	(emo) confused
+:|	(emo) neutral_face
+:-|	(emo) neutral_face
+:o	(emo) open_mouth
+:-o	(emo) open_mouth
+:O	(emo) open_mouth
+:-O	(emo) open_mouth
+>:(	(emo) angry
+>:-(     (emo)angry
+:p	(emo) stuck_out_tongue
+:-p	(emo) stuck_out_tongue
+:P	(emo) stuck_out_tongue
+:-P	(emo) stuck_out_tongue
+:b	(emo) stuck_out_tongue
+:-b	(emo) stuck_out_tongue
+;p	(emo) stuck_out_tongue_winking_eye
+;-p	(emo) stuck_out_tongue_winking_eye
+;b	(emo) stuck_out_tongue_winking_eye
+;-b	(emo) stuck_out_tongue_winking_eye
+;P	(emo) stuck_out_tongue_winking_eye
+;-P	(emo) stuck_out_tongue_winking_eye
+:o)	(emo) monkey_face
+D:	(emo) anguished
+:)  (emo) smile			
+:)  (emo) smiley			
+:)  (emo) blush			
+:D  (emo) grinning		
+:D  (emo) satisified		
+;p  (emo) stuck_out_tongue_winking_eye	
+;)  (emo) wink			
+:p  (emo) stuck_out_tongue	
+:'( (emo) cry			
+:'( (emo) sob			
+:(  (emo) disappointed		
+:(  (emo) unamused		
+-_-	(emo) boring
+%-) (emo) staring.
+(:I	(emo) egghead.
+*<:-)   (emo) wearing a Santa Claus Hat.
+,-)	(emo) winking
+,:-)    (emo) winking
+-6% (emo) braindead.
+-:-(    (emo) Real punk rockers don't smile.
+-:-)	(emo) User is a punk rocker.
+-=* :-)	(emo) User is a TeX wizard.
+.-) (emo) User only has one eye.
+3:[ (emo) Mean Pet smiley.
+3:]	(emo) Pet smiley.
+8:-)    (emo) User is a wizard.
+8:-I	(emo) Net.unix-wizards
+8-)	(emo) User is wearing sunglasses.
+8:-)    (emo) User is a little girl.
+:'-(	(emo)User is crying.
+:'-)	(emo)User is so happy, s/he is crying.
+:(  (emo) Sad.
+:)	(emo) Happy.
+:*	(emo) Kisses.
+:*)	(emo) User is drunk.
+:,(	(emo) Crying.
+:-#	(emo) User wears braces.
+:-&	(emo) User is tongue tied.
+:-(	(emo) boo hoo
+:-)	(emo) ha ha
+:-)-8   (emo) User is a Big girl.
+:-)~	(emo) User drools.
+:-*	(emo) User just ate something sour.
+:-/	(emo) User is skeptical.
+:-0	(emo) No Yelling!(Quiet Lab)
+:-7	(emo) User juust made a wry statement.
+:-9	(emo) User is licking his/her lips.
+:-:	(emo) Mutant smiley; the invisible smiley.
+:->	(emo) hey hey
+:-?	(emo) User smokes a pipe.
+:-@	(emo) User is screaming.
+:-C	(emo) User is really bummed.
+:-D	(emo) User is laughing (at you!)
+:-E	(emo) Bucktoothed vampire.
+:-F	(emo) Bucktoothed vampire with one tooth missing.
+:-I	(emo) hmmm
+:-O	(emo) oops
+:-P	(emo) nyahhhh!
+:-Q	(emo) User is a smoker.
+:-S	(emo) User just made an incoherent statement.
+:-X	(emo) User's lips are sealed.
+:-[	(emo) User is a vampire.
+:-`	(emo) User spitting out its chewing tobacco.
+:-{)    (emo) User has a mustache.
+:-{}	(emo) User wears lipstick.
+:-~)	(emo) User has a cold.
+::-)	(emo) User wears normal glasses.
+:<  (emo) What?
+:<)	(emo) User is from an Ivy League School.
+:=)	(emo) User has two noses.
+:>	(emo) What?
+:@	(emo) What?
+:C	(emo) What?
+:D	(emo) Laughter.
+:I	(emo) Hmmm...
+:O	(emo) Yelling.
+:Q	(emo) What?
+:[	(emo) Real Downer.
+:]	(emo) Gleep...a friendly midget smiley who will gladly be your friend.
+:^)	(emo) User has a broken nose.
+:_)	(emo) User's nose is sliding off of his face.
+:{	(emo) What?
+:}	(emo) What should we call these? (what?)
+;-)	(emo) Winky smiley. User just made a flirtatious and/or sarcastic remark.More of a "don't hit me for what I just said" smiley.
+<:-I	(emo) User is a dunce.
+<|-(	(emo) User is Chinese and doesn't like these kind of jokes.
+<|-)	(emo) User is Chinese.
+=)  (emo) Variation on a theme...
+=))	(emo) Full of laughing
+=:-)	(emo) User is a hosehead.
+=W=	(emo) Whatever
+>:->    (emo) User just made a really devilish remark.
+>;->	(emo) Winky and devil combined. A very lewd remark was just made.
+>U  (emo) Screw you!
+?	(emo) Huh?
+@:-)    (emo) User is wearing a turban.
+@=	(emo) User is pro-nuclear war.
+B-)	(emo) User wears horn-rimmed glasses.
+B:-)	(emo) Sunglasses on head.
+C=:-)	(emo) User is a chef.
+E-:-)	(emo) User is a Ham radio operator.
+E-:-I	(emo) Net.ham-radio
+K:P	(emo) User is a little kid with a propeller beenie.
+O :-)	(emo) User is an angel (at heart, at least).
+O |-)	(emo) Net.religion
+O-)	(emo) Megaton Man On Patrol!(or else, user is a scuba diver)
+X-(	(emo) Net.suicide
+[:-)    (emo) User is wearing a walkman.
+[:]	(emo) User is a robot.
+[]	(emo) Hugs and ...
+^-^	(emo) Satisfied Smile
+^-~	(emo) Wink
+^_-	(emo) Wink
+^_^	(emo) Smile
+`:-)	(emo) User shaved one of his eyebrows off this morning.
+{:-)	(emo) User wears a toupee.
+|-)	(emo) hee hee
+|-D	(emo) ho ho
+|-I	(emo) User is asleep.
+|-O	(emo) User is yawning/snoring.
+|I	(emo) Asleep.
+}:-(	(emo) Toupee in an updraft.
+}:^#})	(emo) Updrafted bushy-mustached pointy nosed smiley with a double-chin.
+~~:-(	(emo) Net.flame
+^.^	(emo) Happy
+^.~	(emo) Wink
+^5	(emo) High five
+^O^	(emo) Hurrah
+^W^	(emo) Happy
+^^	(emo) Happy
+^^^	(emo) Reference to line above
+^_^	(emo) Happiness
+^_^	(emo) Satisfied
+^_~	(emo) Wink
+^~^	(emo) Mischievous Smile
+|O|	(emo) LOL
+}:-)    (emo) Devilish smile
+\M/	(emo) Horns
+\M/	(emo) Metal salute
+\O	(emo) Waving
+\O/	(emo) Happy
+\O/	(emo) Arms in the air
+\\//    (emo) Peace
+\\//	(emo) Vulcan salute
+ZZZ	(emo) Sleepy
+ZZZ	(emo) Bored
+ZZZ	(emo) Tired
+X)	(emo) Happy
+X)	(emo) Mischevious
+X.X	(emo) Exasperated
+X.X	(emo) Irritated
+X.X	(emo) Annoyed
+XD	(emo) LOL
+V.V	(emo) Sad
+T^T	(emo) Crying
+T_T	(emo) Crying
+U	(emo) You
+O-O	(emo) Shock
+O.O	(emo) Wide eyed
+O/	(emo) High five
+O/\O	(emo) High five
+O7	(emo) Salute
+O:)	(emo) Innocent
+O:)	(emo) Angelic
+O:-)	(emo) Innocent
+O:-)	(emo) Angelic
+D:	(emo) Suprised
+D:	(emo) Shocked
+D:<	(emo) Angry
+D;	(emo) Crying
+@.@	(emo) Confused
+@.@	(emo) Surprised
+@@@	(emo) Warning of parents nearby
+@_@	(emo) Hypnotized
+@_@	(emo) Dazed 
+??	What?
+?_?	Confused
+?_?	Lost
+=[	(emo)Sad
+=]	(emo)Happy
+>,<	(emo)Angry
+>,<	(emo)Annoyed
+>.<	(emo)Frustrated
+>.<	(emo)Angry
+>.<	(emo)Upset
+>.<	(emo)In pain
+>.>	(emo)Suspicious
+>.>	(emo)Wary
+>//<	(emo) Embarrassed
+>//<	(emo) Blushing
+>3	(emo) Evil but happy
+>3	(emo) Hate
+>:(	(emo) Angry
+>:)	(emo) Evil Grin
+>:D	(emo) Scheming
+>:D	(emo) Maniacal
+>:D<	(emo) Hug
+>:O	(emo) Angry
+><	(emo) Frustration
+>O<	(emo) Yelling
+>_<	(emo) Frustrated
+>_>	(emo) Looking left
+>_>	(emo) Shifty look
+=)	(emo) Happy
+=*	(emo) Kiss
+=.=	(emo) Tired
+=/=	(emo) Not equal to
+=0	(emo) Surprised
+=0	(emo) Shocked
+=3	(emo) Cute
+=3	(emo) Goofy face
+=D	(emo) :D
+=F	(emo) Vampire
+=I	(emo) Indifference
+=P	(emo) Sticking tongue out
+=S	(emo) Confused
+=W=	(emo) Weezer (band)
+=X	(emo) No Comment
+<>	(emo) No comment
+<><	(emo) Fish
+<B	(emo) Hate
+<G>	(emo) Grin
+<_<	(emo) Sarcasm
+<_<	(emo) Look left
+:*	(emo) Kiss
+:-(	(emo) Sad
+:-)	(emo) Smile
+:-*	(emo) Kiss
+:-D	(emo) Laughing
+:-D	(emo) Big Smile
+:-P	(emo) Sticking Their Tongue Out
+:/	(emo) Sarcasm
+:0	(emo) Surprised
+:0	(emo) Shocked
+:3	(emo) Cute
+:3	(emo) Goofy face
+:9	(emo) Yum
+:9	(emo) Licking
+:<	(emo) Sad
+:<	(emo) Frowning
+:>	(emo) Mischievous smile
+:?	(emo) Confused
+:@	(emo) Angry
+:B	(emo) Buck teeth
+:C	(emo) Very Sad
+:D	(emo) Happy
+:DD	(emo) Very happy
+:F	(emo) Drooling
+:J	(emo) Smirk
+:K	(emo) Vampire teeth
+:K	(emo) Snake's tongue
+:L	(emo) Laughing
+:O	(emo) Surprised
+:O)	(emo) Clown nose smiley face
+:P	(emo) Sticking tongue out
+:Q	(emo) Smoking
+:S	(emo) Confused
+:T	(emo) Side smile
+:X	(emo) Zipped lips
+:[	(emo) Sad
+:[	(emo) Vampire
+:\	(emo) Emoticon Meaning Confusion
+:]	(emo) Happy
+:{)	(emo) Happy with a moustache
+:|	(emo) Disgust
+:|	(emo) Disapproval
+:|	(emo) Not funny
+;(	(emo) Crying
+;)	(emo) Wink
+;-)	(emo) Wink
+;;	(emo) Sad
+;;	(emo) Confused
+;D	(emo) Wink
+;O	(emo) Joking
+;P	(emo) Winking and sticking tongue out
+;P;	(emo) Misspelling of LOL
+<#	(emo) Misspelling of <3
+<.<	(emo) Shifty look
+</3	(emo) Broken Hearted
+<2	(emo) Not quite love (<3)
+<3	(emo) Love (heart shape) 
+<3U	(emo) Love You
+<4	(emo) More than love (<3)
+:$	(emo) Embarrassed
+:&	(emo) Tongue tied
+:&	(emo) Speechless
+:'(	(emo) Crying
+:')	(emo) Crying with joy
+:(	(emo) Unhappy 
+:(:)	(emo) Pig
+:(|)	(emo) Monkey
+9_9	(emo) Rolling the eyes
+8)	(emo) Cool
+8*	(emo) Kiss
+8-)	(emo) Cool 
+8-|	(emo) Nerdy 
+6_6	(emo) Looking down
+6_6	(emo) Suspicious
+/W	(emo) Whisper
+0.0	(emo) Surprise
+0.O	(emo) Raised eyebrow
+0/	(emo) Waving
+0_0	(emo) Shocked
+._.	(emo) Emoticon Representing Apathy
+/.\	(emo) Shy
+/.\	(emo) Ashamed
+//	(emo) Love
+//	(emo) I love you
+/:)	(emo) Flirtation 
+/:)	(emo) Sign Of Suspicion
+/B/	(emo) 4chan's random image board
+/O/	(emo) Happy
+/O/	(emo) Arms in the air
+/O\	(emo) Frustrated
+/O\	(emo) Hands on head
++_+ (emo) Dead man
+-.- (emo) Annoyance
+-_- (emo) Annoyed
+-_- (emo) Tired
+.-. (emo) Sad
+.-. (emo) Unhappy
+... (emo) Silence
+*O*	(emo) Confused
+*O*	(emo) Surprised
+*O*	(emo) Shocked
+*S*	(emo) Salute
+*\O/*	(emo) Cheerleader
+*_*	(emo) In love
+*_*	(emo) Dazed
