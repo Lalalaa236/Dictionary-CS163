@@ -1173,12 +1173,13 @@ void GameScreen::Render(App* app)
 
         resetButton->Draw();
 
-        if (!modesButtons->isDropdown)
-        {
-            guessDefBtn->Draw();
-            guessWordBtn->Draw();
-        }
-
+        // if (!modesButtons->isDropdown)
+        // {
+        //     guessDefBtn->Draw();
+        //     guessWordBtn->Draw();
+        // }
+        guessDefBtn->Draw();
+        guessWordBtn->Draw();
 
         if(addWordButton->isPressed(false)) {
             app->setNextScreen(new AddWord(this->app));
@@ -1206,14 +1207,6 @@ void GameScreen::Render(App* app)
             app->setNextScreen(new ResetWarning(this->app));
         }
 
-        if(guessDefBtn->isPressed(false)) {
-            app->setNextScreen(new GuessDefScreen(this->app));
-        }
-
-        if(guessWordBtn->isPressed(false)) {
-            app->setNextScreen(new GuessWordScreen(this->app));
-        }
-
         Vector2 _origin = {300, 50};
         Vector2 _size = {700, 70};
         DrawRectangle(_origin.x, _origin.y, _size.x - 20, _size.y, {255,98,137,255});
@@ -1221,14 +1214,16 @@ void GameScreen::Render(App* app)
 
         DrawRectangle(_origin.x, _origin.y + 250, _size.x + 150, _size.y, {255,98,137,255});
         DrawTextEx(this->app->asset->font50,"  WHAT GAME DO YOU WANT TO PLAY?", {_origin.x + 170, _origin.y + (_size.y - 30)/2 + 250}, 30,3, WHITE);
-
         modesButtons->Draw(this->app->state.dataset,this->app->dict);
 
-        if (modesButtons->change_data == true)
-        {
-            this->app->setNextScreen(new GameScreen(this->app));
+        if(guessDefBtn->isPressed(false)) {
+            app->setNextScreen(new GuessDefScreen(this->app));
         }
 
+        if(guessWordBtn->isPressed(false) && !modesButtons->after_change) {
+            app->setNextScreen(new GuessWordScreen(this->app));
+        }
+        
     }
     
 }
