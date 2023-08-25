@@ -84,7 +84,9 @@ void ViewWord::Update()
 void AddWord::Render(App* app)
 {
     addwordScreen->Draw(addwordScreen->buffer, addwordScreen->bufflen,addwordScreen->buffer_def, addwordScreen->bufflen_def,addwordScreen->buffer_type, addwordScreen->bufflen_type);
-    addwordScreen->Save();
+    addwordScreen->Save(this->app->dict,this->app->state.dataset);
+    if(addwordScreen->startAdd)
+        app->setNextScreen(new SearchWord(this->app));
 }
 void ViewWord::SetShowable()
 {

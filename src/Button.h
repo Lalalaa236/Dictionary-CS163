@@ -319,6 +319,6 @@ class AddWordScreen : public Button_function
         float cursorBlinkTime = 0.0f;
         void CursorBlink(float time);
         void Draw(char *input, int& length, char* input_def, int& length_def, char *input_type, int&length_type);
-        void Save();
+        void Save(Dictionary*&dict, string& fileDir);
 };
 #endif

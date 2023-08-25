@@ -473,18 +473,12 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input = buffer;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input = buffer;
             is_enter_word = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input << "!\n";
-        std::cout << "buffer: " << buffer << "!\n";
-
-    
     }
     else if (!is_enter_def&&!is_enter_type)
                 SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -510,11 +504,9 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input_def = buffer_def;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input_def = buffer_def;
             is_enter_def = false;
         }
         CursorBlink(GetFrameTime());
@@ -543,16 +535,13 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
         }
 
         key = GetCharPressed();
-
+        this->input_type = buffer_type;
         if(IsKeyPressed(KEY_ENTER))
         {
-            this->startAdd = true;
-            this->input_type = buffer_type;
             is_enter_type = false;
         }
         CursorBlink(GetFrameTime());
-         std::cout << "input: " << input_type << "!\n";
-        std::cout << "buffer: " << buffer_type << "!\n";
+
 
     
     }
@@ -561,8 +550,11 @@ void AddWordScreen::Draw(char *input, int& length, char* input_def, int& length_
 
 
 }
-void AddWordScreen::Save(){
+void AddWordScreen::Save(Dictionary*&dict, string& fileDir)
+{
+    startAdd = false;
     Rectangle save_btn = {30,720,120,40};
+    Rectangle cancel_btn = {save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height};
     DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height,PURPLE);
     DrawTextEx(asset->font30,"Save",{save_btn.x+20,720+5}, 30,2, WHITE);
     DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height,WHITE);
@@ -573,14 +565,64 @@ void AddWordScreen::Save(){
         {
             DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
             DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+            if (buffer[0]!='\0'&&buffer_def[0]!='\0'&&buffer_type[0]!='\0')
+            {
+                vector<string> current;
+                current.push_back(input);
+                current.push_back("("+input_type+") "+input_def);
+                cout<<current[0]<<"\n"<<current[1]<<"\n";
+                bool insert = false;
+                Word* word;
+                insert = true;
+                if(!dict->trie.findWhole(current[0], word))
+                {
+                    word = new Word(current[0]);
+                    insert = true;
+                    if(!dict->trie.insert(current[0], word))
+                    {
+                            cout << "Cannot insert: " << current[0] << "\n";
+                            delete word;
+                            word = nullptr;
+                    }
+                }
+                Definition* def = new Definition(current[1]);
+                def->word = word;
+                word->defs.push_back(def);
+                        cout << "Inserted successfully!\n";
+                int index = dict->words.size();
+                if(insert)
+                    dict->words.push_back(word);
+                word->index = index;
+                dict->allDef.push_back(def);
+                dict->addDefWord(def, current[1]);
+                std::ofstream file (fileDir+"data.txt",std::ios::app);
+                file<<current[0]<<" "<<current[1];
+                file.close();
+                startAdd = true;
+            }
         }
-        else
+    else
         {
            DrawRectangle(save_btn.x,save_btn.y,save_btn.width,save_btn.height, {97,75,195,170});
            DrawTextEx(asset->font30,"Save",{30+20,720+5}, 30,2, WHITE);
+        }        
+    }
+    if(CheckCollisionPointRec(GetMousePosition(),cancel_btn))
+    {
+         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+        {
+            DrawRectangle(save_btn.x+120+15,cancel_btn.y,cancel_btn.width,cancel_btn.height, {136, 143, 153,255});
+            DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+            startAdd = true;
         }
+    else
+        {
+           DrawRectangle(save_btn.x+120+15,save_btn.y,save_btn.width,save_btn.height, {136, 143, 153,255});
+           DrawTextEx(asset->font30,"Cancel",{save_btn.x+120+35,720+5}, 30,2, BLACK);
+        }        
     }
 
 }
+
 WordButton::~WordButton()
 {}
